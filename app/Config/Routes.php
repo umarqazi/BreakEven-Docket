@@ -41,11 +41,23 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('privacy-policy', 'Home::privacy_policy');
 });
 
-$routes->group('', ['namespace' => 'Myth\Auth\Controllers'], function ($routes) {
+
+$routes->get('admin/login', 'AdminController::login', ['as' => 'admin/login']);
+$routes->post('admin/login', 'AdminController::attemptLogin');
+$routes->get('admin/logout', 'AuthController::adminLogout');
+
+$routes->group('', ['filter' => 'AuthAdminFilter'], function ($routes) {
+    $routes->get('admin/index', 'AdminController::index');
+    
+});
+$routes->get('company/store', 'Company::store');
+
+$routes->group('', function ($routes) {
     // Login/out
     $routes->get('login', 'AuthController::login', ['as' => 'login']);
     $routes->post('login', 'AuthController::attemptLogin');
     $routes->get('logout', 'AuthController::logout');
+    $routes->get('user/logout', 'AuthController::userLogout');
 
     // Registration
     $routes->get('register', 'AuthController::register', ['as' => 'register']);

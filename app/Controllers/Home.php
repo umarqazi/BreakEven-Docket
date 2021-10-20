@@ -31,34 +31,18 @@ class Home extends BaseController
     }
     public function index()
     {
-        // if (logged_in()) {
-            return view('master');
-        // } else {
-        //     return redirect()->to('login');
-        // }
+        return view('master');
     }
     public function contact_us()
     {
-        // if (logged_in()) {
-            return view('common/contact_us');
-        // } else {
-        //     return redirect()->to('login');
-        // }
+        return view('common/contact_us');
     }
     public function terms_of_service()
     {
-        // if (logged_in()) {
-            return view('common/terms_of_service');
-        // } else {
-        //     return redirect()->to('login');
-        // }
+        return view('common/terms_of_service');
     }
     public function privacy_policy()
     {
-        // if (logged_in()) {
-            return view('common/privacy_policy');
-        // } else {
-        //     return redirect()->to('login');
-        // }
+        return view('common/privacy_policy');
     }
 }
