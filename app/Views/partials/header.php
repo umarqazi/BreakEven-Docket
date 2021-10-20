@@ -1,7 +1,12 @@
 <body <?php if(!logged_in() == true ){?> class="login-bg login_body" <?php } ?> >
-
+<style>
+	.navbar-header img {
+		margin-left: 30px;
+		height: 50px !important;
+		width: 210px !important;
+    }
+</style>
 <div id="wrapper" class="login_body">
-
 	<?php if(logged_in() == true ){ ?>
 	<?php //$permissions = $this->load->get_var('permissions');?>
 	<!-- Navigation -->
@@ -13,7 +18,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="<?php echo base_url()?>home"><?= img('images/custom-images/logos/dashboard-logo.png') ?></a>
+			<a class="navbar-brand" href="<?php echo base_url()?>home"><?= img('images/custom-images/logos/BreakEven_DOCKET_horizontal.png') ?></a>
 		</div>
 
 		<div class="company_name">
@@ -39,10 +44,10 @@
 				</a>
 				<ul class="dropdown-menu dropdown-user">
 					<li><a href="<?php echo base_url();?>employee_center/profile"><i class="fa fa-user fa-fw"></i><?php
-							//echo $this->session->first_name. ' '. $this->session->last_name; ?></a>
+							echo user()->first_name. ' '. user()->last_name; ?></a>
 					</li>
 					<li class="divider"></li>
-					<li><a href="<?php echo base_url();?>login/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+					<li><a href="<?= base_url('logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
 					</li>
 				</ul>
 				<!-- /.dropdown-user -->

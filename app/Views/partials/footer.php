@@ -19,6 +19,7 @@
         </div>
 	<?php } ?>
     <!-- /#wrapper -->
+	<?php if(!empty(user())){ ?>
 
 	<script type="text/javascript">
 		 var url 		    = '<?php  echo base_url(); ?>';
@@ -30,6 +31,7 @@
 		var surl            = '<?php echo getenv("socker_url"); ?>';
 		//var avatar          = userfolder+'<?php //echo $this->session->profile_pic ?>';
 	</script>
+	<?php } ?>
 
 
     <!-- Metis Menu Plugin JavaScript -->
@@ -53,8 +55,8 @@
     <?= script_tag('js/required/circloid-functions.js') ?>
 
 	<!-- Socket Chat -->
-	<?= script_tag('ocket.io/socket.io.js') ?>
-	<?= script_tag('js/required/chat.js') ?>
+	<?php //echo script_tag('ocket.io/socket.io.js') ?>
+	<?php //echo script_tag('js/required/chat.js') ?>
 
 	<!-- Optional JS Files -->
 
