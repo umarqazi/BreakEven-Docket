@@ -28,10 +28,11 @@ class Home extends BaseController
 		$this->config = config('Auth');
 		$this->auth = service('authentication');
         helper('auth');
+        helper('html');
     }
     public function index()
     {
-        return view('master');
+        return view('dashboard/home_page');
     }
     public function contact_us()
     {

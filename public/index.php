@@ -27,6 +27,10 @@ $paths = new Config\Paths();
 $bootstrap = rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $app       = require realpath($bootstrap) ?: $bootstrap;
 
+// Global helpers that should be available on every request
+helper('string');
+helper('string_helper');
+helper('inflector');
 /*
  *---------------------------------------------------------------
  * LAUNCH THE APPLICATION

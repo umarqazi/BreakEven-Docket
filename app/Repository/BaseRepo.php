@@ -29,6 +29,19 @@ abstract class BaseRepo implements IRepo {
         return $this->model->all();
     }
 
+    public function findAll()
+    {
+        return $this->model->findAll();
+
+    }
+
+    public function findAllWithWhere($param) //param should be in array format
+    {
+        return $this->model->where($param)->findAll();
+
+    }
+
+
     /**
      * Count All Records
      *
@@ -102,7 +115,7 @@ abstract class BaseRepo implements IRepo {
      */
     public function update(int $id, array $data): bool
     {
-        return $this->model->where('id', $id)->update($data);
+        return $this->model->update($id,$data);
     }
 
     /**
@@ -132,6 +145,11 @@ abstract class BaseRepo implements IRepo {
     public function delete(int $id): bool
     {
         return $this->model->where('id', $id)->delete();
+    }
+
+    public function deleteWhere(array $where): bool
+    {
+        return $this->model->delete($where);
     }
 
     /**

@@ -34,24 +34,40 @@ $routes->setAutoRoute(true);
 
 // $routes->add('/','Home::index', ['filter' => 'auth']);
 
+// Employe/Company Routes with Auth Filters
 $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('/', 'Home::index');
     $routes->get('contact-us', 'Home::contact_us');
     $routes->get('terms-service', 'Home::terms_of_service');
     $routes->get('privacy-policy', 'Home::privacy_policy');
+
+    $routes->get('employee-center', 'EmployeeController::employee_center');
+    $routes->get('Add-Employee', 'EmployeeController::employee_form');
+    $routes->post('store_employee', 'EmployeeController::store');
+    $routes->post('update_employee', 'EmployeeController::update');
+    $routes->get('employee-show/(:num)', 'EmployeeController::show/$1');
+    $routes->get('employee-edit/(:num)', 'EmployeeController::edit/$1');
+    $routes->get('employee-delete/(:num)', 'EmployeeController::delete/$1');
+});
+
+//Super Admin Routes Without any filter
+$routes->group('admin', function ($routes) {
+$routes->get('login', 'AdminController::login', ['as' => 'admin/login']);
+$routes->post('login', 'AdminController::attemptLogin');
+$routes->get('logout', 'AuthController::adminLogout');
 });
 
 
-$routes->get('admin/login', 'AdminController::login', ['as' => 'admin/login']);
-$routes->post('admin/login', 'AdminController::attemptLogin');
-$routes->get('admin/logout', 'AuthController::adminLogout');
-
-$routes->group('', ['filter' => 'AuthAdminFilter'], function ($routes) {
-    $routes->get('admin/index', 'AdminController::index');
+//Super Admin Routes with Auth Check Filters
+$routes->group('admin', ['filter' => 'AuthAdminFilter'], function ($routes) {
+    $routes->get('index', 'AdminController::index');
+    $routes->get('index', 'AdminController::index');
     
 });
 $routes->get('company/store', 'Company::store');
 
+
+//Myth/Auth Default routes
 $routes->group('', function ($routes) {
     // Login/out
     $routes->get('login', 'AuthController::login', ['as' => 'login']);

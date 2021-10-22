@@ -50,13 +50,13 @@
 			<?php //echo $this->session->flashdata('company_name'); ?>
 		</p>
 		<input type="text" name="owner_name" class="input-value" placeholder="Owner Name"
-			   value="<?= old('company_name') ?>" required/>
+			   value="<?= old('owner_name') ?>" required/>
 		<p>
 			<?php echo $validation->getError('owner_name'); ?>
 			<?php //echo $this->session->flashdata('owner_name'); ?>
 		</p>
 		<input type="text" name="address" class="company_address input-value" placeholder="Address"
-			   value="<?= old('company_name') ?>"/>
+			   value="<?= old('address') ?>"/>
 		<p>
 			<?php echo $validation->getError('address'); ?>
 			<?php //echo $this->session->flashdata('address'); ?>
