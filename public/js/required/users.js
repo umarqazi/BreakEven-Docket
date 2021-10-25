@@ -67,7 +67,6 @@ function checkemail(){
 			e.preventDefault();
 		}
 	}
-    
 
     $.ajax({
         url: chechEmailUrl,
@@ -76,7 +75,7 @@ function checkemail(){
         dataType : 'json',
         success:function(response)
         {
-            if (response > 0)
+            if (response == false)
             {
                 $('#availability').append('<span class="text-danger">Email Already Exists</span>');
                 $('.save_employee').prop('disabled', true);
@@ -89,6 +88,10 @@ function checkemail(){
 				}
             }
 
+        },
+        error:function(response)
+        {
+            console.log(response);
         }
     })
 }

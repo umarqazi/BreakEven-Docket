@@ -97,6 +97,10 @@ class UserService
     {
         return $this->user_repo->deleteWhere($where);
     }
+    public function findByClause($where)
+    {
+        return $this->user_repo->findByClause($where);
+    }
 
 
 }

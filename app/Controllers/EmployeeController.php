@@ -12,13 +12,13 @@ class EmployeeController extends BaseController
 {
     protected $user_service;
     protected $employee_service;
+    protected $validation;
     public function __construct()
     {
-        helper('auth');
-        helper('html');
-        helper('form');
         $this->user_service = new UserService;
         $this->employee_service = new EmployeeService;
+        $this->validation =  \Config\Services::validation();
+
     }
     public function index()
     {
@@ -43,22 +43,27 @@ class EmployeeController extends BaseController
     }
     public function employee_form()
     {
-        return view('dashboard/employees/add_employee_form');
+        $validation = \Config\Services::validation();
+        return view('dashboard/employees/add_employee_form',['validation'=>$validation]);
     }
     public function store()
     {
-        $msg = '';
-        if($this->request->getPost('user_id') != ''){
-            $msg = 'User Updated Successfully!';
-            $update_user = true;
+        $this->validation->run($this->request->getPost(), 'employeStore');
+        if ($this->validation->getErrors()) {
+            return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
         } else {
-            $msg = 'Employee Added Successfully!';
-        }
-        $company_id = user()->company_id;
-        $user_id = $this->user_service->create($this->request->getPost(),$company_id);
-        $result = $this->employee_service->create($this->request->getPost(),$user_id);
-        if($result == true) {
-            return redirect()->to(site_url('employee-center'))->withCookies()->with('message', $msg);
+            $msg = '';
+            if($this->request->getPost('user_id') != ''){
+                $msg = 'User Updated Successfully!';
+            } else {
+                $msg = 'Employee Added Successfully!';
+            }
+            $company_id = user()->company_id;
+            $user_id = $this->user_service->create($this->request->getPost(),$company_id);
+            $result = $this->employee_service->create($this->request->getPost(),$user_id);
+            if($result == true) {
+                return redirect()->to(site_url('employee-center'))->withCookies()->with('message', $msg);
+            }
         }
     }
     public function show($seg1 = false)
@@ -74,7 +79,6 @@ class EmployeeController extends BaseController
     }
     public function edit($user_id = null)
     {
-        // dd($user_id);
         $db = \Config\Database::connect();
         $qry = 'SELECT employees.*, users.*,employees.id as employee_id
                 FROM employees
@@ -82,15 +86,15 @@ class EmployeeController extends BaseController
                 WHERE users.company_id = ? AND users.user_type = ? AND users.id = ? ';
 
         $record = $db->query($qry, [user()->company_id,'employee',$user_id]);
-        // dd($record->getRow());
         return view('dashboard/employees/employee_edit',['record' => $record->getRow()]);
     }
     public function delete($user_id = null)
     {
+        // $del_emp = ['user_id' => $user_id];
+        // $this->employee_service->deleteWhere($del_emp);
+
         $del_user = ['id' => $user_id];
-        $del_emp = ['user_id' => $user_id];
-        $this->employee_service->deleteWhere($del_emp);
-        // $this->user_service->deleteWhere($del_user);
+        $this->user_service->deleteWhere($del_user);
         return redirect()->to(site_url('employee-center'))->withCookies()->with('message', 'Employee Deleted Successfully');
     }
 }

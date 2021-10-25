@@ -27,7 +27,7 @@ class CreateEmployeesTable extends Migration
             'created_at'    => ['type' => 'datetime', 'null' => true],
             'updated_at'    => ['type' => 'datetime', 'null' => true],
             'deleted_at'    => ['type' => 'datetime', 'null' => true],
-            'CONSTRAINT produk_ibfk_1 FOREIGN KEY(`user_id`) REFERENCES `users`(`id`)'
+            'CONSTRAINT employees_ibfk_1 FOREIGN KEY(`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE'
         ]);
         $this->forge->addKey('id', true);
         // $this->forge->addKey('user_id');

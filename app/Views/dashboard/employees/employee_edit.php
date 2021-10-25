@@ -40,8 +40,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1"
-                           name="email"
+                    <input type="email" class="form-control" id="exampleInputEmail1" name="email"
                            value="<?php echo set_value('email', $record->email) ?>"
                            onblur="checkemail()">
                     <input type="hidden" value="<?php echo $record->email; ?>" name="old_email" >
@@ -285,14 +284,15 @@
         </div>
     </div>
 </div>
-<script src="<?php echo base_url();?>application/assets/js/dropzone.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/assets/js/required/jquery.mask.min.js"></script>
-<script src="<?php echo base_url();?>application/assets/js/required/users.js"></script>
+<?= script_tag('js/dropzone.js') ?>
+<?= script_tag('js/required/jquery.mask.min.js') ?>
+<?= script_tag('js/required/users.js') ?>
+
 <script>
     var fileUploadUrl = '<?php echo base_url()?>file_storage/file_upload/?id=<?php echo $record->user_id ?>';
     var formType = 'edit';
     var documentRoot = '<?php echo $_SERVER['DOCUMENT_ROOT']?>';
-    var chechEmailUrl = '<?php echo base_url();?>employee_center/get_email';
-    var deleteFileUrl = '<?php echo base_url();?>employee_center/delete_file';
+    var chechEmailUrl = '<?php echo base_url();?>/get_email';
+    var deleteFileUrl = '<?php echo base_url();?>/delete_file';
 </script>
 <?= $this->endSection()?>

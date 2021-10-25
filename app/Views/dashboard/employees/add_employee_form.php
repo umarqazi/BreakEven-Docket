@@ -1,7 +1,5 @@
 <?= $this->extend("master")?>
 <?= $this->section("content")?>
-<?php $validation = \Config\Services::validation(); ?>
-
 <?php if(isset($errors)){
     echo '<p class="alert alert-danger"><strong> There are some errors in the input fields </strong></p>';
 }?>
@@ -215,6 +213,6 @@
     var fileUploadUrl = '<?php echo base_url()?>file_storage/file_upload/?id=0';
     var formType = 'create';
     var documentRoot = '<?php echo $_SERVER['DOCUMENT_ROOT']?>';
-    var chechEmailUrl = '<?php echo base_url();?>employee_center/get_email';
+    var chechEmailUrl = '<?php echo base_url();?>/get_email';
 </script>
 <?= $this->endSection()?>

@@ -48,6 +48,7 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('employee-show/(:num)', 'EmployeeController::show/$1');
     $routes->get('employee-edit/(:num)', 'EmployeeController::edit/$1');
     $routes->get('employee-delete/(:num)', 'EmployeeController::delete/$1');
+    $routes->post('get_email', 'Home::get_email');
 });
 
 //Super Admin Routes Without any filter
