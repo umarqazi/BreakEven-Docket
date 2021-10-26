@@ -159,7 +159,7 @@
 
                 <div class="form-group">
                     <a><button type="submit" class="btn btn-primary save_employee">Update Employee</button></a>
-                    <a href="<?php echo base_url();?>employee_center/delete/<?php echo $record->user_id;?>" class="edit_employee_button delete_btn"><button type="button" class="btn btn-danger">Delete Employee</button></a>
+                    <a href="<?php echo base_url() .'/employee-delete/'.$record->user_id;?>" class="edit_employee_button delete_btn"><button type="button" class="btn btn-danger">Delete Employee</button></a>
                 </div>
             </div>
         </div>

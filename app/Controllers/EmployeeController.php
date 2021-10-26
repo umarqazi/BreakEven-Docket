@@ -54,8 +54,9 @@ class EmployeeController extends BaseController
         } else {
             $msg = '';
             if($this->request->getPost('user_id') != ''){
-                $msg = 'User Updated Successfully!';
+                $msg = 'Employee Updated Successfully!';
             } else {
+                $send_mail = true;
                 $msg = 'Employee Added Successfully!';
             }
             $company_id = user()->company_id;
@@ -96,5 +97,14 @@ class EmployeeController extends BaseController
         $del_user = ['id' => $user_id];
         $this->user_service->deleteWhere($del_user);
         return redirect()->to(site_url('employee-center'))->withCookies()->with('message', 'Employee Deleted Successfully');
+    }
+    public function employee_verify($user_id=false, $code=false)
+    {
+        $user = $this->user_service->validateUser($user_id,$code);
+        if ($user) {
+            return view('Auth/create_password',['user'=>$user]);
+        } else {
+            return view('Auth/create_password',['user'=>false]);
+        }
     }
 }

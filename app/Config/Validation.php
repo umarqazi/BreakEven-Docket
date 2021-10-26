@@ -57,7 +57,7 @@ class Validation
         'last_name' => [
             'rules'  => 'required',
             'errors' => [
-                'required' => 'First Name field is required.',
+                'required' => 'Last Name field is required.',
             ],
         ],
         'email'    => [

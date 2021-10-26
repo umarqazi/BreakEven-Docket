@@ -66,6 +66,7 @@ $routes->group('admin', ['filter' => 'AuthAdminFilter'], function ($routes) {
     
 });
 $routes->get('company/store', 'Company::store');
+$routes->get('employee-verify/(:any)', 'EmployeeController::employee_verify/$1');
 
 
 //Myth/Auth Default routes

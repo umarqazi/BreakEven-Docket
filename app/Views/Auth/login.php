@@ -6,7 +6,7 @@
         <div class="container text-center">
             <div class="form-wrapper">
                 <div class="text-center login-logo">
-					<?= img('images/custom-images/logos/signup-logo.png') ?>
+					<?= img('images/custom-images/logos/BreakEven_DOCKET_horizontal.png') ?>
                 </div>
 					<?= view('App\Auth\_message_block') ?>
 					<form action="<?= route_to('login') ?>" method="post">

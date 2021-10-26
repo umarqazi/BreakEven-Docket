@@ -83,7 +83,7 @@
                                 ?>"><button type="button" class="btn btn-warning btn-xs">Edit</button></a>
                             </td>
                             <td>
-                                <a href="<?php echo base_url();?>/employee-delete/<?php echo $row['id'];
+                                <a href="<?php echo base_url() .'/employee-delete/'. $row['id'];
                                 ?>" class="delete_btn"><button type="button" class="btn btn-danger
                                             btn-xs">Delete</button></a>
                             </td>

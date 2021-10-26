@@ -6,7 +6,9 @@ use App\Controllers\AuthController;
 use App\Entities\User as EntitiesUser;
 use App\Models\User;
 use App\Repository\UserRepository;
+use App\Services\EmailService as ServicesEmailService;
 use CodeIgniter\HTTP;
+use EmailService;
 use Myth\Auth\Password;
 
 /**
@@ -20,6 +22,8 @@ class UserService
      */
     protected $user_repo;
     protected $validation;
+    protected $email_service;
+    protected $db;
 
     /**
      * UserService constructor.
@@ -27,10 +31,12 @@ class UserService
     public function __construct()
     {
         helper('date');
-        $this->user_repo = new UserRepository();
-        $this->validation =  \Config\Services::validation();
+        $this->db               = \Config\Database::connect();
+        $this->validation       =  \Config\Services::validation();
+        $this->user_repo        = new UserRepository();
+        $this->email_service    = new ServicesEmailService();
     }
-    public function create($data,$company_id=null)
+    public function create($data,$company_id=null) //create and update user/employee here
     {
         $current_date = date('Y-m-d H:i:s', time());
         $user = array(
@@ -59,8 +65,17 @@ class UserService
             if (isset($data['create_employee'])) {
                 $user['created_at'] = $current_date;
                 $user['updated_at'] = $current_date;
-                // dd($user);
                 $result = $this->user_repo->insert($user);
+                if ($result) {
+                    //send email here
+                    $user['user_id'] = $result;
+                    $activation_code = substr(md5(mt_rand()), 0, 30);
+                    $this->email_service->send_varification_mail($user,$activation_code);
+                }
+                //update activation code here
+                $id = $result;
+                $data = ['activation_code' => $activation_code ];
+                $this->user_repo->update($id,$data);
                 return $result;
             } else {
                 if(isset($data['is_super_admin']) && $data['is_super_admin'] == 1)
@@ -100,6 +115,18 @@ class UserService
     public function findByClause($where)
     {
         return $this->user_repo->findByClause($where);
+    }
+    public function validateUser($user_id,$code)
+    {
+        $user = $this->user_repo->find($user_id);
+        
+        if ($code == $user['activation_code']) {
+            $data['activation_code'] = '';
+            $this->user_repo->update($user_id,$data);
+            return $user;
+        } else {
+            return false;
+        }
     }
 
 
