@@ -91,20 +91,35 @@ class EmployeeController extends BaseController
     }
     public function delete($user_id = null)
     {
-        // $del_emp = ['user_id' => $user_id];
-        // $this->employee_service->deleteWhere($del_emp);
-
         $del_user = ['id' => $user_id];
         $this->user_service->deleteWhere($del_user);
         return redirect()->to(site_url('employee-center'))->withCookies()->with('message', 'Employee Deleted Successfully');
     }
     public function employee_verify($user_id=false, $code=false)
     {
+        $validation = \Config\Services::validation();
         $user = $this->user_service->validateUser($user_id,$code);
         if ($user) {
-            return view('Auth/create_password',['user'=>$user]);
+            return view('Auth/create_password',['user' => $user, 'validation' => $validation]);
         } else {
-            return view('Auth/create_password',['user'=>false]);
+            return view('Auth/create_password',['user'=>false, 'validation' => $validation]);
+        }
+    }
+    public function set_password()
+    {
+        $this->validation->run($this->request->getPost(), 'setPassword');
+        if ($this->validation->getErrors()) {
+            return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
+        } else {
+            $data['password'] = $this->request->getPost('password');
+            $data['activation_code'] = '';
+            $id = $this->request->getPost('user_id');
+            $result = $this->user_service->set_password($id,$data);
+            if($result){
+                return redirect()->to(site_url('employee-center'))->withCookies()->with('message', 'Password is updated You can login Now');
+            } else {
+                return redirect()->back()->withInput()->with('error', 'Some thing went wrong!');
+            }
         }
     }
 }

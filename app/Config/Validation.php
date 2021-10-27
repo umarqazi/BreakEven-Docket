@@ -67,4 +67,19 @@ class Validation
             ],
         ],
     ];
+    public $setPassword = [
+        'password' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Password field is required.',
+            ],
+        ],
+        'confirm_password' => [
+            'rules'  => 'required|matches[password]',
+            'errors' => [
+                'required' => 'Confirm Password field is required.',
+                'matches' => 'The Confirm Password field does not match the password field.',
+            ],
+        ],
+    ];
 }
