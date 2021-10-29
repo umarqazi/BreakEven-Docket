@@ -57,6 +57,8 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->post('store_docket', 'DocketController::store_docket');
     $routes->post('assign_docket', 'DocketController::assign_docket');
     $routes->get('docket-details/(:num)', 'DocketController::assign_details/$1');
+
+    $routes->get('time-keeping', 'TimekeepingController::index');    
 });
 
 //Super Admin Routes Without any filter

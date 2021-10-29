@@ -23,7 +23,7 @@
                 </div>
                 <div class="add_button_employee pull-right">
                     <?php //if (empty($subscription['allowed_users']) || count($records) < $subscription['allowed_users']) {?>
-                        <button class="btn btn-primary pull-right job_pattern_btn" title="Create a Docket No" onclick="job_pattern()">Assign Docket No</button>
+                        <button class="btn btn-primary pull-right job_pattern_btn" title="Create a Docket No" onclick="job_pattern()">Assign <?= !empty($dockets) ? '( '.$dockets[0]['docket_no'].')' : '' ?></button>
                     <?php //}?>
                 </div>
             </div>
@@ -96,7 +96,10 @@
                                 <select id="employee_id" name="employee_id" class="form-control  required" required="true">
                                     <option disabled="disabled" selected="true" value="">Choose Employee</option>
                                     <?php foreach($employees as $key => $value):?>
-                                        <option value="<?= $value['id'];?>"><?= $value['user_name'];?></option>
+                                        <option value="<?= $value['id'];?>" <?= in_array($value['id'], $alreadyAssignedEmployees) ? ' disabled="disabled" ' : ''?> >
+                                        <?= $value['user_name'];?>
+                                        <?= in_array($value['id'], $alreadyAssignedEmployees) ? ' (Already Assigned)' : ''?>
+                                        </option>
                                     <?php endforeach;?>
                                 </select>
                             </div>

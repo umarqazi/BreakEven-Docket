@@ -60,16 +60,31 @@ class DocketService
         $result = $dockets->getResult('array');
         return !empty($result) ? $result : false;
     }
-    public function getDocketAssignedToEmployeesById($docket_id)
+    public function getDocketAssignedToEmployeesByDocketId($docket_id)
     {
-        $qry = 'SELECT dockets_to_employees.id AS dockets_to_employees_id,dockets.docket_no,(SELECT concat(users.first_name," ",
-                    users.last_name) as user_name FROM users WHERE users.id = dockets_to_employees.employee_id ) 
-                    AS employee_name,concat(users.first_name," ",users.last_name) as assigned_by, dockets_to_employees.created_at as assigned_at
-                    FROM dockets_to_employees
-                    LEFT JOIN users ON dockets_to_employees.assignee_id = users.id
-                    LEFT JOIN dockets ON dockets_to_employees.docket_id = dockets.id
-                    WHERE users.company_id = ? AND dockets.id = ?';
+        $qry = 'SELECT dockets_to_employees.id AS dockets_to_employees_id,dockets_to_employees.employee_id ,dockets.docket_no,(SELECT concat(users.first_name," ",
+                users.last_name) as user_name FROM users WHERE users.id = dockets_to_employees.employee_id ) 
+                AS employee_name,concat(users.first_name," ",users.last_name) as assigned_by, dockets_to_employees.created_at as assigned_at
+                FROM dockets_to_employees
+                LEFT JOIN users ON dockets_to_employees.assignee_id = users.id
+                LEFT JOIN dockets ON dockets_to_employees.docket_id = dockets.id
+                WHERE users.company_id = ? AND dockets.id = ?
+                order by dockets_to_employees.id Desc';
         $dockets = $this->db->query($qry, [user()->company_id,$docket_id]);
+        $result = $dockets->getResult('array');
+        return !empty($result) ? $result : false;
+    }
+    public function getDocketByEmployeeId()
+    {
+        $qry = 'SELECT dockets_to_employees.id AS dockets_to_employees_id,dockets_to_employees.employee_id ,dockets.docket_no,(SELECT concat(users.first_name," ",
+                users.last_name) as user_name FROM users WHERE users.id = dockets_to_employees.employee_id ) 
+                AS employee_name,concat(users.first_name," ",users.last_name) as assigned_by, dockets_to_employees.created_at as assigned_at
+                FROM dockets_to_employees
+                LEFT JOIN users ON dockets_to_employees.assignee_id = users.id
+                LEFT JOIN dockets ON dockets_to_employees.docket_id = dockets.id
+                WHERE users.company_id = ? AND dockets_to_employees.employee_id = ?
+                order by dockets_to_employees.id Desc';
+        $dockets = $this->db->query($qry, [user()->company_id,user_id()]);
         $result = $dockets->getResult('array');
         return !empty($result) ? $result : false;
     }

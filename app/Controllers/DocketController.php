@@ -60,9 +60,17 @@ class DocketController extends BaseController
     {
         $validation = \Config\Services::validation();
         $dockets = $this->docket_service->getDocketById($docket_id);
-        $assignedEmployees = $this->docket_service->getDocketAssignedToEmployeesById($docket_id);
-        $employees = $this->employee_service->getAllEmployees();
-        return view('dashboard/docket/docket_details',['validation'=>$validation,'dockets'=>$dockets,'employees'=>$employees,'assignedEmployees'=>$assignedEmployees]);
+        $assignedEmployees = $this->docket_service->getDocketAssignedToEmployeesByDocketId($docket_id);
+        
+        $alreadyAssignedEmployees = [];
+        if($assignedEmployees != false) 
+        {
+            foreach ($assignedEmployees as $key => $value) {
+                $alreadyAssignedEmployees[$key] = $value['employee_id'];
+            }
+        }
+        $employees = $this->employee_service->getAllEmployees($docket_id);
+        return view('dashboard/docket/docket_details',['validation'=>$validation,'dockets'=>$dockets,'employees'=>$employees,'assignedEmployees'=>$assignedEmployees,'alreadyAssignedEmployees'=>$alreadyAssignedEmployees]);
     }
     public function assign_docket()
     {
