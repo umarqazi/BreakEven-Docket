@@ -33,13 +33,9 @@ class EmployeeController extends BaseController
         // ];
         // $employees = $this->user_service->findAllWithWhere($param);
 
-        $qry = 'SELECT employees.*, users.*
-                FROM employees
-                LEFT JOIN users ON employees.user_id = users.id
-                WHERE users.company_id = ? AND users.user_type = ? ';
 
-        $employees = $db->query($qry, [user()->company_id,'employee']);
-        return view('dashboard/employees/employees', ['employees' => $employees->getResult('array')]);
+        $employees = $this->employee_service->getAllEmployees();
+        return view('dashboard/employees/employees', ['employees' => $employees]);
     }
     public function employee_form()
     {
