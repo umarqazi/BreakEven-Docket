@@ -24,13 +24,14 @@ class DocketService
      */
     public function __construct()
     {
+        date_default_timezone_set('Asia/Karachi');
         helper('date');
         $this->db = \Config\Database::connect();
         $this->docket_repo = new DocketRepository();
         $this->assigndocket_repo = new AssignDocketRepository();
     }
     public function create($data){
-        $current_date = date('Y-m-d H:i:s', time());
+        $current_date = date('Y-m-d H:i:s');
         $data = array(
             'docket_no' => $data['docket_no'],
             'added_by'  => user_id(),
@@ -90,7 +91,7 @@ class DocketService
     }
     public function assignDocket($data)
     {
-        $current_date = date('Y-m-d H:i:s', time());
+        $current_date = date('Y-m-d H:i:s');
         $data = array(
             'docket_id' => $data['docket_id'],
             'employee_id' => $data['employee_id'],

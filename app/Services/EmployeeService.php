@@ -24,11 +24,12 @@ class EmployeeService
     public function __construct()
     {
         helper('date');
+        date_default_timezone_set('Asia/Karachi');
         $this->db = \Config\Database::connect();
         $this->employee_repo = new EmployeeRepository;
     }
     public function create($data,$user_id){
-        $current_date = date('Y-m-d H:i:s', time());
+        $current_date = date('Y-m-d H:i:s');
         $company = array(
             'ss#'          => !empty($data['ss#'])          ? $data['ss#'] : '',
             'w4fed'        => !empty($data['w4fed'])        ? $data['w4fed'] : '',

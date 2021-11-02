@@ -51,4 +51,19 @@ class TimekeepingController extends BaseController
             return json_encode(false);
         }
     }
+    public function manual_time_in()
+    {
+        $msg = '';
+        if (!empty($this->request->getPost('timekeeping_id'))) {
+            $msg = 'Time Out Successfully';
+        } else {
+            $msg = 'Time out Successfully';
+        }
+        $record = $this->timekeeping_service->createManualTimeIn($this->request->getPost());
+        if ($record) {
+            return redirect()->to(site_url('time-keeping'))->withCookies()->with('message', $msg);
+        } else {
+            return false;
+        }
+    }
 }

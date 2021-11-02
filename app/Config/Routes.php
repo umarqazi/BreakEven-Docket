@@ -61,7 +61,8 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('time-keeping', 'TimekeepingController::index');    
     $routes->post('get_docket_details_for_timekeeping', 'TimekeepingController::get_docket_details_for_timekeeping');  
     $routes->post('get_time_keeping_data', 'TimekeepingController::get_time_keeping_data');  
-    $routes->post('time_in', 'TimekeepingController::time_in');  
+    $routes->post('time_in', 'TimekeepingController::time_in');
+    $routes->post('manual_time_in', 'TimekeepingController::manual_time_in');
 });
 
 //Super Admin Routes Without any filter

@@ -48,9 +48,30 @@ class TimeKeepingService
             return $result;
         }
     }
+    public function createManualTimeIn($data){
+        if (!empty($data['timekeeping_id'])) {
+            $timekeeping_id = $data['timekeeping_id'];
+            $data = array(
+                'docket_id'     => $data['form_docket_id'],
+                'employee_id'   => user_id(),
+                'time_out'      => !empty($data['date']) ? date("Y-m-d H:i:s", strtotime($data['date'])) : '',
+            );
+            $result = $this->timekeeping_repo->update($timekeeping_id,$data);
+            return $result;
+        } else {
+            $data = array(
+                'docket_id'     => $data['form_docket_id'],
+                'employee_id'   => user_id(),
+                'time_out'      => '',
+                'time_in'       => !empty($data['date']) ? date("Y-m-d H:i:s", strtotime($data['date'])) : '',
+            );
+            $result = $this->timekeeping_repo->insert($data);
+            return $result;
+        }
+    }
     public function getTimekeepingByDocketId($docket_id)
     {
-        $qry = "SELECT timekeepings.*, dockets.docket_no,if(timekeepings.time_out != '' ,TIMEDIFF(timekeepings.time_out, timekeepings.time_in),'') AS total_time 
+        $qry = "SELECT timekeepings.*, dockets.docket_no,if(timekeepings.time_out != '' ,TIMEDIFF(timekeepings.time_out, timekeepings.time_in),'') AS total_time, if(timekeepings.time_out != '', '',UNIX_TIMESTAMP(timekeepings.time_in)) AS timeIn_in_seconds
                 FROM timekeepings 
                 LEFT JOIN dockets ON timekeepings.docket_id = dockets.id
                 WHERE timekeepings.docket_id = ? ORDER BY timekeepings.id ASC";

@@ -3,19 +3,19 @@
 
 <style>
     #timekeeping {
-        width: 70%;
-        margin-left: 15%;
+        width: 80%;
+        margin-left: 10%;
     }
 </style>
 <div class="row">
     <div class="col-md-1">
     </div>
     <div class="col-md-10" id="material-section">
+    <?= view('App\Auth\_message_block') ?>
         <h2 class="heading-text">
             <strong>My Dockets</strong>
             <!-- <button class="btn btn-primary pull-right job_pattern_btn" title="Create a Docket No" onclick="job_pattern()">Create a Docket No</button> -->
         </h2>
-        <?= view('App\Auth\_message_block') ?>
         <div class="materials-content">
             <div class="material-items">
                 <table class="table table-striped table-hover" id="all_estimates_table">
@@ -61,24 +61,28 @@
 	 aria-hidden="true">
 	<div class="modal-dialog" data->
 		<div class="modal-content" data-border-top="multi">
-			<form id="add_new_area_form" method="post" action="<?php echo base_url() ?>estimating/add_estimate_area">
+			<form id="add_new_area_form" method="post" action="">
 				<div class="modal-body clearfix" id="surfaces-methods">
-					<div class="col-md-6 col-sm-6 col-xs-6">
-						<h3 class="h3_bold">Docket No:
+					<div class="col-md-5 col-sm-5 col-xs-5">
+						<h4 class="h3_bold">Docket No:
 							<input type="text" class="popup_input " name="form_docket_no" id="form_docket_no" disabled >
 							<input type="hidden" name="form_docket_id" id="form_docket_id" disabled >
 							<input type="hidden" name="timekeeping_id" id="timekeeping_id" disabled >
-						</h3>
+						</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="clock"></div>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3">
-                        <!-- <div class="clock" style="margin:2em;"></div> -->
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3">
-                        <div class="pull-right">
-                            
+                        <div class="pull-right" style="margin-top: 13px;" >
                             <input type="button" onclick="timeChanges('time_in')" value="Time In" class="btn btn-primary time_in" >
                             <input type="button" onclick="timeChanges('time_out')" value="Time Out" class="btn btn-danger time_out" >
+                            <div class="import-drowpdown" data-toggle="modal" data-target="#exampleModal" style="cursor: pointer;">
+                                <span class="icon-arrow-down"></span>
+                            </div>
                         </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <table id="time_table" class="table table-striped">
@@ -104,9 +108,41 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width:27%">
+        <form method="POST" action="<?= route_to('manual_time_in') ?>">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Enter Date Time Manually</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class='col-sm-6 col-md-12'>
+                                <input type='text' name="date" class="" id='datetimepicker4' placeholder="Enter DateTime"/>
+                                <input type="hidden" name="form_docket_id" id="form_docket_id_" >
+                                <input type="hidden" name="timekeeping_id" id="timekeeping_id_" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Time Out" class="btn btn-danger time_out pull-right" >
+                    <input type="submit" value="Time In" class="btn btn-primary time_in pull-right" >
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 <?= script_tag('js/flipclock/flipclock.js') ?>
 <?= script_tag('js/datatables/jquery.dataTables.min.js') ?>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker4').datetimepicker();
+    });
+</script>
 <script type="text/javascript">
     $(document).ready(function(){
         $('#all_estimates_table').DataTable({
@@ -141,23 +177,22 @@
             {
                 if (response == false)
                 {
-                    $('#availability').append('<span class="text-danger">No Docket found</span>');
+                    //errorrr
                 }
                 else
                 {
                     $('#timekeeping_id').val('');
+                    $('#timekeeping_id_').val('');
                     $('#form_docket_no').val('');
                     $('#form_docket_id').val('');
+                    $('#form_docket_id_').val('');
                     if(typeof(response.checkTimeInOrOut[0]) != "undefined" && response.checkTimeInOrOut[0] !== null) {
                         if (response.checkTimeInOrOut[0].time_in == '') {
-                            // we have to show time in btn only because user is time outed from privious work
                             $('.time_in').show();
-
                         } else if(response.checkTimeInOrOut[0].time_out == '') {
                             $('#timekeeping_id').val(response.checkTimeInOrOut[0].id);
-                            // we have to 
+                            $('#timekeeping_id_').val(response.checkTimeInOrOut[0].id);
                             $('.time_out').show();
-                            //show clock here
                         } else {
                             $('.time_in').show();
                         }
@@ -168,32 +203,46 @@
                     //aassigning values here to the form
                     $('#form_docket_no').val(response.dockets.docket_no);
                     $('#form_docket_id').val(response.dockets.id);
+                    $('#form_docket_id_').val(response.dockets.id);
                     $('#time_table').find('tbody').remove();
+                    $('.clock').empty();
                     html = '';
-                    console.log(response.timekeeping);
+                    html += '<tbody>';
                     if (response.timekeeping != false) {
                         $(response.timekeeping).each(function(index, value) {
-                        // var diff = ( new Date("1970-1-1 " + end_time) - new Date("1970-1-1 " + start_time) ) / 1000 / 60 / 60;
-                        var showTimeOut;
+                        var showTimeOut = '';
                         if(value.total_time != "") {
                             showTimeOut = value.total_time
                         } else {
-                            // console.log(value.time_in);
-                            // new FlipClock($('.clock'), value.time_in, { });
+                            $('#extra_row').show();
                             showTimeOut = '';
-                            
+                            var date1 = new Date(value.time_in);
+                            var date2 = new Date();
+                            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+                            var diffSeconds = Math.ceil(timeDiff / 1000);
+                            var clock = $('.clock').FlipClock({
+                                clockFace:'DailyCounter',
+                                autoStart:false,
+                                callbacks: {
+                                    stop:function() {
+                                        $('.message').html('The clock has stopped!')
+                                    }
+                                }
+                            });
+                            clock.setTime(diffSeconds);
+                            clock.start();
                         }
-                        html += '<tbody><tr>';
+                        html += '<tr>';
                         html += '<td>'+value.time_in+'</td>';
                         html += '<td>'+value.time_out+'</td>';
                         html += '<td>'+showTimeOut+'</td>';
-                        html += '</tbody></tr>';
+                        html += '</tr>';
                     })
-                    $('#time_table').append(html);
+                    html += '</tbody>';
+                    $('#time_table').prepend(html);
                     } else {
                         $('#time_table').append('<tbody><tr><td colspan="3"><center>No data Found!</center></td></tr></tbody>');
                     }
-                    
                 }
             },
             error:function(response)
@@ -248,20 +297,6 @@
                 console.log('errror');
             }
         })
-    }
-    function hhhh(d)
-    {
-        var dateParts = new Date((Number(d.split("-")[0])), (Number(d.split("-")[1]) - 1), (Number(d.split("-")[2])));
-        var dateis = dateParts.getTime();
-
-        var timeEnd = $("#endtime").val();
-        var time1 = ((Number(timeEnd.split(':')[0]) * 60 + Number(timeEnd.split(':')[1]) * 60) * 60) * 1000;
-
-        var timeStart = $("#starttime").val();
-        var time2 = ((Number(timeStart.split(':')[0]) * 60 + Number(timeStart.split(':')[1]) * 60) * 60) * 1000;
-
-        var dateTimeEnd = dateis + time1;
-        var dateTimeStart = dateis + time2;
     }
     
     
