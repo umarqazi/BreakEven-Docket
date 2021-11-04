@@ -9,6 +9,7 @@ class EmailService
     protected $email;
     public function __construct()
     {
+        date_default_timezone_set('Asia/Karachi');
         $this->email = \Config\Services::email();
         $this->company_service = new CompanyService;
     }

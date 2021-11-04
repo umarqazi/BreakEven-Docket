@@ -25,7 +25,7 @@ class TimeKeepingService
     {
         $this->db = \Config\Database::connect();
         $this->timekeeping_repo = new TimeKeepingRepository();
-        $this->current_date_time = date('Y-m-d H:i:s');
+        $this->current_date_time = date('Y-m-d H:i:s', time());
     }
     public function createTimeIn($data){
         if (!empty($data['timekeeping_id'])) {
