@@ -41,7 +41,7 @@
     <?php //} ?>
     <?php //if($this->session->user_type=="employee" && in_array("activity", $permissions)){?>
         <div class="col-lg-3 col-md-6 col-sm-12">
-            <a href="<?php echo base_url();?>files/all">
+            <a href="<?php echo base_url();?>/activity">
                 <div class="box-category hvr-pulse">
                     <div class="shadow">
                         <?= img('images/custom-images/new-icons/forms_generated.png') ?>
