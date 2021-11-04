@@ -12,9 +12,9 @@
 </div>
 <div class="row">
 
-    <div class="col-md-2" id="material-section">
+    <div class="col-md-1" id="material-section">
     </div>
-    <div class="col-md-8" id="material-section">
+    <div class="col-md-10" id="material-section">
         <div class="block overhead_visible">
             <div class="block-heading add_employee">
             <?= view('App\Auth\_message_block') ?>
@@ -56,7 +56,7 @@
                             </td>
 
                             <td>
-                                <a ><?php echo $value['assigned_at'];?></a>
+                                <a ><?php echo !is_null($value['assigned_at']) ? date('M j, Y, g:i a', strtotime($value['assigned_at'])) : '' ?></a>
                             </td>
                         </tr>
                     <?php endforeach; 

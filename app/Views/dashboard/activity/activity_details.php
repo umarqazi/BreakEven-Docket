@@ -31,9 +31,9 @@
                             <td><a href="#"><?= $log['docket_no'];?></a></td>
                             <td><a href="#"><?= $log['assigned_by'];?></a></td>
                             <td><a href="#"><?= $log['worked_by'];?></a></td>
-                            <td><a href="#"><?= !is_null($log['time_in']) ? date('d-m-Y H:i:s', strtotime($log['time_in'])) : '' ?></a></td>
-                            <td><a href="#"><?= !is_null($log['time_out']) ? date('d-m-Y H:i:s', strtotime($log['time_out'])) : '' ?></a></td>
-                            <td><a href="#"><?= !is_null($log['total_time']) ? date('d-m-Y H:i:s', strtotime($log['total_time'])) : '' ?></a></td>
+                            <td><a href="#"><?= !is_null($log['time_in']) ? date('M j, Y, g:i a', strtotime($log['time_in'])) : '' ?></a></td>
+                            <td><a href="#"><?= !is_null($log['time_out']) ? date('M j, Y, g:i a', strtotime($log['time_out'])) : '' ?></a></td>
+                            <td><a href="#"><?= !is_null($log['total_time']) ? date('H:i:s', strtotime($log['total_time'])) : '' ?></a></td>
                         </tr>
                     <?php $i++; endforeach;
                     }?>

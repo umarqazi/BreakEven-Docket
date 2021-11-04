@@ -100,7 +100,7 @@
 
 					<?php //if(in_array("assemblies", $permissions)){?>
 						<li>
-							<a href="<?php echo base_url();?>estimating">
+							<a href="<?php echo base_url();?>/time-keeping">
 								<?= img('images/custom-images/assemblies.png') ?>
 								<div>TimeKEPING</div>
 							</a>

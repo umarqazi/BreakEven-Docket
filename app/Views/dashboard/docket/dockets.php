@@ -3,9 +3,9 @@
 
 
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-1">
     </div>
-    <div class="col-md-8" id="material-section">
+    <div class="col-md-10" id="material-section">
         <h2 class="heading-text">
             <strong>Assign Dockets</strong>
         </h2>
@@ -33,23 +33,21 @@
                     foreach($dockets as $docket):?>
                         <tr class="item-name">
                             <td>
-                                <a href="<?php //echo base_url()?>estimating/estimate_page/<?php //echo $estimate['id'];?>"><?php echo $docket['docket_no'];?></a>
+                                <a href="#"><?php echo $docket['docket_no'];?></a>
                             </td>
 
                             <td>
-                                <a class="estimate_field" href="<?php //echo base_url()?>estimating/estimate_page/<?php //echo $estimate['id'];?>"><?php echo $docket['user_name'];?></a>
+                                <a class="estimate_field" href="#"><?php echo $docket['user_name'];?></a>
                             </td>
 
                             <td>
-                                <a class="estimate_field" href="#"><?php echo !empty($docket['created_at']) ? date('d-m-Y H:i:s', strtotime($docket['created_at'])) : '' ?></a>
+                                <a class="estimate_field" href="#"><?php echo !empty($docket['created_at']) ? date('M j, Y, g:i a', strtotime($docket['created_at'])) : '' ?></a>
                             </td>
                             <td>
-                                <a href="<?php echo base_url();?>/employee-show/<?php echo $docket['id'];
-                                ?>"><button type="button" class="btn btn-info btn-xs">View</button></a>
+                                <a href="<?php echo base_url();?>/employee-show/<?php echo $docket['id'];?>"><button type="button" class="btn btn-info btn-xs">View</button></a>
                             </td>
                             <td>
-                                <a href="<?php echo base_url();?>/docket-details/<?php echo $docket['id'];
-                                ?>"><button type="button" class="btn btn-warning btn-xs">Assign</button></a>
+                                <a href="<?php echo base_url();?>/docket-details/<?php echo $docket['id'];?>"><button type="button" class="btn btn-warning btn-xs">Assign</button></a>
                             </td>
                         </tr>
                     <?php endforeach;
