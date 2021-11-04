@@ -13,7 +13,7 @@
     <div class="col-md-10" id="material-section">
     <?= view('App\Auth\_message_block') ?>
         <h2 class="heading-text">
-            <strong>My Dockets</strong>
+            <strong>Time Keeping</strong>
             <!-- <button class="btn btn-primary pull-right job_pattern_btn" title="Create a Docket No" onclick="job_pattern()">Create a Docket No</button> -->
         </h2>
         <div class="materials-content">
@@ -23,7 +23,7 @@
                     <tr style="color:white !important">
                         <th>Docket No</th>
                         <th>Assigned by</th>
-                        <th>Date</th>
+                        <th>Assigned at</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -40,7 +40,7 @@
                             </td>
 
                             <td>
-                                <a href="#"><?php echo !is_null($docket['assigned_at']) ? date('d-m-Y H:i:s', strtotime($docket['assigned_at'])) : '' ?></a>
+                                <a href="#"><?php echo !is_null($docket['assigned_at']) ? date('M j, Y, g:i a', strtotime($docket['assigned_at'])) : '' ?></a>
                             </td>
                             <td>
                                 <a href="#"><button type="button" class="btn btn-warning btn-xs" onclick="openTimekeepingModal(<?= $docket['docket_id'];?>)">Details</button></a>
@@ -214,7 +214,6 @@
                         if(value.total_time != "") {
                             showTimeOut = value.total_time
                         } else {
-                            $('#extra_row').show();
                             showTimeOut = '';
                             var date1 = new Date(value.time_in);
                             var date2 = new Date();

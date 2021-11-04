@@ -5,7 +5,7 @@
     <div class="col-md-12" id="material-section">
     <?= view('App\Auth\_message_block') ?>
         <h2 class="heading-text">
-            <strong>My Dockets</strong>
+            <strong>All Activity on dockets</strong>
             <!-- <button class="btn btn-primary pull-right job_pattern_btn" title="Create a Docket No" onclick="job_pattern()">Create a Docket No</button> -->
         </h2>
         <div class="materials-content">
