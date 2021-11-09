@@ -30,4 +30,12 @@ class Company extends BaseController
         $this->employee_service->create($employee_data,$result['user_id']);
         return $result['response'];
     }
+    public function show()
+    {
+        $validation = \Config\Services::validation();
+        $company = $this->company_service->show(User()->company_id);
+        $users = $this->user_service->findAllWithWhere(['company_id' => User()->company_id]);
+        $users = !empty($users) ? count($users) : 0; 
+        return view('dashboard/company/company_details',['validation'=>$validation,'company'=>$company,'users'=>$users]);
+    }
 }

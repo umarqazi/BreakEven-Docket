@@ -28,6 +28,7 @@ class CompanyService
         $plan = $data['plan'];
         $price['price'] = 1;
         $company = array(
+            'email' => $data['email'],
             'company_name' => $data['company_name'],
             'company_owner' => $data['owner_name'],
             'phone' => $data['company_phone'],

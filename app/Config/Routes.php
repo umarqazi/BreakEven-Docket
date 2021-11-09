@@ -59,6 +59,10 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('docket-details/(:num)', 'DocketController::assign_details/$1');
 
     $routes->get('time-keeping', 'TimekeepingController::index');    
+
+    $routes->get('activity', 'ActivityController::index');
+
+    $routes->get('company', 'Company::show');
 });
 
 //Super Admin Routes Without any filter
