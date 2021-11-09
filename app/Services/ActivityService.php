@@ -34,7 +34,7 @@ class ActivityService
                 LEFT JOIN dockets ON timekeepings.docket_id = dockets.id
                 LEFT JOIN users ON timekeepings.employee_id = users.id
                 LEFT JOIN dockets_to_employees ON  timekeepings.docket_id = dockets_to_employees.docket_id
-                GROUP BY timekeepings.id
+                -- GROUP BY timekeepings.id
                 ORDER BY timekeepings.id DESC";
         $logs = $this->db->query($qry);
         $result = $logs->getResult('array');

@@ -23,20 +23,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <?php if (!empty($logs)) { 
-                            $i=1;
-                        foreach($logs as $log):?>
+                        <?php 
+                        if (!empty($logs)) {
+                        $i=1;
+                        foreach($logs as $log):
+                        ?>
                         <tr class="item-name">
                             <td><?= $i ?></td>
                             <td><a href="#"><?= $log['docket_no'];?></a></td>
                             <td><a href="#"><?= $log['assigned_by'];?></a></td>
                             <td><a href="#"><?= $log['worked_by'];?></a></td>
-                            <td><a href="#"><?= !is_null($log['time_in']) ? date('M j, Y, g:i a', strtotime($log['time_in'])) : '' ?></a></td>
-                            <td><a href="#"><?= !is_null($log['time_out']) ? date('M j, Y, g:i a', strtotime($log['time_out'])) : '' ?></a></td>
-                            <td><a href="#"><?= !is_null($log['total_time']) ? date('H:i:s', strtotime($log['total_time'])) : '' ?></a></td>
+                            <td><a href="#"><?= !empty($log['time_in']) ?       date('j M, Y, g:i a', strtotime($log['time_in']))   : '' ?></a></td>
+                            <td><a href="#"><?= !empty($log['time_out']) ?      date('j M, Y, g:i a', strtotime($log['time_out']))  : '<span class="text-danger">Still Woking</span>' ?></a></td>
+                            <td><a href="#"><?= !empty($log['total_time']) ?    date('H:i:s', strtotime($log['total_time']))        : '<span class="text-danger">Still Woking</span>' ?></a></td>
                         </tr>
-                    <?php $i++; endforeach;
-                    }?>
+                        <?php 
+                        $i++; 
+                        endforeach;
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>

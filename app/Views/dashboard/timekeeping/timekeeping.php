@@ -40,7 +40,7 @@
                             </td>
 
                             <td>
-                                <a href="#"><?php echo !is_null($docket['assigned_at']) ? date('M j, Y, g:i a', strtotime($docket['assigned_at'])) : '' ?></a>
+                                <a href="#"><?php echo !is_null($docket['assigned_at']) ? date('j M, Y, g:i a', strtotime($docket['assigned_at'])) : '' ?></a>
                             </td>
                             <td>
                                 <a href="#"><button type="button" class="btn btn-warning btn-xs" onclick="openTimekeepingModal(<?= $docket['docket_id'];?>)">Details</button></a>
@@ -155,15 +155,10 @@
             "language" : {
                 search : '',
                 searchPlaceholder: "Search Dockets",
-                "zeroRecords": "No Docket is available",
-                "emptyTable": "No Docket is available"
+                "zeroRecords": "No Record Found!",
+                "emptyTable": "No Record Found!"
             }
         });
-
-        /*$('table').wrap('<div class="table-responsive"></div>');*/
-        // $('.btn_docket_no').prop('disabled',true);
-    
-
     });
     function openTimekeepingModal(docket_id){
         $('.time_in').hide();

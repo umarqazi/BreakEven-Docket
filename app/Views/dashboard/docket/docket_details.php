@@ -56,7 +56,7 @@
                             </td>
 
                             <td>
-                                <a ><?php echo !is_null($value['assigned_at']) ? date('M j, Y, g:i a', strtotime($value['assigned_at'])) : '' ?></a>
+                                <a ><?php echo !is_null($value['assigned_at']) ? date('j M, Y, g:i a', strtotime($value['assigned_at'])) : '' ?></a>
                             </td>
                         </tr>
                     <?php endforeach; 

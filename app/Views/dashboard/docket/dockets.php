@@ -41,7 +41,7 @@
                             </td>
 
                             <td>
-                                <a class="estimate_field" href="#"><?php echo !empty($docket['created_at']) ? date('M j, Y, g:i a', strtotime($docket['created_at'])) : '' ?></a>
+                                <a class="estimate_field" href="#"><?php echo !empty($docket['created_at']) ? date('j M, Y, g:i a', strtotime($docket['created_at'])) : '' ?></a>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-info btn-xs" onclick="view_docket_modal(<?= $docket['id'];?>)">View</button>
