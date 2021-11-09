@@ -21,6 +21,7 @@ class CompanyService
      */
     public function __construct()
     {
+        date_default_timezone_set('Asia/Karachi');
         $this->company_repo = new CompanyRepository();
     }
     public function create($data){

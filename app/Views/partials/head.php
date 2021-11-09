@@ -78,6 +78,7 @@
 			});
 
 		});
+		var base_url = '<?php echo base_url()?>';
 	</script>
 	<style>
 		.sidebar, #page-wrapper{

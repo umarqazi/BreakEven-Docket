@@ -1702,6 +1702,7 @@ input[type="file"]{height: auto;}
 .h3_bold {
 	font-weight: 500;
 	padding-bottom: 20px;
+	margin-top: 20px;
 }
 
 .h3_bold button {
@@ -2337,8 +2338,8 @@ input.pattern{
 }
 
 .flip-clock-wrapper{
-	width: 465px;
-	margin: 0 auto 50px !important;
+	width: 310px;
+	margin: 0 auto 3px !important;
 }
 
 
