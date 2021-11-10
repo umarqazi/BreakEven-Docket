@@ -8,9 +8,9 @@
             <div class="card">
                 <h2 class="card-header"><?=lang('Auth.forgotPassword')?></h2>
                 <div class="card-body">
-
-                    <?= view('App\Auth\_message_block') ?>
-
+                    <div class="" id="successMessage">
+                        <?= view('App\Auth\_message_block') ?>
+                    </div>
                     <p><?=lang('Auth.enterEmailForInstructions')?></p>
 
                     <form action="<?= route_to('forgot') ?>" method="post">

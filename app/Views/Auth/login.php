@@ -8,7 +8,9 @@
                 <div class="text-center login-logo">
 					<?= img('images/custom-images/logos/BreakEven_DOCKET_horizontal.png') ?>
                 </div>
-					<?= view('App\Auth\_message_block') ?>
+					<div class="" id="successMessage">
+						<?= view('App\Auth\_message_block') ?>
+					</div>
 					<form action="<?= route_to('login') ?>" method="post">
 						<?= csrf_field() ?>
 						<?php if ($config->validFields === ['email']): ?>

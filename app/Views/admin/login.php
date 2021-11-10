@@ -9,7 +9,9 @@
                 <div class="text-center login-logo">
                     <?= img('images/custom-images/logos/signup-logo.png') ?>
                 </div>
-					<?= view('App\Auth\_message_block') ?>
+					<div class="" id="successMessage">
+						<?= view('App\Auth\_message_block') ?>
+					</div>
                     <form action="<?= route_to('login') ?>" method="post">
                     <input type="hidden" name="is_admin" value="1" >
 						<?= csrf_field() ?>

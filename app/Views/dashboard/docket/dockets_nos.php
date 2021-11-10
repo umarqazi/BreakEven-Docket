@@ -10,7 +10,9 @@
             <strong>Dockets</strong>
             <button class="btn btn-primary pull-right job_pattern_btn" title="Create a Docket No" onclick="job_pattern()">Create a Docket No</button>
         </h2>
-        <?= view('App\Auth\_message_block') ?>
+        <div class="" id="successMessage">
+            <?= view('App\Auth\_message_block') ?>
+        </div>
         <div class="materials-content">
             <div class="material-items">
                 <!-- <div class="estimate_head dark_blue">

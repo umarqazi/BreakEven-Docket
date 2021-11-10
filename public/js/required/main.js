@@ -44,24 +44,7 @@ $( document ).ready( function(){
         });
     });
 
-	$(document).on('click', '.disable_btn', function (e) {
-
-		e.preventDefault();
-		var link = $(this).attr('href');
-
-		swal({
-			title: "Are you sure?",
-			text: "You Want to Disable this!",
-			icon: "warning",
-			buttons: true,
-			dangerMode: true,
-		})
-			.then(function(willDelete){
-				if (willDelete) {
-					window.location.replace(link);
-				}
-			});
-	});
+	
 
     // $( ".chosen-container" ).addClass( "required" );
 

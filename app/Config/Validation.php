@@ -63,6 +63,7 @@ class Validation
         'email'    => [
             'rules'  => 'required|valid_email',
             'errors' => [
+                'required' => 'email field is required.',
                 'valid_email' => 'Please check the Email field. It does not appear to be valid.',
             ],
         ],
@@ -101,6 +102,57 @@ class Validation
             'rules'  => 'required',
             'errors' => [
                 'required' => 'Employee field is required.',
+            ],
+        ],
+    ];
+    public $companyUpdate = [
+        'company_name' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Company Name field is required.',
+            ],
+        ],
+        'owner_name' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Owner Name field is required.',
+            ],
+        ],
+        'phone'    => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Phone Number is required.',
+            ],
+        ],
+        'email'    => [
+            'rules'  => 'required|valid_email',
+            'errors' => [
+                'required' => 'Email field is required.',
+                'valid_email' => 'Please check the Email field. It does not appear to be valid.',
+            ],
+        ],
+        'address'    => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Address is required.',
+            ],
+        ],
+        'city'    => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'City is required.',
+            ],
+        ],
+        'state'    => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'State is required.',
+            ],
+        ],
+        'zip'    => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Zip is required.',
             ],
         ],
     ];

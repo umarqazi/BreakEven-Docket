@@ -34,7 +34,7 @@ $routes->setAutoRoute(true);
 
 // $routes->add('/','Home::index', ['filter' => 'auth']);
 
-// Employe/Company Routes with Auth Filters
+
 $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('/',                       'Home::index');
     $routes->get('home',                    'Home::index');
@@ -62,7 +62,10 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
 
     $routes->get('activity', 'ActivityController::index');
 
-    $routes->get('company', 'Company::show');
+    $routes->get('company',                 'Company::show');
+    $routes->get('company-edit',            'Company::edit');
+    $routes->post('update-company',         'Company::update');
+    $routes->get('suspend-company',         'Company::suspend_company');
 
     $routes->get('time-keeping',                        'TimekeepingController::index');
     $routes->post('get_docket_details_for_timekeeping', 'TimekeepingController::get_docket_details_for_timekeeping');  

@@ -141,12 +141,12 @@
                                 </td>
                                 <td class="other-stats-text">
                                     <?php
-                                    // $renew_date= new DateTime($company['renew_date']);
-                                    // $subscription_date=new DateTime($company['subscription_start_date']);
-                                    // $renew_date=$subscription_date->modify('+1 month');
-                                    // $renew_date=date_format($renew_date,"m/d/Y");
-                                    // echo  $company['renew_date'];
-                                    echo !is_null($company['renew_date']) ? date('j M, Y.', strtotime($company['renew_date'])) : '';
+                                    $renew_date= new DateTime($company['renew_date']);
+                                    $subscription_date=new DateTime($company['subscription_start_date']);
+                                    $renew_date=$subscription_date->modify('+1 month');
+                                    $renew_date=date_format($renew_date,"m/d/Y");
+                                    // echo  $renew_date;
+                                    echo !is_null($renew_date) ? date('j M, Y.', strtotime($renew_date)) : '';
                                     ?>
                                 </td>
                             </tr>
@@ -206,7 +206,7 @@
 
 
         <div class="col-md-12 edit_profile_btn">
-            <a href="<?php echo base_url();?>/company/edit" class="edit_employee_button">
+            <a href="<?php echo base_url();?>/company-edit" class="edit_employee_button">
                 <button type="button" class="btn btn-primary">
                     EDIT PROFILE
                     <span class="glyphicon glyphicon glyphicon-edit"></span>
@@ -214,7 +214,7 @@
 			</a>
 
 			<!--	Suspend Button		-->
-			<a href="<?php echo base_url();?>/company/suspend_company" class="edit_employee_button disable_btn">
+			<a href="<?php echo base_url();?>/suspend-company" class="edit_employee_button disable_btn">
 				<button type="button" class="btn btn-danger">
 					Suspend Company
 				</button>
@@ -223,4 +223,22 @@
 
     </div>
 </div>
+<script>
+    $(document).on('click', '.disable_btn', function (e) {
+        e.preventDefault();
+        var link = $(this).attr('href');
+        swal({
+            title: "Are you sure?",
+            text: "You Want to Disable this!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then(function(willDelete){
+            if (willDelete) {
+                window.location.replace(link);
+            }
+        });
+    });
+</script>
 <?= $this->endSection()?>

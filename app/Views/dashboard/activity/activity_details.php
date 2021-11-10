@@ -3,7 +3,9 @@
 <?= $this->section("content")?>
 <div class="row">
     <div class="col-md-12" id="material-section">
-    <?= view('App\Auth\_message_block') ?>
+        <div class="" id="successMessage">
+            <?= view('App\Auth\_message_block') ?>
+        </div>
         <h2 class="heading-text">
             <strong>All Activity on dockets</strong>
             <!-- <button class="btn btn-primary pull-right job_pattern_btn" title="Create a Docket No" onclick="job_pattern()">Create a Docket No</button> -->

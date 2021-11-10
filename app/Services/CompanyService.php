@@ -48,6 +48,24 @@ class CompanyService
        $result = $this->company_repo->insert($company);
        return $result;
     }
+    public function update($data)
+    {
+        $plan = 1;
+        $price['price'] = 1;
+        $company = array(
+            'email' => $data['email'],
+            'company_name' => $data['company_name'],
+            'company_owner' => $data['owner_name'],
+            'phone' => $data['phone'],
+            'address' => $data['address'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'zip' => $data['zip'],
+            'subscription_plan_id' => $plan,
+        );
+        $result = $this->company_repo->update($data['company_id'],$company);
+        return $result;
+    }
     public function all(){
        return $this->company_repo->all();
     }
@@ -56,6 +74,15 @@ class CompanyService
     }
     public function delete($id){
         return $this->company_repo->delete($id);
+    }
+    public function suspend_company()
+    {
+        //Cancel Subscription here
+        //Send Email TO user "Docket Service Suspended"
+        $data = [
+            'is_enabled' => 0
+        ];
+        return $this->company_repo->update(User()->company_id,$data);
     }
 
 }
