@@ -156,5 +156,33 @@ class Validation
             ],
         ],
     ];
+    public $update_signature = [
+        'signature' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Signature field is required.',
+            ],
+        ],
+    ];
+    public $subscription_plan = [
+        'name' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Subscription name field is required.',
+            ],
+        ],
+        'price' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Subscription Price field is required.',
+            ],
+        ],
+        'description' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Description field is required.',
+            ],
+        ],
+    ];
 
 }

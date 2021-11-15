@@ -120,7 +120,7 @@
                             echo user()->first_name.user()->last_name; ?></a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url();?>login/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="<?php echo base_url();?>/admin/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
