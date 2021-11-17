@@ -19,9 +19,11 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
-$routes->setTranslateURIDashes(false);
-$routes->set404Override();
-$routes->setAutoRoute(true);
+$routes->setTranslateURIDashes(true);
+$routes->set404Override(function () {
+    echo view('404page');
+});
+$routes->setAutoRoute(false);
 
 /*
  * --------------------------------------------------------------------
@@ -78,6 +80,7 @@ $routes->group('admin', function ($routes) {
     $routes->get('login',                   'AdminController::login', ['as' => 'admin/login']);
     $routes->post('login',                  'AdminController::attemptLogin');
     $routes->get('logout',                  'AuthController::adminLogout');
+    $routes->get('admin_logout',            'AuthController::admin_logout');
 });
 
 
@@ -95,6 +98,8 @@ $routes->group('admin', ['filter' => 'AuthAdminFilter'], function ($routes) {
     $routes->post('save_plan',                  'AdminController::save_plan');
     $routes->get('subscription-delete/(:num)',  'AdminController::delete_plan/$1');
     $routes->get('subscription-edit/(:num)',    'AdminController::edit_plan/$1');
+    $routes->get('mailbox',                     'AdminController::mailbox');
+    $routes->post('send_an_email',              'AdminController::send_an_email');
     
 });
 
@@ -124,12 +129,7 @@ $routes->group('', function ($routes) {
     $routes->get('reset-password',          'AuthController::resetPassword', ['as' => 'reset-password']);
     $routes->post('reset-password',         'AuthController::attemptReset');
 });
-$routes->setAutoRoute(false);
-$routes->setTranslateURIDashes(true);
-$routes->set404Override(function ()
-{
-    echo view('404page');
-});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

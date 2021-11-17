@@ -14,7 +14,7 @@ class Signature extends Model
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['signature'];
+    protected $allowedFields        = ['signature','user_id','signature_image'];
 
     // Dates
     protected $useTimestamps        = false;

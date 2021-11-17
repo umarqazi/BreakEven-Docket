@@ -194,7 +194,7 @@ abstract class BaseRepo implements IRepo {
      */
     public function findbyClauseMultiple($clause)
     {
-        return $this->model->whereIn($clause);
+        return $this->model->whereIn('id',$clause);
     }
     
     /**

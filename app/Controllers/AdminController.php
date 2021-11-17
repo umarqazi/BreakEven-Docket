@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Services\CompanyService;
+use App\Services\EmailService;
 use App\Services\SignatureService;
 use App\Services\SubscriptionPlanService;
 use App\Services\UserService;
@@ -13,6 +14,7 @@ class AdminController extends BaseController
     protected $subscription_plan_service;
     protected $signature_service;
     protected $company_service;
+    protected $email_service;
     protected $user_service;
     protected $validation;
     protected $config;
@@ -23,6 +25,7 @@ class AdminController extends BaseController
         helper('html');
         $this->config               = config('Auth');
         $this->user_service         = new UserService;
+        $this->email_service        = new EmailService;
         $this->company_service      = new CompanyService;
         $this->signature_service    = new SignatureService;
 		$this->auth                 = service('authentication');
@@ -104,7 +107,6 @@ class AdminController extends BaseController
     public function save_plan()
     {
         $plan_id = $this->request->getPost('plan_id');
-        // dd($plan_id);
         $this->validation->run($this->request->getPost(), 'subscription_plan');
         if ($this->validation->getErrors()) {
             return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
@@ -138,5 +140,21 @@ class AdminController extends BaseController
     {
         $subscription = $this->subscription_plan_service->show($plan_id);
         return view('admin/subscription/create_plan',['validation' => $this->validation,'subscription'=>$subscription]);
+    }
+    public function mailbox()
+    {
+        $users = $this->user_service->findAll();
+        $signature = $this->signature_service->findAll();
+        // dd($signature[0]['signature']);
+        return view('admin/mailbox',['validation' => $this->validation,'users'=>$users,'signature'=>$signature]);
+    }
+    public function send_an_email()
+    {
+        $result = $this->email_service->super_admin_email($this->request->getPost());
+        if ($result == true) {
+            return redirect()->back()->with('message', 'Mail Sent Successfully!');
+        } else {
+            return redirect()->back()->with('error', $result);
+        }
     }
 }

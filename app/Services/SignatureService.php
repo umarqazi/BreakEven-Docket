@@ -30,11 +30,13 @@ class SignatureService
     }
     public function create($data)
     {
-       return $this->signature_repo->insert($data);
+        $data['user_id'] = user_id();
+        return $this->signature_repo->insert($data);
     }
     public function update($signature_id,$data)
     {
-       return $this->signature_repo->update($signature_id,$data);
+        $data['user_id'] = user_id();
+        return $this->signature_repo->update($signature_id,$data);
     }
     public function findAll()
     {

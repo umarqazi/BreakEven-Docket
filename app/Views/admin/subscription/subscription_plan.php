@@ -1,5 +1,10 @@
 <?= $this->extend("admin/admin_master")?>
 <?= $this->section("content")?>
+<style>
+	.btn{
+		min-width: 65px !important;
+	}
+</style>
 <div class="row">
 	<div class="col-lg-1">
 	</div>

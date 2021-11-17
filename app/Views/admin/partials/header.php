@@ -106,7 +106,7 @@
 
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
-                <a class="text-center" href="<?php echo base_url();?>admin/mailbox">
+                <a class="text-center" href="<?php echo base_url();?>/admin/mailbox">
                     <i class="fa fa-envelope fa-fw"></i>
                 </a>
             </li>
@@ -116,11 +116,11 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="<?php echo base_url();?>admin/dashboard"><i class="fa fa-user fa-fw"></i><?php
+                    <li><a href="<?php echo base_url();?>/admin/index"><i class="fa fa-user fa-fw"></i><?php
                             echo user()->first_name.user()->last_name; ?></a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url();?>/admin/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="<?php echo base_url();?>/admin/admin_logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
