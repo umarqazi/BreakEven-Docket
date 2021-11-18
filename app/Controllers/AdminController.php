@@ -143,9 +143,8 @@ class AdminController extends BaseController
     }
     public function mailbox()
     {
-        $users = $this->user_service->findAll();
+        $users = $this->user_service->findAllWithWhere(['id !=' => 1]);
         $signature = $this->signature_service->findAll();
-        // dd($signature[0]['signature']);
         return view('admin/mailbox',['validation' => $this->validation,'users'=>$users,'signature'=>$signature]);
     }
     public function send_an_email()
