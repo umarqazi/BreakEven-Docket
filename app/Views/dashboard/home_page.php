@@ -29,7 +29,7 @@
     <?php //} ?>
     <?php //if(in_array("invoice_signature", $permissions) || in_array("mail_signature", $permissions) || in_array("estimate_permissions", $permissions) || in_array("all_estimates", $permissions)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
-            <a href="<?php echo base_url();?>settings">
+            <a href="<?php echo base_url();?>/settings">
                 <div class="box-category hvr-pulse">
                     <div class="shadow">
                         <?= img('images/custom-images/new-icons/setting.png') ?>

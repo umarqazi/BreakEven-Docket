@@ -6,6 +6,8 @@ $(function() {
     });
 
     $('#svg').click(function() {
+        // console.log(saveSignatureUrl);
+        // return;
         var signature = sig.signature('toDataURL');
         $.ajax({
             data : {img : signature},

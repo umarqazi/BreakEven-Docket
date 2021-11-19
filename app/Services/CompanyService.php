@@ -68,6 +68,10 @@ class CompanyService
         $result = $this->company_repo->update($data['company_id'],$company);
         return $result;
     }
+    public function update_signature($id,$data)
+    {
+        return $this->company_repo->update($id,$data);
+    }
     public function findAll(){
        return $this->company_repo->findAll();
     }
