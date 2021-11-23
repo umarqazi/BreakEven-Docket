@@ -7,11 +7,12 @@ use App\Services\UserService;
 use App\Services\CompanyService;
 use App\Services\EmployeeService;
 
-class Company extends BaseController
+class CompanyController extends BaseController
 {
     protected $user_service;
     protected $company_service;
     protected $employee_service;
+
     public function __construct()
     {
         $this->user_service     = new UserService;
@@ -59,9 +60,9 @@ class Company extends BaseController
             return redirect()->to(site_url('company-edit'))->withCookies()->with('message', 'Record Updated Successfully!');
         }
     }
-    public function suspend_company()
+    public function suspendCompany()
     {
-        $result = $this->company_service->suspend_company();
+        $result = $this->company_service->suspendCompany();
         if ($result) {
             return redirect()->to(site_url('logout'))->withCookies()->with('message', 'Company Suspended Successfully!');
         }

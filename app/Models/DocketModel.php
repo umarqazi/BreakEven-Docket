@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class DocketsToEmployees extends Model
+class DocketModel extends Model
 {
     protected $DBGroup              = 'default';
-    protected $table                = 'dockets_to_employees';
+    protected $table                = 'dockets';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['docket_id','employee_id','assignee_id','created_at','updated_at','deleted_at'];
+    protected $allowedFields        = ['docket_no','added_by','created_at','updated_at','deleted_at'];
 
     // Dates
     protected $useTimestamps        = false;

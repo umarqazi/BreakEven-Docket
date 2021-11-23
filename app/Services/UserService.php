@@ -137,7 +137,7 @@ class UserService
             return false;
         }
     }
-    public function set_password($id,$data)
+    public function setPassword($id,$data)
     {
         $data['password_hash'] = Password::hash($data['password']);
         return $this->user_repo->update($id,$data);

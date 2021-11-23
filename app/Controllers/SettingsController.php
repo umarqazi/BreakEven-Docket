@@ -24,7 +24,7 @@ class SettingsController extends BaseController
         $signature = $this->user_service->show(user_id());
         return view('dashboard/settings/signature_setup',['signature'=> $signature['invoice_signature']]);
     }
-    public function save_signature()
+    public function saveSignature()
     {
         $data = $this->request->getPost('img');
 		list($type, $data) = explode(';', $data);
@@ -46,17 +46,17 @@ class SettingsController extends BaseController
             return false;
         }
     }
-    public function mail_signature()
+    public function mailSignature()
     {
         $signature = $this->company_service->show(user()->company_id);
         return view('dashboard/settings/mail_signature',['signature'=> $signature['signature']]);
     }
-    public function update_signature()
+    public function updateSignature()
     {
         $data = [
             'signature' => $this->request->getPost('signature_body')
         ];
-        $signature = $this->company_service->update_signature(user()->company_id,$data);
+        $signature = $this->company_service->updateSignature(user()->company_id,$data);
         if($signature){
             return redirect()->back()->withCookies()->with('message', 'Signature Updated!');
         } else {

@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 
-use App\Models\Docket;
+use App\Models\DocketModel;
 
 /**
  * Class DocketRepository
@@ -16,6 +16,6 @@ class DocketRepository extends BaseRepo
      */
     public function __construct()
     {
-        parent::__construct(Docket::class);
+        parent::__construct(DocketModel::class);
     }
 }

@@ -74,8 +74,8 @@ class TimeKeepingService
         $qry = "SELECT timekeepings.*, dockets.docket_no,if(timekeepings.time_out != '' ,TIMEDIFF(timekeepings.time_out, timekeepings.time_in),'') AS total_time, if(timekeepings.time_out != '', '',UNIX_TIMESTAMP(timekeepings.time_in)) AS timeIn_in_seconds
                 FROM timekeepings 
                 LEFT JOIN dockets ON timekeepings.docket_id = dockets.id
-                WHERE timekeepings.docket_id = ? ORDER BY timekeepings.id ASC";
-        $dockets = $this->db->query($qry, $docket_id);
+                WHERE timekeepings.docket_id = ? AND timekeepings.employee_id = ? ORDER BY timekeepings.id ASC";
+        $dockets = $this->db->query($qry, [$docket_id,user_id()]);
         $result = $dockets->getResult('array');
         return !empty($result) ? $result : false;
 

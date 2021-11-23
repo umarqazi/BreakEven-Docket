@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 
-use App\Models\DocketsToEmployees;
+use App\Models\DocketsToEmployeesModel;
 
 /**
  * Class AssignDocketRepository
@@ -16,6 +16,6 @@ class AssignDocketRepository extends BaseRepo
      */
     public function __construct()
     {
-        parent::__construct(DocketsToEmployees::class);
+        parent::__construct(DocketsToEmployeesModel::class);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Models\Signature;
+use App\Models\SignatureModel;
 
 /**
  * Class SignatureRepository
@@ -15,6 +15,6 @@ class SignatureRepository extends BaseRepo
      */
     public function __construct()
     {
-        parent::__construct(Signature::class);
+        parent::__construct(SignatureModel::class);
     }
 }

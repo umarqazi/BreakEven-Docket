@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Docket extends Model
+class SignatureModel extends Model
 {
     protected $DBGroup              = 'default';
-    protected $table                = 'dockets';
+    protected $table                = 'signature';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['docket_no','added_by','created_at','updated_at','deleted_at'];
+    protected $allowedFields        = ['signature','user_id','signature_image'];
 
     // Dates
     protected $useTimestamps        = false;

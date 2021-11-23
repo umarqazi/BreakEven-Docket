@@ -68,7 +68,7 @@ class CompanyService
         $result = $this->company_repo->update($data['company_id'],$company);
         return $result;
     }
-    public function update_signature($id,$data)
+    public function updateSignature($id,$data)
     {
         return $this->company_repo->update($id,$data);
     }
@@ -81,7 +81,7 @@ class CompanyService
     public function delete($id){
         return $this->company_repo->delete($id);
     }
-    public function suspend_company($company_id = null)
+    public function suspendCompany($company_id = null)
     {
         //Cancel Subscription here
         //Send Email TO user "Docket Service Suspended"
@@ -94,7 +94,7 @@ class CompanyService
             return $this->company_repo->update(User()->company_id,$data);
         }
     }
-    public function enable_company($company_id)
+    public function enableCompany($company_id)
     {
         $data = [
             'is_enabled' => 1

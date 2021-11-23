@@ -43,25 +43,28 @@ class AdminController extends BaseController
         $companies = $this->company_service->getCompanyWithUser();
         return view('admin/company/companies',['companies'=>$companies]);
     }
-    public function company_details($company_id = false)
+    public function companyDetails($company_id = false)
     {
         $company = $this->company_service->getCompanyWithUser($company_id);
         $users = $this->user_service->findAllWithWhere(['company_id' => $company_id]);
-        $users = !empty($users) ? count($users) : 0; 
-        return view('admin/company/company_details',['company'=>$company,'users'=>$users]);
+        return view('admin/company/company_details',['company'=>$company,'users'=> !empty($users) ? count($users) : 0 ]);
     }
-    public function disable_company($company_id = false)
+    public function disableCompany($company_id = false)
     {
-        $company = $this->company_service->suspend_company($company_id);
+        $company = $this->company_service->suspendCompany($company_id);
         if ($company) {
             return redirect()->back()->with('message', 'Company disabled Successfully!');
+        } else {
+            return redirect()->back()->with('error', 'There is some error!');
         }
     }
-    public function enable_company($company_id = false)
+    public function enableCompany($company_id = false)
     {
-        $company = $this->company_service->enable_company($company_id);
+        $company = $this->company_service->enableCompany($company_id);
         if ($company) {
             return redirect()->back()->with('message', 'Company Enabled Successfully!');
+        } else {
+            return redirect()->back()->with('error', 'There is some error!');
         }
     }
     public function signature()
@@ -69,7 +72,7 @@ class AdminController extends BaseController
         $signature = $this->signature_service->findAll();
         return view('admin/signature',['signature'=>$signature]);
     }
-    public function update_signature()
+    public function updateSignature()
     {
         $signature_id = $this->request->getPost('signature_id');
         $this->validation->run($this->request->getPost(), 'update_signature');
@@ -88,17 +91,17 @@ class AdminController extends BaseController
             }
         }
     }
-    public function subscription_plans()
+    public function subscriptionPlans()
     {
         
         $subscriptions = $this->subscription_plan_service->findAll();
         return view('admin/subscription/subscription_plan',['subscriptions'=>$subscriptions]);
     }
-    public function create_plan()
+    public function createPlan()
     {
         return view('admin/subscription/create_plan',['validation' => $this->validation]);
     }
-    public function save_plan()
+    public function savePlan()
     {
         $plan_id = $this->request->getPost('plan_id');
         $this->validation->run($this->request->getPost(), 'subscription_plan');
@@ -120,7 +123,7 @@ class AdminController extends BaseController
             }
         }
     }
-    public function delete_plan($plan_id = null)
+    public function deletePlan($plan_id = null)
     {
         $result = $this->subscription_plan_service->delete($plan_id);
         if($result)
@@ -130,18 +133,18 @@ class AdminController extends BaseController
             return redirect()->back()->with('error', 'There is some error!');
         }
     }
-    public function edit_plan($plan_id = null)
+    public function editPlan($plan_id = null)
     {
         $subscription = $this->subscription_plan_service->show($plan_id);
         return view('admin/subscription/create_plan',['validation' => $this->validation,'subscription'=>$subscription]);
     }
-    public function mailbox()
+    public function mailBox()
     {
         $users = $this->user_service->findAllWithWhere(['id !=' => 1]);
         $signature = $this->signature_service->findAll();
         return view('admin/mailbox',['validation' => $this->validation,'users'=>$users,'signature'=>$signature]);
     }
-    public function send_an_email()
+    public function sendEmail()
     {
         $result = $this->email_service->super_admin_email($this->request->getPost());
         if ($result == true) {

@@ -26,7 +26,7 @@ class DocketController extends BaseController
         $dockets = $this->docket_service->getAllDockets();
         return view('dashboard/docket/dockets',['validation'=>$this->validation,'dockets'=>$dockets]);
     }
-    public function get_docket_no()
+    public function getDocketNo()
     {
         $query = $this->db->query('select COUNT(dockets.docket_no) as count from dockets where dockets.docket_no ="'.$this->request->getPost('docket_no').'"');
         $count = $query->getResult()[0]->count;
@@ -36,7 +36,7 @@ class DocketController extends BaseController
             return '1';
         }
     }
-    public function store_docket()
+    public function storeDocket()
     {
         $this->validation->run($this->request->getPost(), 'docketStore');
         if ($this->validation->getErrors()) {
@@ -50,7 +50,7 @@ class DocketController extends BaseController
             }
         }
     }
-    public function assign_details($docket_id=null)
+    public function assignDetails($docket_id=null)
     {
         $dockets = $this->docket_service->getDocketById($docket_id);
         $assignedEmployees = $this->docket_service->getDocketAssignedToEmployeesByDocketId($docket_id);
@@ -65,7 +65,7 @@ class DocketController extends BaseController
         $employees = $this->employee_service->getAllEmployees($docket_id);
         return view('dashboard/docket/docket_details',['validation'=>$this->validation,'dockets'=>$dockets,'employees'=>$employees,'assignedEmployees'=>$assignedEmployees,'alreadyAssignedEmployees'=>$alreadyAssignedEmployees]);
     }
-    public function assign_docket()
+    public function assignDocket()
     {
         $this->validation->run($this->request->getPost(), 'docketStore');
         if ($this->validation->getErrors()) {

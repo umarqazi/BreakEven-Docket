@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 
-use App\Models\Company;
+use App\Models\CompanyModel;
 
 /**
  * Class CompanyRepository
@@ -16,6 +16,6 @@ class CompanyRepository extends BaseRepo
      */
     public function __construct()
     {
-        parent::__construct(Company::class);
+        parent::__construct(CompanyModel::class);
     }
 }

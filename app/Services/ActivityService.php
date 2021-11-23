@@ -34,8 +34,10 @@ class ActivityService
                 LEFT JOIN dockets ON timekeepings.docket_id = dockets.id
                 LEFT JOIN users ON timekeepings.employee_id = users.id
                 LEFT JOIN dockets_to_employees ON  timekeepings.docket_id = dockets_to_employees.docket_id
-                -- GROUP BY timekeepings.id
+                WHERE dockets_to_employees.assignee_id != timekeepings.employee_id 
+                GROUP BY timekeepings.id
                 ORDER BY timekeepings.id DESC";
+                // dd($qry);
         $logs = $this->db->query($qry);
         $result = $logs->getResult('array');
         return !empty($result) ? $result : false;

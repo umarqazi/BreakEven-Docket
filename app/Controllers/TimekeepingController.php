@@ -13,6 +13,7 @@ class TimekeepingController extends BaseController
     protected $docket_service;
     protected $validation;
     protected $employee_service;
+
     public function __construct()
     {
         $this->docket_service = new DocketService;
@@ -24,21 +25,20 @@ class TimekeepingController extends BaseController
         $dockets = $this->docket_service->getDocketByEmployeeId();
         return view('dashboard/timekeeping/timekeeping',['validation'=>$this->validation,'dockets'=>$dockets]);
     }
-    public function get_docket_details()
+    public function getDocketDetails()
     {
         $docket_id = $this->request->getPost('docket_id');
         $dockets = $this->docket_service->show($docket_id);
         $timekeeping = $this->timekeeping_service->getTimekeepingByDocketId($docket_id);
         $checkTimeInOrOut = $this->timekeeping_service->checkTimeInOrOut($docket_id);
         echo json_encode(array('dockets' => !empty($dockets) ? $dockets : false, 'timekeeping' => !empty($timekeeping) ? $timekeeping : false, 'checkTimeInOrOut' => !empty($checkTimeInOrOut) ? $checkTimeInOrOut : false));
-        // return $record;
     }
-    public function get_time_keeping_data()
+    public function getTimeKeepingData()
     {
         $docket_id = $this->request->getPost('docket_id');
         return !empty($dockets) ? json_encode($dockets) : false;
     }
-    public function time_in()
+    public function timeIn()
     {
         $record = $this->timekeeping_service->createTimeIn($this->request->getPost());
         if ($record) {
@@ -47,13 +47,13 @@ class TimekeepingController extends BaseController
             return json_encode(false);
         }
     }
-    public function manual_time_in()
+    public function manualTimeIn()
     {
         $msg = '';
         if (!empty($this->request->getPost('timekeeping_id'))) {
             $msg = 'Time Out Successfully';
         } else {
-            $msg = 'Time out Successfully';
+            $msg = 'Time In Successfully';
         }
         $record = $this->timekeeping_service->createManualTimeIn($this->request->getPost());
         if ($record) {

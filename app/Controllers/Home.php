@@ -32,7 +32,7 @@ class Home extends BaseController
     {
         return view('common/privacy_policy');
     }
-    public function get_email()
+    public function getEmail()
     {
         $qry = $this->db->query('select COUNT(users.email) as count from users where users.email ="'.$this->request->getPost('email').'"');
         $count = $qry->getResult()[0]->count;
