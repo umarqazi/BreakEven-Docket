@@ -16,20 +16,14 @@ class AdminController extends BaseController
     protected $company_service;
     protected $email_service;
     protected $user_service;
-    protected $validation;
-    protected $config;
-	protected $auth;
+    
 
     public function __construct()
     {
-        helper('html');
-        $this->config               = config('Auth');
         $this->user_service         = new UserService;
         $this->email_service        = new EmailService;
         $this->company_service      = new CompanyService;
         $this->signature_service    = new SignatureService;
-		$this->auth                 = service('authentication');
-        $this->validation           = \Config\Services::validation();
         $this->subscription_plan_service    = new SubscriptionPlanService();
     }
     public function index()

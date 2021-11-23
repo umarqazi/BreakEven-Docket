@@ -27,6 +27,13 @@ class BaseController extends Controller
      * @var CLIRequest|IncomingRequest
      */
     protected $request;
+    protected $validation;
+    protected $authorize;
+    protected $session;
+    protected $config;
+	protected $user_id;
+	protected $auth;
+    protected $db;
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -48,5 +55,12 @@ class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+        $this->config               = config('Auth');
+        $this->authorize            = service('authorization');
+        $this->auth                 = service('authentication');
+        $this->validation           = \Config\Services::validation();
+        $this->db                   = \Config\Database::connect();
+		$this->session              = service('session');
+        $this->user_id              = user_id();
     }
 }

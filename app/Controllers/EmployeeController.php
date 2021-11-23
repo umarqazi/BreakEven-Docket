@@ -12,13 +12,11 @@ class EmployeeController extends BaseController
 {
     protected $user_service;
     protected $employee_service;
-    protected $validation;
+    
     public function __construct()
     {
         $this->user_service = new UserService;
         $this->employee_service = new EmployeeService;
-        $this->validation =  \Config\Services::validation();
-
     }
     public function index()
     {
@@ -26,21 +24,12 @@ class EmployeeController extends BaseController
     }
     public function employee_center()
     {
-        $db = \Config\Database::connect();
-        // $param = [
-        //     'user_type' => 'employee',
-        //     'company_id' => user()->company_id
-        // ];
-        // $employees = $this->user_service->findAllWithWhere($param);
-
-
         $employees = $this->employee_service->getAllEmployees();
         return view('dashboard/employees/employees', ['employees' => $employees]);
     }
     public function employee_form()
     {
-        $validation = \Config\Services::validation();
-        return view('dashboard/employees/add_employee_form',['validation'=>$validation]);
+        return view('dashboard/employees/add_employee_form',['validation'=>$this->validation]);
     }
     public function store()
     {
@@ -93,12 +82,11 @@ class EmployeeController extends BaseController
     }
     public function employee_verify($user_id=false, $code=false)
     {
-        $validation = \Config\Services::validation();
         $user = $this->user_service->validateUser($user_id,$code);
         if ($user) {
-            return view('Auth/create_password',['user' => $user, 'validation' => $validation]);
+            return view('Auth/create_password',['user' => $user, 'validation' => $this->validation]);
         } else {
-            return view('Auth/create_password',['user'=>false, 'validation' => $validation]);
+            return view('Auth/create_password',['user'=>false, 'validation' => $this->validation]);
         }
     }
     public function set_password()

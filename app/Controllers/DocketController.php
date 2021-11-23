@@ -9,33 +9,27 @@ use App\Services\EmployeeService;
 class DocketController extends BaseController
 {
     protected $docket_service;
-    protected $validation;
     protected $employee_service;
-    protected $db;
+    
     public function __construct()
     {
-        $this->db = \Config\Database::connect();
         $this->docket_service = new DocketService;
         $this->employee_service = new EmployeeService;
-        $this->validation =  \Config\Services::validation();
     }
     public function index()
     {
-        $validation = \Config\Services::validation();
         $dockets = $this->docket_service->getAllDockets();
-        return view('dashboard/docket/dockets_nos',['validation'=>$validation,'dockets'=>$dockets]);
+        return view('dashboard/docket/dockets_nos',['validation'=>$this->validation,'dockets'=>$dockets]);
     }
     public function dockets()
     {
-        $validation = \Config\Services::validation();
         $dockets = $this->docket_service->getAllDockets();
-        return view('dashboard/docket/dockets',['validation'=>$validation,'dockets'=>$dockets]);
+        return view('dashboard/docket/dockets',['validation'=>$this->validation,'dockets'=>$dockets]);
     }
     public function get_docket_no()
     {
-        $db = \Config\Database::connect();
-        $rrr = $db->query('select COUNT(dockets.docket_no) as count from dockets where dockets.docket_no ="'.$this->request->getPost('docket_no').'"');
-        $count = $rrr->getResult()[0]->count;
+        $query = $this->db->query('select COUNT(dockets.docket_no) as count from dockets where dockets.docket_no ="'.$this->request->getPost('docket_no').'"');
+        $count = $query->getResult()[0]->count;
         if($count > 0){
             return '0';
         } else {
@@ -58,7 +52,6 @@ class DocketController extends BaseController
     }
     public function assign_details($docket_id=null)
     {
-        $validation = \Config\Services::validation();
         $dockets = $this->docket_service->getDocketById($docket_id);
         $assignedEmployees = $this->docket_service->getDocketAssignedToEmployeesByDocketId($docket_id);
         
@@ -70,7 +63,7 @@ class DocketController extends BaseController
             }
         }
         $employees = $this->employee_service->getAllEmployees($docket_id);
-        return view('dashboard/docket/docket_details',['validation'=>$validation,'dockets'=>$dockets,'employees'=>$employees,'assignedEmployees'=>$assignedEmployees,'alreadyAssignedEmployees'=>$alreadyAssignedEmployees]);
+        return view('dashboard/docket/docket_details',['validation'=>$this->validation,'dockets'=>$dockets,'employees'=>$employees,'assignedEmployees'=>$assignedEmployees,'alreadyAssignedEmployees'=>$alreadyAssignedEmployees]);
     }
     public function assign_docket()
     {

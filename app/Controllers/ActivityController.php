@@ -14,8 +14,7 @@ class ActivityController extends BaseController
     }
     public function index()
     {
-        $validation = \Config\Services::validation();
         $logs = $this->activity_service->getallTimeKeepingLogs();
-        return view('dashboard/activity/activity_details',['validation'=>$validation,'logs'=>$logs]);
+        return view('dashboard/activity/activity_details',['validation'=>$this->validation,'logs'=>$logs]);
     }
 }

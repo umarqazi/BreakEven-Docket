@@ -26,12 +26,11 @@ class SettingsController extends BaseController
     }
     public function save_signature()
     {
-        $files = $this->request->getFiles();
         $data = $this->request->getPost('img');
 		list($type, $data) = explode(';', $data);
 		list(, $data) = explode(',', $data);
 		$data = base64_decode($data);
-        $img_name = user_id().'_signature.png';
+        $img_name = $this->user_id.'_signature.png';
         $user_folder['relative_path'] = '/var/www/html/docket/public/uploads/signature_images/';
         if (!is_dir($user_folder['relative_path'])) {
 			mkdir($user_folder['relative_path'], 0775, true);
@@ -40,7 +39,7 @@ class SettingsController extends BaseController
         $data = [
             'invoice_signature' => $img_name
         ];
-        $result = $this->user_service->update(user_id(),$data);
+        $result = $this->user_service->update($this->user_id,$data);
         if ($result == true) {
             return true;
         } else {
@@ -54,7 +53,6 @@ class SettingsController extends BaseController
     }
     public function update_signature()
     {
-        // $data = $this->request->getPost('signature_body');
         $data = [
             'signature' => $this->request->getPost('signature_body')
         ];
