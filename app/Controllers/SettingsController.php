@@ -40,11 +40,7 @@ class SettingsController extends BaseController
             'invoice_signature' => $img_name
         ];
         $result = $this->user_service->update($this->user_id,$data);
-        if ($result == true) {
-            return true;
-        } else {
-            return false;
-        }
+        return ($result == true) ? true : false;
     }
     public function mailSignature()
     {

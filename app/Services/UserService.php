@@ -131,7 +131,7 @@ class UserService
     public function validateUser($user_id,$code)
     {
         $user = $this->user_repo->find($user_id);
-        if ($code == $user['activation_code']) {
+        if (!is_null($user) && $code == $user['activation_code']) {
             return $user;
         } else {
             return false;

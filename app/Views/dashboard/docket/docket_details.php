@@ -84,7 +84,7 @@
                         <div class="heading">Assign Docket to Employee</div>
                         <div id="error-block"></div>
                         <form id="store_assign_form" method="post" action="<?= route_to('assign_docket') ?>">
-                            <label for="input-demo-v"><strong>Select Employee</strong></label>
+                            <label style="color: white;"><strong>Docket No:</strong></label>
                             <input type="text" name="docket_no" id="docket_no" class="pattern add_job_no" value="<?= !empty($dockets) ? $dockets[0]['docket_no'] : '' ?>" readonly >
                             <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
                                 <?php echo $validation->getError('docket_id'); ?>
@@ -93,7 +93,7 @@
                             
                             <?php if(!empty($employees)) { ?>
                             <div class="form-group">
-                                <label for="input-demo-v">Select Employee</label>
+                                <label style="color: white;">Select Employee</label>
                                 <select id="employee_id" name="employee_id" class="form-control  required" required="true">
                                     <option disabled="disabled" selected="true" value="">Choose Employee</option>
                                     <?php foreach($employees as $key => $value):?>

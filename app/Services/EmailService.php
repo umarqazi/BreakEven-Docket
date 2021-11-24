@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Repository\UserRepository;
+use App\Services\SignatureService;
 use App\Services\CompanyService;
 
 class EmailService
@@ -10,6 +11,8 @@ class EmailService
     protected $email;
     protected $config;
     protected $user_repo;
+    protected $signature_service;
+
     public function __construct()
     {
         date_default_timezone_set('Asia/Karachi');
@@ -17,6 +20,8 @@ class EmailService
         $this->company_service = new CompanyService;
         $this->user_repo = new UserRepository;
         $this->db = \Config\Database::connect();
+        $this->signature_service = new SignatureService;
+
         $this->config = Array(
             'protocol' => getenv('protocol'),
             'SMTPHost' => getenv('SMTPHost'),
@@ -46,6 +51,7 @@ class EmailService
         $company = $this->company_service->show($user['company_id']);
         $user['activation_code'] = $activation_code;
         $user['company_name'] = $company['company_name'];
+        $user['signature'] = $company['signature'];
         $email_template = view('email/varification_template',['userdata'=>$user]);
         $email->setFrom('hamza.87.tuf@gmail.com', 'hamzah mahmood');
         $email->setTo($user['email']);

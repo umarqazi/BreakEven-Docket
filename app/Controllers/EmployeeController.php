@@ -18,19 +18,22 @@ class EmployeeController extends BaseController
         $this->user_service = new UserService;
         $this->employee_service = new EmployeeService;
     }
+    
     public function index()
     {
         //
     }
+
     public function employeeCenter()
     {
-        $employees = $this->employee_service->getAllEmployees();
-        return view('dashboard/employees/employees', ['employees' => $employees]);
+        return $this->employee_service->getAllEmployees();
     }
+
     public function employeeForm()
     {
         return view('dashboard/employees/add_employee_form',['validation'=>$this->validation]);
     }
+
     public function store()
     {
         $this->validation->run($this->request->getPost(), 'employeStore');
@@ -54,25 +57,13 @@ class EmployeeController extends BaseController
     }
     public function show($seg1 = false)
     {
-        $db = \Config\Database::connect();
-        $qry = 'SELECT employees.*, users.*
-                FROM employees
-                LEFT JOIN users ON employees.user_id = users.id
-                WHERE users.company_id = ? AND users.user_type = ? AND users.id = ? ';
-
-        $record = $db->query($qry, [user()->company_id,'employee',$seg1]);
-        return view('dashboard/employees/employee_profile',['record' => $record->getRow()]);
+        $record = $this->employee_service->getEmployee($seg1);
+        return view('dashboard/employees/employee_profile',['record' => $record]);
     }
     public function edit($user_id = null)
     {
-        $db = \Config\Database::connect();
-        $qry = 'SELECT employees.*, users.*,employees.id as employee_id
-                FROM employees
-                LEFT JOIN users ON employees.user_id = users.id
-                WHERE users.company_id = ? AND users.user_type = ? AND users.id = ? ';
-
-        $record = $db->query($qry, [user()->company_id,'employee',$user_id]);
-        return view('dashboard/employees/employee_edit',['record' => $record->getRow()]);
+        $record = $this->employee_service->editEmployee($user_id);
+        return view('dashboard/employees/employee_edit',['record' => $record]);
     }
     public function delete($user_id = null)
     {
@@ -83,11 +74,7 @@ class EmployeeController extends BaseController
     public function employeeVerify($user_id=false, $code=false)
     {
         $user = $this->user_service->validateUser($user_id,$code);
-        if ($user) {
-            return view('Auth/create_password',['user' => $user, 'validation' => $this->validation]);
-        } else {
-            return view('Auth/create_password',['user'=>false, 'validation' => $this->validation]);
-        }
+        return view('Auth/create_password',['user' => ($user) ? $user : false, 'validation' => $this->validation]);
     }
     public function setPassword()
     {

@@ -8,8 +8,30 @@
         </div>
         <h2 class="heading-text">
             <strong>All Activity on dockets</strong>
-            <!-- <button class="btn btn-primary pull-right job_pattern_btn" title="Create a Docket No" onclick="job_pattern()">Create a Docket No</button> -->
+            <button class="btn btn-primary pull-right job_pattern_btn toggle_btn" title="Filter Record" >Filter Records</button>
         </h2>
+        <div class="row" style="border: 1px solid #D8D5D5;border-radius:7px !important;background-color:#EEEBEB; padding:8px 5px 5px 5px; margin:4px 1px 0px 1px;box-shadow: 0 4px 2px -2px gray; " id="filter_div">
+            <div class="col-md-3">
+                <label style="padding: 6px 0px 0px 0px;"><strong>Filter Records</strong></label>
+            </div>
+            <div class="col-md-3">
+                <select id="employee_id" name="employee_id" class="form-control  required" required="true">
+                    <option disabled="disabled" selected="true" value="">Select Employee</option>
+                    <option disabled="disabled" selected="true" value="">Choose Employee</option>
+                    <option disabled="disabled" selected="true" value="">Choose Employee</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="employee_id" name="employee_id" class="form-control  required" required="true">
+                    <option disabled="disabled" selected="true" value="">Select Docket No</option>
+                    <option disabled="disabled" selected="true" value="">Choose Employee</option>
+                    <option disabled="disabled" selected="true" value="">Choose Employee</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-success float-right">Search</button>
+            </div>
+        </div>
         <div class="materials-content">
             <div class="material-items">
                 <table class="table table-striped table-hover" id="all_logs_table">
@@ -68,11 +90,14 @@
                 "emptyTable": "No Record Found"
             }
         });
-
-        /*$('table').wrap('<div class="table-responsive"></div>');*/
-        // $('.btn_docket_no').prop('disabled',true);
-    
-
+        $("#filter_div").hide(  );
+        $(".toggle_btn").click(function(){ 
+            if ($("#filter_div").is(":visible")) {
+                $("#filter_div").hide(500);
+            } else {
+                $("#filter_div").show(500);
+            }
+        });
     });
 </script>
 <?= $this->endSection()?>

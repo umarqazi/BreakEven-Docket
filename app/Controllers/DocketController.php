@@ -62,7 +62,7 @@ class DocketController extends BaseController
                 $alreadyAssignedEmployees[$key] = $value['employee_id'];
             }
         }
-        $employees = $this->employee_service->getAllEmployees($docket_id);
+        $employees = $this->docket_service->getAllEmployees($docket_id);
         return view('dashboard/docket/docket_details',['validation'=>$this->validation,'dockets'=>$dockets,'employees'=>$employees,'assignedEmployees'=>$assignedEmployees,'alreadyAssignedEmployees'=>$alreadyAssignedEmployees]);
     }
     public function assignDocket()

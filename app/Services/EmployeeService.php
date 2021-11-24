@@ -76,16 +76,21 @@ class EmployeeService
     {
         return $this->employee_repo->deleteWhere($where);
     }
+
     public function getAllEmployees()
     {
-        $qry = 'SELECT employees.*, users.*,concat(users.first_name," ",users.last_name) as user_name
-                FROM employees
-                LEFT JOIN users ON employees.user_id = users.id
-                WHERE users.company_id = ? AND users.user_type = ? AND employees.user_id != ? ';
-
-        $employees = $this->db->query($qry, [user()->company_id,'employee',user_id()]);
-        $result = $employees->getResult('array');
-        return !empty($result) ? $result : false;
+        $result = $this->employee_repo->getAllEmployees();
+        return view('dashboard/employees/employees', ['employees' => !empty($result) ? $result : false]);
+    }
+    
+    public function getEmployee($seg1)
+    {
+        return $this->employee_repo->getEmployee($seg1);
+    }
+    
+    public function editEmployee($user_id)
+    {
+        return $this->employee_repo->editEmployee($user_id);
     }
 
 }
