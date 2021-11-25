@@ -62,6 +62,7 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('docket-details/(:num)',   'DocketController::assignDetails/$1');    
 
     $routes->get('activity',                'ActivityController::index');
+    $routes->post('activity',               'ActivityController::index');
 
     $routes->get('company',                 'CompanyController::show');
     $routes->get('company-edit',            'CompanyController::edit');

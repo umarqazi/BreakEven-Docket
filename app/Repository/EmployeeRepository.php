@@ -19,6 +19,17 @@ class EmployeeRepository extends BaseRepo
         parent::__construct(EmployeeModel::class);
         $this->db = \Config\Database::connect();
     }
+    public function getAll()
+    {
+        $qry = 'SELECT employees.*, users.*,concat(users.first_name," ",users.last_name) as user_name
+                FROM employees
+                LEFT JOIN users ON employees.user_id = users.id
+                WHERE users.company_id = ? AND users.user_type = ?';
+
+        $employees = $this->db->query($qry, [user()->company_id, 'employee']);
+        $result = $employees->getResult('array');
+        return !empty($result) ? $result : false;
+    }
     public function getAllEmployees()
     {
         $qry = 'SELECT employees.*, users.*,concat(users.first_name," ",users.last_name) as user_name

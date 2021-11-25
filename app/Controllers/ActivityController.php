@@ -14,7 +14,10 @@ class ActivityController extends BaseController
     }
     public function index()
     {
-        $logs = $this->activity_service->getallTimeKeepingLogs();
-        return view('dashboard/activity/activity_details',['validation'=>$this->validation,'logs'=>$logs]);
+        $filters = null;
+        if ($this->request->getPost()) {
+            $filters = $this->request->getPost();
+        }
+        return $this->activity_service->getallTimeKeepingLogs($filters);
     }
 }

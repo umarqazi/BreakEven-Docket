@@ -1,6 +1,19 @@
 
 <?= $this->extend("master")?>
 <?= $this->section("content")?>
+<style>
+    .filter-box {
+        border: 1px solid #D8D5D5;
+        border-radius:7px !important;
+        background-color:#EEEBEB; 
+        padding:8px 5px 5px 5px; 
+        margin:4px 1px 0px 1px;
+        box-shadow: 0 4px 2px -2px gray; 
+    }
+    .form-control{
+        margin-right:8px;
+    }
+</style>
 <div class="row">
     <div class="col-md-12" id="material-section">
         <div class="" id="successMessage">
@@ -9,28 +22,36 @@
         <h2 class="heading-text">
             <strong>All Activity on dockets</strong>
             <button class="btn btn-primary pull-right job_pattern_btn toggle_btn" title="Filter Record" >Filter Records</button>
+            <?php if($show_remove_btn == true){ ?>
+            <a type="button" class="btn btn-danger pull-right" href="<?= route_to('activity') ?>" style="font-size: 12px; margin-right:4px">Remove Filter</a> 
+            <?php } ?>
         </h2>
-        <div class="row" style="border: 1px solid #D8D5D5;border-radius:7px !important;background-color:#EEEBEB; padding:8px 5px 5px 5px; margin:4px 1px 0px 1px;box-shadow: 0 4px 2px -2px gray; " id="filter_div">
-            <div class="col-md-3">
-                <label style="padding: 6px 0px 0px 0px;"><strong>Filter Records</strong></label>
-            </div>
-            <div class="col-md-3">
-                <select id="employee_id" name="employee_id" class="form-control  required" required="true">
-                    <option disabled="disabled" selected="true" value="">Select Employee</option>
-                    <option disabled="disabled" selected="true" value="">Choose Employee</option>
-                    <option disabled="disabled" selected="true" value="">Choose Employee</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select id="employee_id" name="employee_id" class="form-control  required" required="true">
-                    <option disabled="disabled" selected="true" value="">Select Docket No</option>
-                    <option disabled="disabled" selected="true" value="">Choose Employee</option>
-                    <option disabled="disabled" selected="true" value="">Choose Employee</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <button class="btn btn-success float-right">Search</button>
-            </div>
+        <div class="row filter-box" id="filter_div" >
+            <form action="<?= route_to('activity') ?>" method="post">
+                <div style="display: flex;">
+                    <input type="text" id="datetimepicker1" name="time_in" class="form-control" placeholder="Time In">
+                    <input type="text" id="datetimepicker2" name="time_out"class="form-control" placeholder="Time Out">
+                <!-- </div>
+                <div class="col-md-3"> -->
+                    <select id="employee_id" name="employee_id" class="form-control" >
+                        <option disabled="disabled" selected="true" value="">Select Employee</option>
+                        <?php foreach($employees as $key => $value):?>
+                            <option value="<?= $value['id'];?>"><?= $value['user_name'];?></option>
+                        <?php endforeach;?>
+                    </select>
+                <!-- </div>
+                <div class="col-md-3"> -->
+                    <select id="docket_id" name="docket_id" class="form-control" >
+                        <option disabled="disabled" selected="true" value="">Select Worked By</option>
+                        <?php foreach($dockets as $key => $value):?>
+                            <option value="<?= $value['id'];?>"><?= $value['docket_no'];?></option>
+                        <?php endforeach;?>
+                    </select>
+                <!-- </div>
+                <div class="col-md-2"> -->
+                    <input type="button" class="btn btn-primary pull-right" onclick="validate_filter()" value="Search" style="padding:8px 10px;line-height:normal;">
+                </div>
+            </form>
         </div>
         <div class="materials-content">
             <div class="material-items">
@@ -75,7 +96,21 @@
 </div>
 <?= script_tag('js/datatables/jquery.dataTables.min.js') ?>
 <script type="text/javascript">
+    function validate_filter() {
+            if ($('#datetimepicker1').val() == '' && $('#datetimepicker2').val() == '' && $('#employee_id').val() == '' && $('#docket_id').val() == '') {
+                alert('Atleas select 1 value for filter');
+                return;
+            }
+        }
     $(document).ready(function(){
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+            $('#datetimepicker2').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+        });
         $('#all_logs_table').DataTable({
             "pagingType": "full_numbers",
             bAutoWidth: false,
@@ -90,8 +125,8 @@
                 "emptyTable": "No Record Found"
             }
         });
-        $("#filter_div").hide(  );
-        $(".toggle_btn").click(function(){ 
+        $("#filter_div").hide();
+        $(".toggle_btn").click(function(){
             if ($("#filter_div").is(":visible")) {
                 $("#filter_div").hide(500);
             } else {
