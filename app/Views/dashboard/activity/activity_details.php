@@ -31,24 +31,18 @@
                 <div style="display: flex;">
                     <input type="text" id="datetimepicker1" name="time_in" class="form-control" placeholder="Time In">
                     <input type="text" id="datetimepicker2" name="time_out"class="form-control" placeholder="Time Out">
-                <!-- </div>
-                <div class="col-md-3"> -->
                     <select id="employee_id" name="employee_id" class="form-control" >
                         <option disabled="disabled" selected="true" value="">Select Employee</option>
                         <?php foreach($employees as $key => $value):?>
                             <option value="<?= $value['id'];?>"><?= $value['user_name'];?></option>
                         <?php endforeach;?>
                     </select>
-                <!-- </div>
-                <div class="col-md-3"> -->
                     <select id="docket_id" name="docket_id" class="form-control" >
                         <option disabled="disabled" selected="true" value="">Select Worked By</option>
                         <?php foreach($dockets as $key => $value):?>
                             <option value="<?= $value['id'];?>"><?= $value['docket_no'];?></option>
                         <?php endforeach;?>
                     </select>
-                <!-- </div>
-                <div class="col-md-2"> -->
                     <input type="button" class="btn btn-primary pull-right" onclick="validate_filter()" value="Search" style="padding:8px 10px;line-height:normal;">
                 </div>
             </form>
