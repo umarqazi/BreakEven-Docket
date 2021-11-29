@@ -17,7 +17,7 @@
 
     <?php //if(in_array("access_control", $permissions)){?>
         <div class="col-lg-3 col-md-6 col-sm-12">
-            <a href="<?php echo base_url();?>employee_center/employee_list">
+            <a href="<?php echo base_url();?>/access-control">
                 <div class="box-category hvr-pulse">
                     <div class="shadow">
                         <?= img('images/custom-images/new-icons/permissions.png') ?>
