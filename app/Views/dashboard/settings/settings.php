@@ -3,7 +3,7 @@
 <div class="row section-main-cats">
     <div class="col-md-12">
 
-        <?php //if(in_array("invoice_signature", $permissions)){?>
+        <?php if($permissions->hasPermission(4,user_id())){ ?>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <a href="<?php echo base_url();?>/signature">
                     <div class="box-category hvr-pulse">
@@ -14,9 +14,9 @@
                     </div>
                 </a>
             </div>
-        <?php //} ?>
+        <?php } ?>
 
-        <?php //if(in_array("mail_signature", $permissions)){?>
+        <?php if($permissions->hasPermission(5,user_id())){ ?>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <a href="<?php echo base_url();?>/mail-signature">
                     <div class="box-category hvr-pulse">
@@ -27,7 +27,7 @@
                     </div>
                 </a>
             </div>
-        <?php //} ?>
+        <?php } ?>
     </div>
 </div>
 <?= $this->endSection()?>

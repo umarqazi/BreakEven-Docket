@@ -48,4 +48,3 @@ Events::on('pre_system', static function () {
         Services::toolbar()->respond();
     }
 });
-Events::on('pre_system', [\OrmExtension\Hooks\PreController::class, 'execute']);

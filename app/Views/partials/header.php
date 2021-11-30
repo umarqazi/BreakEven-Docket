@@ -8,7 +8,7 @@
 </style>
 <div id="wrapper" class="login_body">
 	<?php if(logged_in() == true ){ ?>
-	<?php //$permissions = $this->load->get_var('permissions');?>
+	<?php $permissions = service('authorization'); $user_id = user_id();?>
 	<!-- Navigation -->
 	<nav class="navbar navbar-default navbar-static-top text-center" role="navigation" style="margin-bottom: 0">
 		<div class="navbar-header">
@@ -26,15 +26,13 @@
 				<?php echo user()->first_name .' '.user()->last_name?>
 			</strong>
 		</div>
-		<!-- /.navbar-header -->
 
 		<ul class="nav navbar-top-links navbar-right">
 			<li class="dropdown">
-				<a class="text-center" href="<?php echo base_url();?>mailbox">
+				<a class="text-center" href="<?php echo base_url();?>/mailbox">
 					<i class="fa fa-envelope fa-fw"></i>
 				</a>
 			</li>
-			<!-- /.dropdown -->
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 					<i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -47,11 +45,8 @@
 					<li><a href="<?= base_url('logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
 					</li>
 				</ul>
-				<!-- /.dropdown-user -->
 			</li>
-			<!-- /.dropdown -->
 		</ul>
-		<!-- /.navbar-top-links -->
 		<div id="handle-sidebar-toggle" class=" sidebar<?php empty($_SESSION['sidebar'])  ?  $_SESSION['sidebar']= 0 : false ; if($_SESSION['sidebar'] == 1){ ?> active-sidebar <?php } ?>  " role="navigation">
 			<i id="sidebar-arrow" class="fa fa-arrow-left menu-toggle-btn" onclick="sidebar()"></i>
 			<div class="sidebar-nav navbar-collapse">
@@ -62,57 +57,53 @@
 							<div>Dashboard</div>
 						</a>
 					</li>
-					<?php //if(in_array("task_manager", $permissions)){?>
+					<?php if($permissions->hasPermission(14,user_id())){?>
 						<li>
 							<a href="<?php echo base_url();?>task_manager">
 								<?= img('images/custom-images/new-icons/task_manager.png') ?>
 								<div class="title">Control Panel</div>
 							</a>
 						</li>
-					<?php //} ?>
+					<?php } ?>
 
-					<?php // if(in_array("cost_setup", $permissions)){?>
+					<?php if($permissions->hasPermission(15,user_id())){?>
 						<li class="custom_dropdown_parent">
 							<a href="<?php echo base_url();?>cost_setup">
 								<?= img('images/custom-images/nav-icon-2.png') ?>
 								<div>Cost Setup<sup>TM</sup></div>
 							</a>
 						</li>
-					<?php //} ?>
+					<?php } ?>
 
-					<?php //if(in_array("get_estimate", $permissions)){?>
+					<?php if($permissions->hasPermission(16,user_id())){?>
 						<li>
 							<a href="<?php echo base_url();?>/docket-no">
 								<?= img('images/custom-images/new-icons/estimate.png') ?>
 								<div class="title">Add DOCKET no</div>
 							</a>
 						</li>
-					<?php //} ?>
+					<?php } ?>
 
-					<?php //if(in_array("all_estimates", $permissions)){?>
+					<?php if($permissions->hasPermission(8,user_id())){?>
 						<li>
 							<a href="<?php echo base_url();?>/dockets">
 								<?= img('images/custom-images/new-icons/side-all-estimate.png') ?>
 								<div class="title">DOCKET</div>
 							</a>
 						</li>
-					<?php //} ?>
+					<?php } ?>
 
-					<?php //if(in_array("assemblies", $permissions)){?>
+					<?php if($permissions->hasPermission(9,user_id())){ ?>
 						<li>
 							<a href="<?php echo base_url();?>/time-keeping">
 								<?= img('images/custom-images/assemblies.png') ?>
 								<div>TimeKEPING</div>
 							</a>
 						</li>
-					<?php //} ?>
-
+					<?php } ?>
 				</ul>
 			</div>
-			<!-- /.sidebar-collapse -->
 		</div>
-		<!-- /.navbar-static-side -->
-
 	</nav>
 	<div id="nav-bottom"></div>
 	<div id="page-wrapper" <?php if($_SESSION['sidebar']== 1){ ?> class="active-wrapper" <?php } ?>  >

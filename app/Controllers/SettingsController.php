@@ -8,16 +8,18 @@ use App\Services\UserService;
 
 class SettingsController extends BaseController
 {
+    protected $authorize;
     protected $user_service;
     protected $company_service;
     function __construct()
     {
         $this->user_service = new UserService;
         $this->company_service = new CompanyService;
+        $this->authorize     = service('authorization');
     }
     public function index()
     {
-        return view('dashboard/settings/settings');
+        return view('dashboard/settings/settings',['permissions' => $this->authorize]);
     }
     public function signature()
     {

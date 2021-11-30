@@ -109,6 +109,14 @@ class AuthController extends Controller
 			} else {
 				return redirect()->to('admin/logout');
 			}
+		}  elseif($this->auth->user()->is_super_admin != 1) {
+			$is_user_enable = $this->company_service->show($this->auth->user()->company_id)['is_enabled'];
+			if ($is_user_enable == '1') {
+				$redirectURL = site_url('/');
+			} else {
+				$this->auth->logout();
+				return redirect()->back()->withInput()->with('error', 'This Company is disabled!');
+			} 
 		} else {
 			$redirectURL = site_url('/');
 		}

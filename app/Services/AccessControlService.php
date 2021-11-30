@@ -55,8 +55,7 @@ class AccessControlService
     }
     public function assignPermissions($data)
     {
-        // $this->authorize->removePermissionFromUser(5, 5);
-        $delete = $this->db->table('auth_users_permissions')->where('user_id',$data['user_id'])->delete();
+        $this->authorize->removePermissionFromUserByUserId($data['user_id']);
         if(!empty($data['permission_id'][0])){
             foreach ($data['permission_id'] as $key => $permission_id) {
                 $this->authorize->addPermissionToUser($permission_id, $data['user_id']);
@@ -67,20 +66,15 @@ class AccessControlService
     }
     public function getUserPermissions($id)
     {
-        // dd($this->authorize->hasPermission(9,5));
         $user_id = $id['id'];
         $permissions = $this->authorize->permissions();
+        $selected_permissions = array();
         foreach ($permissions as $key => $value) {
             $permissions[$key]['checked'] ='';
-            if($this->authorize->hasPermission($value['id'],$user_id) == true ) {
+            if($this->authorize->hasPermission($value['name'],$user_id) == true ) {
                 $permissions[$key]['checked'] ='checked';
-            } else {
-                $permissions[$key]['checked'] ='';
             }
         }
-        // echo '<pre>';
-        // print_r($permissions);
-        // die;
         return json_encode($permissions);
     }
 }

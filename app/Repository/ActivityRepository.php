@@ -26,6 +26,7 @@ class ActivityRepository extends BaseRepo
     public function getallTimeKeepingLogs($filters)
     {
         // dd($filters);
+        $this->db->query("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
         $employee_id = isset($filters['employee_id']) ? " AND users.id = ".$filters['employee_id']." " : '';
         $docket_id   = isset($filters['docket_id']) ? " AND dockets.id = ".$filters['docket_id']." " : '';
         $time_in     = isset($filters['time_in']) ? " AND timekeepings.time_in LIKE '".$filters['time_in']."%' " : '';
