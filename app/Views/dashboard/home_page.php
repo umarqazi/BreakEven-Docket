@@ -2,7 +2,7 @@
 <?= $this->section("content")?>
 <?php $user_id = user_id();?>
 <div class="row section-main-cats">
-    <?php if($permissions->hasPermission(3,$user_id)){ ?>
+    <?php if($permissions->hasPermission('Company Info',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?php echo base_url();?>/company">
                 <div class="box-category hvr-pulse">
@@ -15,7 +15,7 @@
         </div>
     <?php } ?>
 
-    <?php if($permissions->hasPermission(10,$user_id)){?>
+    <?php //if($permissions->hasPermission('Access Control',$user_id)){?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?php echo base_url();?>/access-control">
                 <div class="box-category hvr-pulse">
@@ -26,8 +26,8 @@
                 </div>
             </a>
         </div>
-    <?php } ?>
-    <?php if($permissions->hasPermission(4,$user_id) || $permissions->hasPermission(5,$user_id)){ ?>
+    <?php //} ?>
+    <?php if($permissions->hasPermission('Mail Signature',$user_id) || $permissions->hasPermission('Signature Setup',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?php echo base_url();?>/settings">
                 <div class="box-category hvr-pulse">
@@ -39,7 +39,7 @@
             </a>
         </div>
     <?php } ?>
-    <?php if($permissions->hasPermission(6,$user_id)){ ?>
+    <?php if($permissions->hasPermission('Activity',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?php echo base_url();?>/activity">
                 <div class="box-category hvr-pulse">
@@ -51,7 +51,7 @@
             </a>
         </div>
     <?php }?>
-    <?php if($permissions->hasPermission(11,$user_id)){ ?>
+    <?php if($permissions->hasPermission('Reports',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?php echo base_url();?>reports">
                 <div class="box-category hvr-pulse">
@@ -63,9 +63,9 @@
             </a>
         </div>
     <?php } ?>
-    <?php if($permissions->hasPermission(12,$user_id)){ ?>
+    <?php if($permissions->hasPermission('Attendence',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
-            <a href="<?php echo base_url();?>employee_attendance">
+            <a href="<?php echo base_url();?>/employee-attendance">
                 <div class="box-category hvr-pulse">
                     <div class="shadow">
                         <?= img('images/custom-images/new-icons/time_card.png') ?>
@@ -75,7 +75,7 @@
             </a>
         </div>
     <?php } ?>
-    <?php if($permissions->hasPermission(13,$user_id)){ ?>
+    <?php if($permissions->hasPermission('Instructions',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?php echo base_url();?>instructions">
                 <div class="box-category hvr-pulse">
@@ -88,7 +88,7 @@
         </div>
     <?php } ?>
 
-    <?php if($permissions->hasPermission(2,$user_id)){?>
+    <?php if($permissions->hasPermission('Employees',$user_id)){?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?= base_url();?>/employee-center">
                 <div class="box-category hvr-pulse">

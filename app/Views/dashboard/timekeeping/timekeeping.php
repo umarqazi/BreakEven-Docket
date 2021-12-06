@@ -216,6 +216,7 @@
                             var date2 = new Date();
                             var timeDiff = Math.abs(date2.getTime() - date1.getTime());
                             var diffSeconds = Math.ceil(timeDiff / 1000);
+                            console.log(diffSeconds);
                             var clock = $('.clock').FlipClock({
                                 clockFace:'DailyCounter',
                                 autoStart:false,

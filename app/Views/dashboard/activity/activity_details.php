@@ -38,12 +38,12 @@
                         <?php endforeach;?>
                     </select>
                     <select id="docket_id" name="docket_id" class="form-control" >
-                        <option disabled="disabled" selected="true" value="">Select Worked By</option>
+                        <option disabled="disabled" selected="true" value="">Select Docket No:</option>
                         <?php foreach($dockets as $key => $value):?>
                             <option value="<?= $value['id'];?>"><?= $value['docket_no'];?></option>
                         <?php endforeach;?>
                     </select>
-                    <input type="button" class="btn btn-primary pull-right" onclick="validate_filter()" value="Search" style="padding:8px 10px;line-height:normal;">
+                    <input type="submit" class="btn btn-primary pull-right" id="btn_submit" onclick="validate_filter()" value="Search" style="padding:8px 10px;line-height:normal;">
                 </div>
             </form>
         </div>
@@ -92,9 +92,13 @@
 <script type="text/javascript">
     function validate_filter() {
             if ($('#datetimepicker1').val() == '' && $('#datetimepicker2').val() == '' && $('#employee_id').val() == '' && $('#docket_id').val() == '') {
+                console.log('herer');
                 alert('Atleas select 1 value for filter');
                 return;
-            }
+            } 
+            // else {
+            //     $('#btn_submit').trigger();
+            // }
         }
     $(document).ready(function(){
         $(function () {

@@ -57,7 +57,7 @@
 							<div>Dashboard</div>
 						</a>
 					</li>
-					<?php if($permissions->hasPermission(14,user_id())){?>
+					<?php if($permissions->hasPermission('Control Panel',user_id())){?>
 						<li>
 							<a href="<?php echo base_url();?>task_manager">
 								<?= img('images/custom-images/new-icons/task_manager.png') ?>
@@ -66,7 +66,7 @@
 						</li>
 					<?php } ?>
 
-					<?php if($permissions->hasPermission(15,user_id())){?>
+					<?php if($permissions->hasPermission('Cost Setup',user_id())){?>
 						<li class="custom_dropdown_parent">
 							<a href="<?php echo base_url();?>cost_setup">
 								<?= img('images/custom-images/nav-icon-2.png') ?>
@@ -75,7 +75,7 @@
 						</li>
 					<?php } ?>
 
-					<?php if($permissions->hasPermission(16,user_id())){?>
+					<?php if($permissions->hasPermission('Docket No',user_id())){?>
 						<li>
 							<a href="<?php echo base_url();?>/docket-no">
 								<?= img('images/custom-images/new-icons/estimate.png') ?>
@@ -84,7 +84,7 @@
 						</li>
 					<?php } ?>
 
-					<?php if($permissions->hasPermission(8,user_id())){?>
+					<?php if($permissions->hasPermission('Dockets',user_id())){?>
 						<li>
 							<a href="<?php echo base_url();?>/dockets">
 								<?= img('images/custom-images/new-icons/side-all-estimate.png') ?>
@@ -93,7 +93,7 @@
 						</li>
 					<?php } ?>
 
-					<?php if($permissions->hasPermission(9,user_id())){ ?>
+					<?php if($permissions->hasPermission('TimeKEPING',user_id())){ ?>
 						<li>
 							<a href="<?php echo base_url();?>/time-keeping">
 								<?= img('images/custom-images/assemblies.png') ?>

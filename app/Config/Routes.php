@@ -88,6 +88,12 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->post('get_user_permissions',   'AccessControllController::getUserPermissions');
     $routes->post('assign_permissions',     'AccessControllController::assignPermissions');
 
+    $routes->get('employee-attendance',     'AttendanceController::index');
+    $routes->get('checkin',                 'AttendanceController::checkin');
+    $routes->post('checkout',               'AttendanceController::checkout');
+    $routes->post('break',                  'AttendanceController::break');
+    $routes->post('resume',                 'AttendanceController::resume');
+
 });
 //Super Admin Routes Without any filter
 $routes->group('admin', function ($routes) {
