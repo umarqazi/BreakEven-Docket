@@ -1,16 +1,5 @@
 <?= $this->extend("master")?>
 <?= $this->section("content")?>
-<!-- <div class="row">
-    <div style="margin: 20px;">
-        <?php //if ($this->session->flashdata('UpdateEmployee')) { ?>
-            <div role="alert" class="alert alert-success" id="successMessage">
-                <button data-dismiss="alert" class="close" type="button">
-                    <span aria-hidden="true"></span><span class="sr-only">Close</span></button>
-                <?php //echo $this->session->flashdata('UpdateEmployee') ?>
-            </div>
-        <?php //} ?>
-    </div>
-</div> -->
 <div class="row">
     <div class="col-md-12">
         <div class="block-content-outer">
@@ -87,8 +76,8 @@
                     </ul>
                 </div>
                 <div class="form-group">
-                    <a href="<?php echo base_url();?>/employee-edit/<?php echo $record->user_id ;?>" class="edit_employee_button"><button type="button" class="btn btn-primary">Edit Employee </button></a>
-                    <a href="<?php echo base_url();?>/employee-delete/<?php echo $record->user_id ;?>" class="edit_employee_button delete_btn"><button type="button" class="btn btn-danger">Delete Employee</button></a>
+                    <a href="<?= base_url();?>/employee-edit/<?= $record->user_id ;?>" class="edit_employee_button"><button type="button" class="btn btn-primary">Edit Employee </button></a>
+                    <a href="<?= base_url();?>/employee-delete/<?= $record->user_id ;?>" class="edit_employee_button delete_btn"><button type="button" class="btn btn-danger">Delete Employee</button></a>
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@
             <?php } ?>
         </h2>
         <div class="row filter-box" id="filter_div" >
-            <form action="<?= route_to('activity') ?>" method="post">
+            <form action="<?= route_to('activity') ?>" method="post" id="activity_filter_form">
                 <div style="display: flex;">
                     <input type="text" id="datetimepicker1" name="time_in" class="form-control" placeholder="Time In">
                     <input type="text" id="datetimepicker2" name="time_out"class="form-control" placeholder="Time Out">
@@ -43,7 +43,7 @@
                             <option value="<?= $value['id'];?>"><?= $value['docket_no'];?></option>
                         <?php endforeach;?>
                     </select>
-                    <input type="button" class="btn btn-primary pull-right" onclick="validate_filter()" value="Search" style="padding:8px 10px;line-height:normal;">
+                    <input type="button" class="btn btn-primary pull-right" id="btn_submit" onclick="validate_filter()" value="Search" style="padding:8px 10px;line-height:normal;">
                 </div>
             </form>
         </div>
@@ -84,49 +84,9 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
 </div>
 <?= script_tag('js/datatables/jquery.dataTables.min.js') ?>
-<script type="text/javascript">
-    function validate_filter() {
-            if ($('#datetimepicker1').val() == '' && $('#datetimepicker2').val() == '' && $('#employee_id').val() == '' && $('#docket_id').val() == '') {
-                alert('Atleas select 1 value for filter');
-                return;
-            }
-        }
-    $(document).ready(function(){
-        $(function () {
-            $('#datetimepicker1').datetimepicker({
-                format: 'YYYY-MM-DD'
-            });
-            $('#datetimepicker2').datetimepicker({
-                format: 'YYYY-MM-DD'
-            });
-        });
-        $('#all_logs_table').DataTable({
-            "pagingType": "full_numbers",
-            bAutoWidth: false,
-            "autoWidth": false,
-            "searching" : true,
-            "sort" : false,
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            "language" : {
-                search : '',
-                searchPlaceholder: "Search Activity",
-                "zeroRecords": "No Record Found",
-                "emptyTable": "No Record Found"
-            }
-        });
-        $("#filter_div").hide();
-        $(".toggle_btn").click(function(){
-            if ($("#filter_div").is(":visible")) {
-                $("#filter_div").hide(500);
-            } else {
-                $("#filter_div").show(500);
-            }
-        });
-    });
-</script>
+<?= script_tag('js/dashboard/docket_activity.js') ?>
 <?= $this->endSection()?>

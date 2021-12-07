@@ -4874,4 +4874,11 @@ div#terms_conditions .modal-header p span{
 		flex-direction: column-reverse;
 	}
 }
+.custom-small-btn {
+	padding: 10px 12px;
+    min-width: 48px;
+}
+.mr-4 {
+	margin-right: 4px;
+}
 

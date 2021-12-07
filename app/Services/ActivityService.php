@@ -34,7 +34,7 @@ class ActivityService
     public function getallTimeKeepingLogs($filters)
     {
         $employees = $this->employee_repo->getAll();
-        $dockets = $this->docket_repo->findAll();
+        $dockets = $this->docket_repo->getAllDockets();
         $logs = $this->activity_repo->getallTimeKeepingLogs($filters);
         $show_remove_btn = false;
         if (!is_null($filters)) {
