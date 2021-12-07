@@ -80,6 +80,10 @@ class CompanyService
     public function findAll(){
        return $this->company_repo->findAll();
     }
+    public function findWhere($id)
+    {
+        return $this->company_repo->find($id);
+    }
     public function show(){
         $company_id =  User()->company_id;
         $company = $this->company_repo->find($company_id);
