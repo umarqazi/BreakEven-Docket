@@ -40,15 +40,11 @@ class CompanyController extends BaseController
     }
     public function show()
     {
-        $company = $this->company_service->show(User()->company_id);
-        $users = $this->user_service->findAllWithWhere(['company_id' => User()->company_id]);
-        $users = !empty($users) ? count($users) : 0; 
-        return view('dashboard/company/company_details',['validation'=>$this->validation,'company'=>$company,'users'=>$users]);
+        return $this->company_service->show();
     }
     public function edit()
     {
-        $company = $this->company_service->show(User()->company_id);
-        return view('dashboard/company/edit_company',['validation'=>$this->validation,'company'=>$company]);
+        return $this->company_service->edit();
     }
     public function update()
     {
@@ -57,14 +53,11 @@ class CompanyController extends BaseController
             return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
         } else {
             $company_id = $this->company_service->update($this->request->getPost());
-            return redirect()->to(site_url('company-edit'))->withCookies()->with('message', 'Record Updated Successfully!');
+            return redirect()->to(site_url('company'))->withCookies()->with('message', 'Record Updated Successfully!');
         }
     }
     public function suspendCompany()
     {
-        $result = $this->company_service->suspendCompany();
-        if ($result) {
-            return redirect()->to(site_url('logout'))->withCookies()->with('message', 'Company Suspended Successfully!');
-        }
+        return $this->company_service->suspendCompany();
     }
 }

@@ -8,7 +8,7 @@
         <div class="block-content-outer">
             <div class="block-content-inner users_btn">
                 <h2><strong>Employee</strong></h2>
-				<a class="btn btn-primary blue" href="<?php echo base_url();?>/employee-center">Back to employees</a>
+				<a class="btn btn-primary blue" href="<?= base_url();?>/employee-center">Back to employees</a>
             </div>
         </div>
     </div>
@@ -18,13 +18,11 @@
     <div class="row">
         <div class="block-content-outer basic-info col-md-6">
             <div class="block-content-inner">
-
                 <div class="form-group">
                     <label for="first_name">Employee's First Name</label>
                     <input type="text" class="form-control" id="first_name" placeholder="Enter First Name"
                            name="first_name" value="<?= old('first_name') ?>" />
                     <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('first_name'); ?>
                         <?php echo $validation->getError('first_name'); ?>
                     </div>
                 </div>
@@ -34,7 +32,6 @@
                     <input type="text" class="form-control" id="last_name" placeholder="Enter Last Name"
                            name="last_name" value="<?= old('last_name') ?>" />
                     <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('last_name'); ?>
                         <?php echo $validation->getError('last_name'); ?>
                     </div>
                 </div>
@@ -44,7 +41,6 @@
                     <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
                            name="email" onblur="checkemail();" value="<?= old('email') ?>" />
                     <div id="email_error" style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('email'); ?>
                         <?php echo $validation->getError('email'); ?>
                     </div>
                     <span id="availability"></span><div id="msg" style="color: red"></div>
@@ -56,7 +52,6 @@
                     <input type="text" class="form-control phone_us" id="mobile" placeholder="Mobile" name="mobile"
                     value="<?= old('mobile') ?>" />
                     <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('mobile'); ?>
                         <?php echo $validation->getError('mobile'); ?>
                     </div>
                 </div>
@@ -66,7 +61,6 @@
                     <input type="text" class="form-control phone_us" id="phone" placeholder="Phone" name="phone"
                     value="<?= old('phone') ?>" />
                     <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('phone'); ?>
                         <?php echo $validation->getError('phone'); ?>
                     </div>
                 </div>
@@ -82,7 +76,6 @@
 
                     </div>
 					<div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('hire_date'); ?>
 						<?php echo $validation->getError('hire_date'); ?>
 					</div>
                 </div>
@@ -97,7 +90,6 @@
 		                    </span>
 					</div>
 					<div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('release_date'); ?>
 						<?php echo $validation->getError('release_date'); ?>
 					</div>
                     <div class="error"></div>
@@ -122,7 +114,6 @@
                     <input type="text" class="form-control" id="employee_address" placeholder="Enter Address"
                            name="address" value="<?= old('address') ?>" />
                     <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('address'); ?>
                         <?php echo $validation->getError('address'); ?>
                     </div>
                 </div>
@@ -132,7 +123,6 @@
                     <input type="text" class="form-control" id="city" placeholder="Enter Employee's City" name="city"
                     value="<?= old('city') ?>" />
                     <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('city'); ?>
                         <?php echo $validation->getError('city'); ?>
                     </div>
                 </div>
@@ -142,7 +132,6 @@
                     <input type="text" class="form-control" id="state" placeholder="Enter State" name="state"
                     value="<?= old('state') ?>" />
                     <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('state'); ?>
                         <?php echo $validation->getError('state'); ?>
                     </div>
                 </div>
@@ -152,7 +141,6 @@
                     <input type="text" class="form-control numericValue" id="zip" placeholder="Enter Zip Code" name="zip"
                     value="<?= old('zip') ?>" />
                     <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('zip'); ?>
                         <?php echo $validation->getError('zip'); ?>
                     </div>
                 </div>
@@ -162,7 +150,6 @@
                     <input type="text" class="form-control decimalValue" placeholder="Enter Hourly Rate" name="hourly_rate"
                     value="<?= old('hourly_rate') ?>" />
 					<div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('hourly_rate'); ?>
 						<?php echo $validation->getError('hourly_rate'); ?>
 					</div>
 				</div>
@@ -172,7 +159,6 @@
                     <input type="text" class="form-control decimalValue" id="salary" placeholder="Enter Employee's Salary"
                            name="salary" value="<?= old('salary') ?>" />
                     <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('salary'); ?>
                         <?php echo $validation->getError('salary'); ?>
                     </div>
                 </div>
@@ -185,7 +171,6 @@
 						<!-- <option value="painter" <?php if (!empty( old('job_title')) &&  old('job_title') == 'painter'){ echo 'selected';} ?>>Painter</option> -->
                     </select>
                     <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-						<?php //echo $this->session->flashdata('job_title'); ?>
                         <?php echo $validation->getError('job_title'); ?>
                     </div>
                 </div>
@@ -210,7 +195,7 @@
 <?= script_tag('js/required/jquery.mask.min.js') ?>
 <?= script_tag('js/required/users.js') ?>
 <script>
-    var fileUploadUrl = '<?php echo base_url()?>file_storage/file_upload/?id=0';
+    var fileUploadUrl = '<?php echo base_url()?>/file_storage/file_upload/?id=0';
     var formType = 'create';
     var documentRoot = '<?php echo $_SERVER['DOCUMENT_ROOT']?>';
     var chechEmailUrl = '<?php echo base_url();?>/get_email';

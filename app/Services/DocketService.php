@@ -45,14 +45,7 @@ class DocketService
     }
     public function getAllDockets()
     {
-        $qry = 'SELECT dockets.*, concat(users.first_name," ",users.last_name) as user_name
-                FROM dockets
-                LEFT JOIN users ON dockets.added_by = users.id
-                WHERE users.company_id = ?';
-
-        $dockets = $this->db->query($qry, [user()->company_id]);
-        $result = $dockets->getResult('array');
-        return !empty($result) ? $result : false;
+        return $this->docket_repo->getAllDockets();
     }
     public function getDocketById($docket_id)
     {

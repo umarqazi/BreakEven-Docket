@@ -57,19 +57,15 @@ class EmployeeController extends BaseController
     }
     public function show($seg1 = false)
     {
-        $record = $this->employee_service->getEmployee($seg1);
-        return view('dashboard/employees/employee_profile',['record' => $record]);
+        return $this->employee_service->getEmployee($seg1);
     }
     public function edit($user_id = null)
     {
-        $record = $this->employee_service->editEmployee($user_id);
-        return view('dashboard/employees/employee_edit',['record' => $record]);
+        return $this->employee_service->editEmployee($user_id);
     }
     public function delete($user_id = null)
     {
-        $del_user = ['id' => $user_id];
-        $this->user_service->deleteWhere($del_user);
-        return redirect()->to(site_url('employee-center'))->withCookies()->with('message', 'Employee Deleted Successfully');
+        return $this->employee_service->deleteEmployee($user_id);
     }
     public function employeeVerify($user_id=false, $code=false)
     {

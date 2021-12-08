@@ -567,92 +567,9 @@
     </div>
 </div>
 <?php } ?>
-<?= script_tag('js/flipclock/flipclock.js') ?>
-<?= script_tag('js/required/attendance.js') ?>
 <script>
-    var base_url = '<?= base_url()?>';
     var check_in_time = '<?= !empty($data['check_in']) ? $data['check_in'] : ""; ?>';
-    if(check_in_time != ''){
-        var date1 = new Date(check_in_time);
-        var date2 = new Date();
-        var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-        var diffSeconds = Math.ceil(timeDiff / 1000);
-    }
-    
-    $(document).ready(function() {
-        if(check_in_time != ''){
-            var clock = $('.clock').FlipClock({
-                clockFace:'DailyCounter',
-                autoStart:false,
-                callbacks: {
-                    stop:function() {
-                        $('.message').html('The clock has stopped!')
-                    }
-                }
-            });
-            clock.setTime(diffSeconds);
-            clock.start();
-        }
-
-        /*Initialize Datepicker*/
-        $('#datetimepicker_from').datetimepicker({
-            format: 'MM/DD/YYYY'
-        });
-        $('#datetimepicker_to').datetimepicker({
-            format: 'MM/DD/YYYY'
-        });
-
-        /*Add Labels into Date Field*/
-        $('#datetimepicker_from input').attr('placeholder', "From");
-        $('#datetimepicker_to input').attr('placeholder', "To");
-    });
-
-    function checkin(){
-        $.ajax({
-            url: "<?= base_url('/checkin')?>",
-            success: function(){
-                location.reload();
-            }
-        });
-    }
-
-    function checkout(id){
-        $.ajax({
-            type: 'POST',
-            data: {
-                id:id
-            },
-            url:"<?= base_url('/checkout')?>",
-            success: function(){
-                location.reload();
-            }
-        });
-    }
-
-    function breaks(id){
-        $.ajax({
-            type: 'POST',
-            data: {
-                id:id
-            },
-            url: "<?= base_url('/break')?>",
-            success: function(){
-                location.reload();
-            }
-        });
-    }
-
-    function resume(id){
-        $.ajax({
-            type: 'POST',
-            data: {
-                id:id
-            },
-            url: "<?= base_url('/resume')?>",
-            success: function(){
-                location.reload();
-            }
-        });
-    }
 </script>
+<?= script_tag('js/dashboard/attendance.js') ?>
+<?= script_tag('js/flipclock/flipclock.js') ?>
 <?= $this->endSection()?>

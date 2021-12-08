@@ -46,7 +46,7 @@ class SettingsController extends BaseController
     }
     public function mailSignature()
     {
-        $signature = $this->company_service->show(user()->company_id);
+        $signature = $this->company_service->findWhere(user()->company_id);
         return view('dashboard/settings/mail_signature',['signature'=> $signature['signature']]);
     }
     public function updateSignature()
