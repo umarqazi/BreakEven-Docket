@@ -94,6 +94,10 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->post('break',                  'AttendanceController::break');
     $routes->post('resume',                 'AttendanceController::resume');
 
+    $routes->get('reports',                 'ReportsController::index');
+    $routes->get('timekeeping-report',          'ReportsController::timekeeping_report');
+    $routes->post('timekeeping-report',         'ReportsController::timekeeping_report');
+
 });
 //Super Admin Routes Without any filter
 $routes->group('admin', function ($routes) {

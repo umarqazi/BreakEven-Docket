@@ -20,14 +20,14 @@
             <?= view('App\Auth\_message_block') ?>
         </div>
         <h2 class="heading-text">
-            <strong>All Activity on dockets</strong>
+            <strong>All Workings on dockets</strong>
             <button class="btn btn-primary pull-right job_pattern_btn toggle_btn" title="Filter Record" >Filter Records</button>
             <?php if($show_remove_btn == true){ ?>
-            <a type="button" class="btn btn-danger pull-right" href="<?= route_to('activity') ?>" style="font-size: 12px; margin-right:4px">Remove Filter</a> 
+            <a type="button" class="btn btn-danger pull-right" href="<?= route_to('timekeeping-report') ?>" style="font-size: 12px; margin-right:4px">Remove Filter</a> 
             <?php } ?>
         </h2>
         <div class="row filter-box" id="filter_div" >
-            <form action="<?= route_to('activity') ?>" method="post">
+            <form action="<?= route_to('timekeeping-report') ?>" method="post">
                 <div style="display: flex;">
                     <input type="text" id="datetimepicker1" name="time_in" class="form-control" placeholder="Time In">
                     <input type="text" id="datetimepicker2" name="time_out"class="form-control" placeholder="Time Out">

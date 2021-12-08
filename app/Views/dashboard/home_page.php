@@ -53,7 +53,7 @@
     <?php }?>
     <?php if($permissions->hasPermission('Reports',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
-            <a href="<?php echo base_url();?>reports">
+            <a href="<?php echo base_url();?>/reports">
                 <div class="box-category hvr-pulse">
                     <div class="shadow">
                         <?= img('images/custom-images/new-icons/reports.png') ?>
