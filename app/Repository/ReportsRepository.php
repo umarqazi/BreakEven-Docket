@@ -46,4 +46,17 @@ class ReportsRepository extends BaseRepo
         return !empty($result) ? $result : false;
 
     }
+    public function sumOfWorkingTimeByDockets()
+    {
+        $qry = "SELECT if(timekeepings.time_out != '', SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(timekeepings.time_out, timekeepings.time_in)))),'')  AS total_time, timekeepings.docket_id,timekeepings.employee_id,CONCAT(users.first_name, ' ',users.last_name) AS worked_by,dockets.docket_no
+                FROM timekeepings
+                LEFT JOIN users ON timekeepings.employee_id = users.id
+                LEFT JOIN dockets ON timekeepings.docket_id = dockets.id
+                WHERE users.company_id = 2
+                GROUP BY timekeepings.docket_id,timekeepings.employee_id
+                ORDER BY timekeepings.id DESC";
+        $logs = $this->db->query($qry,user()->company_id);
+        $result = $logs->getResult('array');
+        return !empty($result) ? $result : false;
+    }
 }

@@ -45,10 +45,11 @@ class ReportsService
         $employees = $this->employee_repo->getAll();
         $dockets = $this->docket_repo->findAll();
         $logs = $this->reports_repo->getallTimeKeeping($filters);
+        $sumOfWorkingTimeByDockets = $this->reports_repo->sumOfWorkingTimeByDockets();
         $show_remove_btn = false;
         if (!is_null($filters)) {
             $show_remove_btn = true;
         }
-        return view('dashboard/reports/timekeeping_report',['validation'=>$this->validation,'logs'=>$logs,'dockets'=>$dockets,'employees'=>$employees,'show_remove_btn'=>$show_remove_btn]);
+        return view('dashboard/reports/timekeeping_report',['validation'=>$this->validation,'logs'=>$logs,'sumOfWorkingTimeByDockets'=>$sumOfWorkingTimeByDockets,'dockets'=>$dockets,'employees'=>$employees,'show_remove_btn'=>$show_remove_btn]);
     }
 }
