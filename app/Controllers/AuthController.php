@@ -137,6 +137,14 @@ class AuthController extends Controller
 
 		return redirect()->to(site_url('admin/login'))->with('error', lang('Wrong Credientials for Admin'));
 	}
+	public function admin_logout()
+	{
+		if ($this->auth->check())
+		{
+			$this->auth->logout();
+		}
+		return redirect()->to(site_url('admin/login'));
+	}
 	public function userLogout()
 	{
 		if ($this->auth->check())

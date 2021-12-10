@@ -101,9 +101,9 @@ class UserService
             }
         }
     }
-    public function all()
+    public function findAll()
     {
-       return $this->user_repo->all();
+       return $this->user_repo->findAll();
     }
     public function show($id)
     {

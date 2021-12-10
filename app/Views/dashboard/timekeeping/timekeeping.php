@@ -166,7 +166,7 @@
         $('.time_in').hide();
         $('.time_out').hide();
         $.ajax({
-            url: base_url+'/get_docket_details_for_timekeeping',
+            url: base_url+'/get_docket_details',
             type:"POST",
             data:{ docket_id : docket_id },
             dataType : 'json',

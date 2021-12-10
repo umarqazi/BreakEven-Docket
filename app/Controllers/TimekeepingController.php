@@ -28,7 +28,7 @@ class TimekeepingController extends BaseController
         $dockets = $this->docket_service->getDocketByEmployeeId();
         return view('dashboard/timekeeping/timekeeping',['validation'=>$validation,'dockets'=>$dockets]);
     }
-    public function get_docket_details_for_timekeeping()
+    public function get_docket_details()
     {
         $docket_id = $this->request->getPost('docket_id');
         $dockets = $this->docket_service->show($docket_id);
