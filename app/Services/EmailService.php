@@ -48,7 +48,7 @@ class EmailService
           );
 
         $email->initialize($config);
-        $company = $this->company_service->show($user['company_id']);
+        $company = $this->company_service->findWhere($user['company_id']);
         $user['activation_code'] = $activation_code;
         $user['company_name'] = $company['company_name'];
         $user['signature'] = $company['signature'];

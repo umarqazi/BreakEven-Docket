@@ -14,6 +14,6 @@ class ActivityController extends BaseController
     }
     public function index()
     {
-        
+        return $this->activity_service->showActivities();
     }
 }

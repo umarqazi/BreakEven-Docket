@@ -33,6 +33,7 @@ class UserService
     public function __construct()
     {
         helper('date');
+        helper('activity_helper');
         date_default_timezone_set('Asia/Karachi');
         $this->db               = \Config\Database::connect();
         $this->validation       =  \Config\Services::validation();
@@ -64,12 +65,17 @@ class UserService
         if (isset($data['user_id']) && $data['user_id'] > 0) {
             $user['updated_at'] = $current_date;
             $result = $this->user_repo->update($data['user_id'],$user);
+            // dd(intval($data['user_id']));
+            $activity_data = ['type'=>4,'description' => json_encode(['employee_name'=> $user['first_name'].' '.$user['last_name'],'msg'=>'Updated Employee','other_id'=>intval($data['user_id'])])];
+            insertActivity($activity_data);
             return $result;
         } else {
             if (isset($data['create_employee'])) {
                 $user['created_at'] = $current_date;
                 $user['updated_at'] = $current_date;
                 $result = $this->user_repo->insert($user);
+                $activity_data = ['type'=>3,'description' => json_encode(['employee_name'=> $user['first_name'].' '.$user['last_name'] ,'msg'=>'Created Employee','other_id'=>$result])];
+				insertActivity($activity_data);
                 if ($result) {
                     //send email here
                     $user['user_id'] = $result;

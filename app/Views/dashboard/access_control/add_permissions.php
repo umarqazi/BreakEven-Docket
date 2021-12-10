@@ -1,15 +1,5 @@
 <?= $this->extend("master")?>
 <?= $this->section("content")?>
-<style>
-    .box {
-        border: 1px solid #D8D5D5;
-        border-radius:7px !important;
-        background-color:#EEEBEB; 
-        padding:8px 5px 5px 5px; 
-        margin:4px 1px 0px 1px;
-        box-shadow: 0 4px 2px -2px gray; 
-    }
-</style>
 <div class="row" >
     <div class="col-md-3"></div>
     <div class="col-md-6">
