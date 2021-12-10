@@ -34,11 +34,11 @@
                         foreach($dockets as $docket):?>
                         <tr class="item-name">
                             <td>
-                                <a href="<?php //echo base_url()?>estimating/estimate_page/<?php //echo $estimate['id'];?>"><?php echo $docket['docket_no'];?></a>
+                                <a href="<?php echo base_url()?>/docket-details/<?php echo $docket['id'];?>"><?php echo $docket['docket_no'];?></a>
                             </td>
 
                             <td>
-                                <a class="estimate_field" href="<?php //echo base_url()?>estimating/estimate_page/<?php //echo $estimate['id'];?>"><?php echo $docket['user_name'];?></a>
+                                <a class="estimate_field" href="#"><?php echo $docket['user_name'];?></a>
                             </td>
 
                             <td>

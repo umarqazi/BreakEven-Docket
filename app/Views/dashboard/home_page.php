@@ -1,8 +1,8 @@
 <?= $this->extend("master")?>
 <?= $this->section("content")?>
-<?php //echo $this->include("partials/top_bar")?>
+<?php $user_id = user_id();?>
 <div class="row section-main-cats">
-    <?php //if(in_array("company_info", $permissions)){?>
+    <?php if($permissions->hasPermission('Company Info',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?php echo base_url();?>/company">
                 <div class="box-category hvr-pulse">
@@ -13,11 +13,11 @@
                 </div>
             </a>
         </div>
-    <?php //} ?>
+    <?php } ?>
 
-    <?php //if(in_array("access_control", $permissions)){?>
+    <?php //if($permissions->hasPermission('Access Control',$user_id)){?>
         <div class="col-lg-3 col-md-6 col-sm-12">
-            <a href="<?php echo base_url();?>employee_center/employee_list">
+            <a href="<?php echo base_url();?>/access-control">
                 <div class="box-category hvr-pulse">
                     <div class="shadow">
                         <?= img('images/custom-images/new-icons/permissions.png') ?>
@@ -27,7 +27,7 @@
             </a>
         </div>
     <?php //} ?>
-    <?php //if(in_array("invoice_signature", $permissions) || in_array("mail_signature", $permissions) || in_array("estimate_permissions", $permissions) || in_array("all_estimates", $permissions)){ ?>
+    <?php if($permissions->hasPermission('Mail Signature',$user_id) || $permissions->hasPermission('Signature Setup',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?php echo base_url();?>/settings">
                 <div class="box-category hvr-pulse">
@@ -38,8 +38,8 @@
                 </div>
             </a>
         </div>
-    <?php //} ?>
-    <?php //if($this->session->user_type=="employee" && in_array("activity", $permissions)){?>
+    <?php } ?>
+    <?php if($permissions->hasPermission('Activity',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?php echo base_url();?>/activity">
                 <div class="box-category hvr-pulse">
@@ -50,10 +50,10 @@
                 </div>
             </a>
         </div>
-    <?php //}?>
-    <?php //if(in_array("all_estimates", $permissions) || in_array("attendance_report", $permissions)){ ?>
+    <?php }?>
+    <?php if($permissions->hasPermission('Reports',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
-            <a href="<?php echo base_url();?>reports">
+            <a href="<?php echo base_url();?>/reports">
                 <div class="box-category hvr-pulse">
                     <div class="shadow">
                         <?= img('images/custom-images/new-icons/reports.png') ?>
@@ -62,10 +62,10 @@
                 </div>
             </a>
         </div>
-    <?php //} ?>
-    <?php //if(in_array("attendance", $permissions)){?>
+    <?php } ?>
+    <?php if($permissions->hasPermission('Attendence',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
-            <a href="<?php echo base_url();?>employee_attendance">
+            <a href="<?php echo base_url();?>/employee-attendance">
                 <div class="box-category hvr-pulse">
                     <div class="shadow">
                         <?= img('images/custom-images/new-icons/time_card.png') ?>
@@ -74,8 +74,8 @@
                 </div>
             </a>
         </div>
-    <?php //} ?>
-    <?php //if(in_array("instructions", $permissions)){?>
+    <?php } ?>
+    <?php if($permissions->hasPermission('Instructions',$user_id)){ ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?php echo base_url();?>instructions">
                 <div class="box-category hvr-pulse">
@@ -86,9 +86,9 @@
                 </div>
             </a>
         </div>
-    <?php //} ?>
+    <?php } ?>
 
-    <?php //if(in_array("emp_center", $permissions)){?>
+    <?php if($permissions->hasPermission('Employees',$user_id)){?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <a href="<?= base_url();?>/employee-center">
                 <div class="box-category hvr-pulse">
@@ -99,6 +99,6 @@
                 </div>
             </a>
         </div>
-    <?php //} ?>
+    <?php } ?>
 </div>
 <?= $this->endSection()?>

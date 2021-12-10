@@ -35,8 +35,7 @@ class TimeKeepingService
                 'employee_id'   => user_id(),
                 'time_out'      => ($data['time_out'] == 'true') ? $this->current_date_time : '',
             );
-            $result = $this->timekeeping_repo->update($timekeeping_id,$data);
-            return $result;
+            return $this->timekeeping_repo->update($timekeeping_id,$data);
         } else {
             $data = array(
                 'docket_id'     => $data['docket_id'],
@@ -44,8 +43,7 @@ class TimeKeepingService
                 'time_in'       => ($data['time_in'] == 'true') ? $this->current_date_time : '',
                 'time_out'      => ($data['time_out'] == 'true') ? $this->current_date_time : '',
             );
-            $result = $this->timekeeping_repo->insert($data);
-            return $result;
+            return $this->timekeeping_repo->insert($data);
         }
     }
     public function createManualTimeIn($data){
@@ -56,8 +54,7 @@ class TimeKeepingService
                 'employee_id'   => user_id(),
                 'time_out'      => !empty($data['date']) ? date("Y-m-d H:i:s", strtotime($data['date'])) : '',
             );
-            $result = $this->timekeeping_repo->update($timekeeping_id,$data);
-            return $result;
+            return $this->timekeeping_repo->update($timekeeping_id,$data);
         } else {
             $data = array(
                 'docket_id'     => $data['form_docket_id'],
@@ -65,8 +62,7 @@ class TimeKeepingService
                 'time_out'      => '',
                 'time_in'       => !empty($data['date']) ? date("Y-m-d H:i:s", strtotime($data['date'])) : '',
             );
-            $result = $this->timekeeping_repo->insert($data);
-            return $result;
+            return $this->timekeeping_repo->insert($data);
         }
     }
     public function getTimekeepingByDocketId($docket_id)
