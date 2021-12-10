@@ -37,6 +37,7 @@ $routes->setAutoRoute(true);
 // Employe/Company Routes with Auth Filters
 $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('/', 'Home::index');
+    $routes->get('home', 'Home::index');
     $routes->get('contact-us', 'Home::contact_us');
     $routes->get('terms-service', 'Home::terms_of_service');
     $routes->get('privacy-policy', 'Home::privacy_policy');
@@ -49,6 +50,15 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('employee-edit/(:num)', 'EmployeeController::edit/$1');
     $routes->get('employee-delete/(:num)', 'EmployeeController::delete/$1');
     $routes->post('get_email', 'Home::get_email');
+    
+    $routes->get('docket-no', 'DocketController::index');
+    $routes->get('dockets', 'DocketController::dockets');
+    $routes->post('get_docket_no', 'DocketController::get_docket_no');
+    $routes->post('store_docket', 'DocketController::store_docket');
+    $routes->post('assign_docket', 'DocketController::assign_docket');
+    $routes->get('docket-details/(:num)', 'DocketController::assign_details/$1');
+
+    $routes->get('time-keeping', 'TimekeepingController::index');    
 });
 
 //Super Admin Routes Without any filter

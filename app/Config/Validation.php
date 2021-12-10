@@ -82,4 +82,27 @@ class Validation
             ],
         ],
     ];
+    public $docketStore = [
+        'docket_no' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Docket No field is required.',
+            ],
+        ],
+    ];
+    public $asignDocket = [
+        'docket_id' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Docket No field is required.',
+            ],
+        ],
+        'employee_id' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Employee field is required.',
+            ],
+        ],
+    ];
+
 }

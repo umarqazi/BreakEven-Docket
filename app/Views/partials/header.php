@@ -82,7 +82,7 @@
 
 					<?php //if(in_array("get_estimate", $permissions)){?>
 						<li>
-							<a href="<?php echo base_url();?>/estimating/create">
+							<a href="<?php echo base_url();?>/docket-no">
 								<?= img('images/custom-images/new-icons/estimate.png') ?>
 								<div class="title">Add DOCKET no</div>
 							</a>
@@ -91,7 +91,7 @@
 
 					<?php //if(in_array("all_estimates", $permissions)){?>
 						<li>
-							<a href="<?php echo base_url();?>estimating/estimates">
+							<a href="<?php echo base_url();?>/dockets">
 								<?= img('images/custom-images/new-icons/side-all-estimate.png') ?>
 								<div class="title">DOCKET</div>
 							</a>

@@ -7,6 +7,7 @@ use App\Entities\User as EntitiesUser;
 use App\Models\User;
 use App\Repository\UserRepository;
 use App\Services\EmailService as ServicesEmailService;
+use App\Services\EmployeeService;
 use CodeIgniter\HTTP;
 use EmailService;
 use Myth\Auth\Password;
@@ -23,6 +24,7 @@ class UserService
     protected $user_repo;
     protected $validation;
     protected $email_service;
+    protected $employee_service;
     protected $db;
 
     /**
@@ -35,8 +37,9 @@ class UserService
         $this->validation       =  \Config\Services::validation();
         $this->user_repo        = new UserRepository();
         $this->email_service    = new ServicesEmailService();
+        $this->employee_service = new EmployeeService();
     }
-    public function create($data,$company_id=null) //create and update user/employee here
+    public function create($data,$company_id=null,$is_company=null) //create and update user/employee here
     {
         $current_date = date('Y-m-d H:i:s', time());
         $user = array(
@@ -87,6 +90,11 @@ class UserService
                 {
                     return redirect()->back()->withInput()->with('errors', $users->errors());
                 } else {
+                    if ($is_company == true) {
+                        $returnData['user_id'] = $users->insertID;
+                        $returnData['response'] = redirect()->to(site_url('login'))->withCookies()->with('message', 'User Registerd Successfully!');
+                        return $returnData;
+                    }
                     return redirect()->to(site_url('login'))->withCookies()->with('message', 'User Registerd Successfully!');
                 }
             }
