@@ -1,6 +1,6 @@
 setTimeout(function() {
     $("#successMessage").hide('blind', {}, 500)
-}, 5000);
+}, 2500);
 
 $( document ).ready( function(){
     $(document).on('click', '.delete_btn', function (e) {

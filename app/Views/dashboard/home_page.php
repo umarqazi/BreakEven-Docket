@@ -4,7 +4,7 @@
 <div class="row section-main-cats">
     <?php //if(in_array("company_info", $permissions)){?>
         <div class="col-lg-3 col-md-6 col-sm-12">
-            <a href="<?php echo base_url();?>company">
+            <a href="<?php echo base_url();?>/company">
                 <div class="box-category hvr-pulse">
                     <div class="shadow">
                         <?= img('images/custom-images/new-icons/company_info.png') ?>

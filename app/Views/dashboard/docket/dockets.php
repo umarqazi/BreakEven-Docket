@@ -9,7 +9,9 @@
         <h2 class="heading-text">
             <strong>Assign Dockets</strong>
         </h2>
-        <?= view('App\Auth\_message_block') ?>
+        <div class="" id="successMessage">
+            <?= view('App\Auth\_message_block') ?>
+        </div>
         <div class="materials-content">
             <div class="material-items">
                 <!-- <div class="estimate_head dark_blue">

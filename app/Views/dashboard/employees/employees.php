@@ -4,7 +4,9 @@
     <div class="col-md-12">
         <div class="block overhead_visible">
             <div class="block-heading add_employee">
-            <?= view('App\Auth\_message_block') ?>
+                <div class="" id="successMessage">
+                    <?= view('App\Auth\_message_block') ?>
+                </div>
                 <div class="main-text h2">
                     Employee Center
                 </div>

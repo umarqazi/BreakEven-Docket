@@ -34,38 +34,46 @@ $routes->setAutoRoute(true);
 
 // $routes->add('/','Home::index', ['filter' => 'auth']);
 
-// Employe/Company Routes with Auth Filters
-$routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
-    $routes->get('/', 'Home::index');
-    $routes->get('home', 'Home::index');
-    $routes->get('contact-us', 'Home::contact_us');
-    $routes->get('terms-service', 'Home::terms_of_service');
-    $routes->get('privacy-policy', 'Home::privacy_policy');
 
-    $routes->get('employee-center', 'EmployeeController::employee_center');
-    $routes->get('Add-Employee', 'EmployeeController::employee_form');
-    $routes->post('store_employee', 'EmployeeController::store');
-    $routes->post('update_employee', 'EmployeeController::update');
-    $routes->get('employee-show/(:num)', 'EmployeeController::show/$1');
-    $routes->get('employee-edit/(:num)', 'EmployeeController::edit/$1');
-    $routes->get('employee-delete/(:num)', 'EmployeeController::delete/$1');
-    $routes->post('get_email', 'Home::get_email');
+$routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
+    $routes->get('/',                       'Home::index');
+    $routes->get('home',                    'Home::index');
+    $routes->get('contact-us',              'Home::contact_us');
+    $routes->get('terms-service',           'Home::terms_of_service');
+    $routes->get('privacy-policy',          'Home::privacy_policy');
+    $routes->post('get_email',              'Home::get_email');
+
+    $routes->get('employee-center',         'EmployeeController::employee_center');
+    $routes->get('Add-Employee',            'EmployeeController::employee_form');
+    $routes->post('store_employee',         'EmployeeController::store');
+    $routes->post('update_employee',        'EmployeeController::update');
+    $routes->get('employee-show/(:num)',    'EmployeeController::show/$1');
+    $routes->get('employee-edit/(:num)',    'EmployeeController::edit/$1');
+    $routes->get('employee-delete/(:num)',  'EmployeeController::delete/$1');
     
-    $routes->get('docket-no', 'DocketController::index');
-    $routes->get('dockets', 'DocketController::dockets');
-    $routes->post('get_docket_no', 'DocketController::get_docket_no');
-    $routes->post('store_docket', 'DocketController::store_docket');
-    $routes->post('assign_docket', 'DocketController::assign_docket');
-    $routes->get('docket-details/(:num)', 'DocketController::assign_details/$1');
-    $routes->post('get-docket-assignee', 'DocketController::getdocketDetailByid');
+    $routes->get('docket-no',               'DocketController::index');
+    $routes->get('dockets',                 'DocketController::dockets');
+    $routes->post('get_docket_no',          'DocketController::get_docket_no');
+    $routes->post('store_docket',           'DocketController::store_docket');
+    $routes->post('assign_docket',          'DocketController::assign_docket');
+    $routes->get('docket-details/(:num)',   'DocketController::assign_details/$1');
+    $routes->post('get-docket-assignee',    'DocketController::getdocketDetailByid');
     
-    $routes->get('time-keeping', 'TimekeepingController::index');    
-    $routes->post('get_docket_details_for_timekeeping', 'TimekeepingController::get_docket_details_for_timekeeping');  
-    $routes->post('get_time_keeping_data', 'TimekeepingController::get_time_keeping_data');  
-    $routes->post('time_in', 'TimekeepingController::time_in');
-    $routes->post('manual_time_in', 'TimekeepingController::manual_time_in');
 
     $routes->get('activity', 'ActivityController::index');
+
+    $routes->get('company',                 'Company::show');
+    $routes->get('company-edit',            'Company::edit');
+    $routes->post('update-company',         'Company::update');
+    $routes->get('suspend-company',         'Company::suspend_company');
+
+    $routes->get('time-keeping',                        'TimekeepingController::index');
+    $routes->post('get_docket_details_for_timekeeping', 'TimekeepingController::get_docket_details_for_timekeeping');  
+    $routes->post('get_time_keeping_data',              'TimekeepingController::get_time_keeping_data');  
+    $routes->post('time_in',                            'TimekeepingController::time_in');
+    $routes->post('manual_time_in',                     'TimekeepingController::manual_time_in');
+
+
 });
 
 //Super Admin Routes Without any filter

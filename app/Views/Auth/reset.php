@@ -8,9 +8,9 @@
             <div class="card">
                 <h2 class="card-header"><?=lang('Auth.resetYourPassword')?></h2>
                 <div class="card-body">
-
-                    <?= view('App\Auth\_message_block') ?>
-
+                    <div class="" id="successMessage">
+                        <?= view('App\Auth\_message_block') ?>
+                    </div>
                     <p><?=lang('Auth.enterCodeEmailPassword')?></p>
 
                     <form action="<?= route_to('reset-password') ?>" method="post">

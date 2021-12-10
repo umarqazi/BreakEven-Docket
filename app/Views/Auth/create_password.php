@@ -14,7 +14,9 @@
         <form id="msform" method="POST" action="<?php echo base_url()?>/set_password">
             <!-- fieldsets -->
             <fieldset id="set-password">
-            <?= view('App\Auth\_message_block') ?>
+                <div class="" id="successMessage">
+                    <?= view('App\Auth\_message_block') ?>
+                </div>
                 <h2 class="fs-title">Hello <b><?php echo $user['first_name'].' '.$user['last_name']
                         ?></b></h2>
                 <h3 class="fs-subtitle">Thankyou for activating your Account<br>Please Set your account password below</h3>
