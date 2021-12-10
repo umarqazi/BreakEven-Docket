@@ -23,10 +23,7 @@
 
 		<div class="company_name">
 			<strong>
-				<?php
-				//$company = $this->load->get_var('company');
-				//echo $company['company_name'];
-				?>
+				<?php echo user()->first_name .' '.user()->last_name?>
 			</strong>
 		</div>
 		<!-- /.navbar-header -->
@@ -65,6 +62,14 @@
 							<div>Dashboard</div>
 						</a>
 					</li>
+					<?php //if(in_array("task_manager", $permissions)){?>
+						<li>
+							<a href="<?php echo base_url();?>task_manager">
+								<?= img('images/custom-images/new-icons/task_manager.png') ?>
+								<div class="title">Control Panel</div>
+							</a>
+						</li>
+					<?php //} ?>
 
 					<?php // if(in_array("cost_setup", $permissions)){?>
 						<li class="custom_dropdown_parent">
@@ -77,9 +82,9 @@
 
 					<?php //if(in_array("get_estimate", $permissions)){?>
 						<li>
-							<a href="<?php echo base_url();?>estimating/create">
+							<a href="<?php echo base_url();?>/estimating/create">
 								<?= img('images/custom-images/new-icons/estimate.png') ?>
-								<div class="title">Estimating</div>
+								<div class="title">Add DOCKET no</div>
 							</a>
 						</li>
 					<?php //} ?>
@@ -88,7 +93,7 @@
 						<li>
 							<a href="<?php echo base_url();?>estimating/estimates">
 								<?= img('images/custom-images/new-icons/side-all-estimate.png') ?>
-								<div class="title">All Estimates</div>
+								<div class="title">DOCKET</div>
 							</a>
 						</li>
 					<?php //} ?>
@@ -97,26 +102,7 @@
 						<li>
 							<a href="<?php echo base_url();?>estimating">
 								<?= img('images/custom-images/assemblies.png') ?>
-								<div>Assemblies</div>
-							</a>
-						</li>
-					<?php //} ?>
-
-					<?php //if(in_array("task_manager", $permissions)){?>
-						<li>
-							<a href="<?php echo base_url();?>task_manager">
-								<?= img('images/custom-images/new-icons/task_manager.png') ?>
-								<div class="title">Task Manager</div>
-							</a>
-						</li>
-					<?php //} ?>
-
-					<?php //if(in_array("chat", $permissions)){?>
-						<li>
-							<a href="<?php echo base_url();?>chat">
-								<?= img('images/custom-images/new-icons/chat.png') ?>
-								<span class="chat-notification-icon"></span>
-								<div class="title">Chat</div>
+								<div>TimeKEPING</div>
 							</a>
 						</li>
 					<?php //} ?>
@@ -133,58 +119,8 @@
 
 		<div class="inner-page-dashboard">
 
-			<div class="clear20"></div>
-			<?php //if(in_array("top_bar", $permissions)){?>
-				<?php
-				// $controller =  $this->router->fetch_class();
-				// $controller_method = "";
-				// $controller_method = $this->router->fetch_method();
-				// if($controller == "home" ||  $controller == "cost_setup" || $controller_method == "new_estimate"){?>
-					<?php //$overhead = $this->load->get_var('overhead');?>
-					<div class="row">
-
-						<div class="section-stats">
-
-							<div class="col-lg-3 col-md-6 col-sm-12 top_boxes">
-								<a href="#">
-									<div class="stats blue">
-										<div class="number labor-mix-rate"><span>$<?php //if ($overhead['company_mix_rate']) { echo $overhead['company_mix_rate'];} else {echo '0.00';}?></span> </div>
-										<div class="title">Current Mix Rate</div>
-									</div>
-								</a>
-							</div>
-
-							<div class="col-lg-3 col-md-6 col-sm-12 top_boxes">
-								<a href="#">
-									<div class="stats blue">
-										<div class="number breakeven-rate"><span>$<?php // if ($overhead['break_even_rate']) { echo round($overhead['break_even_rate'], 2);} else {echo '0.00';}?></span></div>
-										<div class="title">BreakEven RATE<sup>TM</sup></div>
-									</div>
-								</a>
-							</div>
-
-							<div class="col-lg-3 col-md-6 col-sm-12 top_boxes">
-								<a href="#">
-									<div class="stats blue">
-										<div class="number"><span><?php //if ($overhead['profit_mark_up']) {echo $overhead['profit_mark_up'];} else {echo '0.00';}?>%</span></div>
-										<div class="title">Profit Mark Up</div>
-									</div>
-								</a>
-							</div>
-
-							<div class="col-lg-3 col-md-6 col-sm-12 top_boxes">
-								<a href="#">
-									<div class="stats blue">
-										<div class="number hourly-selling-rate"><span>$<?php //if ($overhead['hourly_selling_rate']) {echo $overhead['hourly_selling_rate'];} else {echo '0.00';}?></span></div>
-										<div class="title">Hourly Sell Rate</div>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-
-				<?php // }} ?>
-			<div class="clear40"></div>
+		<div class="clear20"></div>
+		<div class="clear40"></div>
 			<?php } ?>
 
 			<script>

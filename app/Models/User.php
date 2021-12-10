@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Models;
-
 use CodeIgniter\Model;
+use \Tatter\Relations\Traits\ModelTrait;
 
 class User extends Model
 {
+    protected $with                 = ['employees'];
     protected $DBGroup              = 'default';
     protected $table                = 'users';
     protected $primaryKey           = 'id';
@@ -18,7 +19,7 @@ class User extends Model
         'email', 'username','first_name','last_name','phone','mobile','address','address1','zip','city','notes','user_type','profile_pic','invoice_signature','state','company_id','company_name','activation_code','token','display_name','is_verified','password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash', 'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at','is_super_admin'];
 
     // Dates
-    protected $useTimestamps        = false;
+    protected $useTimestamps        = true;
     protected $dateFormat           = 'datetime';
     protected $createdField         = 'created_at';
     protected $updatedField         = 'updated_at';
@@ -44,4 +45,10 @@ class User extends Model
     protected $afterFind            = [];
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
+
+    public function employee()
+    {
+        return $this->hasOne('employees', 'App\Models\EmployeeModel');
+        // $this->hasOne('propertyName', 'model', 'foreign_key', 'local_key');
+    }
 }

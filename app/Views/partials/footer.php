@@ -27,7 +27,7 @@
 		var fname           = '<?php  echo user()->username ?>';
 		var name            = '<?php echo user()->username  ?>';
 		var user            = { name : name, id : <?php  echo user_id() ?> };
-		var userfolder      = url+'uploads/<?php echo user()->username ?>_'+ user_id() +'/';
+		var userfolder      = url+'uploads/<?php echo user()->username .'_'.user_id()?>/';
 		var surl            = '<?php echo getenv("socker_url"); ?>';
 		//var avatar          = userfolder+'<?php //echo $this->session->profile_pic ?>';
 	</script>

@@ -31,7 +31,7 @@ class CreateAuthTables extends Migration
             'activation_code'   => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
             'token'             => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
             'display_name'      => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
-            'password_hash'     => ['type' => 'varchar', 'constraint' => 255],
+            'password_hash'     => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
             'reset_hash'        => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
             'reset_at'          => ['type' => 'datetime', 'null' => true],
             'reset_expires'     => ['type' => 'datetime', 'null' => true],

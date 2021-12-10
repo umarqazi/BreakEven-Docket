@@ -50,13 +50,13 @@
 			<?php //echo $this->session->flashdata('company_name'); ?>
 		</p>
 		<input type="text" name="owner_name" class="input-value" placeholder="Owner Name"
-			   value="<?= old('company_name') ?>" required/>
+			   value="<?= old('owner_name') ?>" required/>
 		<p>
 			<?php echo $validation->getError('owner_name'); ?>
 			<?php //echo $this->session->flashdata('owner_name'); ?>
 		</p>
 		<input type="text" name="address" class="company_address input-value" placeholder="Address"
-			   value="<?= old('company_name') ?>"/>
+			   value="<?= old('address') ?>"/>
 		<p>
 			<?php echo $validation->getError('address'); ?>
 			<?php //echo $this->session->flashdata('address'); ?>
@@ -380,31 +380,12 @@
 									<div class="block-terms">
 										<p>
 											<b>
-												PLEASE READ THESE TERMS OF SERVICE CAREFULLY. BY CLICKING “ACCEPTED AND
-												AGREED TO,” CUSTOMER AGREES TO THE
-												TERMS AND CONDITIONS SET FORTH IN THIS TERMS OF SERVICE AGREEMENT. THE
-												AUTHORIZED PARTY SIGNING OR
-												ELECTRONICALLY SUBMITTING THE ORDER OR ACESSING THE SERVICES REPRESENTS
-												THAT IT HAS THE AUTHORITY
-												TO BIND THE CUSTOMER AND UNDERSTANDS AND AGREES TO THE PROVISIONS SET
-												FORTH IN THE ORDER AND THESE TERMS OF
-												SERVICE.
+											PLEASE READ THESE TERMS OF SERVICE CAREFULLY. BY CLICKING “ACCEPTED AND AGREED TO,” CUSTOMER AGREES TO THE TERMS AND CONDITIONS SET FORTH IN THIS TERMS OF SERVICE AGREEMENT. THE AUTHORIZED PARTY SIGNING OR ELECTRONICALLY SUBMITTING THE ORDER OR ACESSING THE SERVICES REPRESENTS THAT IT HAS THE AUTHORITY TO BIND THE CUSTOMER AND UNDERSTANDS AND AGREES TO THE PROVISIONS SET FORTH IN THE ORDER AND THESE TERMS OF SERVICE. 
 											</b>
 										</p>
 
 										<p>
-											The applicable Order and these Terms of Service constitute an agreement
-											(this “Agreement”) by and between Good
-											Son Industries, LLC whose principal place of business is 888 East Belvidere
-											Road, Suite 117, Grayslake,
-											Illinois (“Vendor”) and the corporation, LLC, partnership, sole
-											proprietorship, or other business entity
-											executing this Agreement (“Customer”). This Agreement is effective as of the
-											date Customer clicks
-											“Accepted and Agreed To” (the “Effective Date”). Customer’s use of and
-											Vendor’s provision of
-											Vendor’s Service (as defined below in Section 1.6) are governed by this
-											Agreement.
+											The applicable Order and these Terms of Service constitute an agreement (this “Agreement”) by and between Good Son Industries, LLC whose principal place of business is 888 East Belvidere Road, Suite 117, Grayslake, Illinois (“Vendor”) and the corporation, LLC, partnership, sole proprietorship, or other business entity executing this Agreement (“Customer”). This Agreement is effective as of the date Customer clicks “Accepted and Agreed To” (the “Effective Date”). Customer’s use of and Vendor’s provision of Vendor’s Service (as defined below in Section 1.6) are governed by this Agreement. 
 										</p>
 									</div>
 
@@ -415,58 +396,40 @@
 										<div class="clear10"></div>
 
 										<p>
-											The following capitalized terms will have the following meanings whenever
-											used in this Agreement.
+											The following capitalized terms will have the following meanings whenever used in this Agreement. 
 										</p>
 
 										<p>
-											<b>1.1.</b> “Customer Data” means data in electronic form input or collected
-											through the
-											Service by or from Customer,
-											including without limitation by Customer’s Users.
+											<b>1.1.</b> “Customer Data” means data in electronic form input or collected through the Service by or from Customer, including without limitation by Customer’s Users.
 										</p>
 
 										<p>
-											<b>1.2.</b> “Documentation” means Vendor's standard manual related to use of
-											the Service in
-											printed
-											or electronic form.
+											<b>1.2.</b> “Documentation” means Vendor's standard manual related to use of the Service in printed or electronic form. 
 										</p>
 
 										<p>
-											<b>1.3.</b> “Order” means an order for access to the Service.
+											<b>1.3.</b> “Order” means an order for access to the Service. 
 										</p>
 
 										<p>
-											<b>1.4.</b> “Privacy Policy” means Vendor’s privacy policy, currently posted
-											at bep.breakevenpro.com
+											<b>1.4.</b> “Privacy Policy” means Vendor’s privacy policy, currently posted at bep.breakevenpro.com 
 										</p>
 										<p>
-											<b>1.5.</b> “Service” means Vendor’s generally available
-											software-as-a-service,
-											BreakEven PRO for cost estimation for labor intense businesses primarily
-											contractors, and subcontractors.
+											<b>1.5.</b> “Service” means Vendor’s generally available software-as-a-service, BreakEven DOCKET for cost estimation for labor intense businesses primarily contractors, and subcontractors. 
 										</p>
 										<p>
-											<b>1.6.</b> “SLA” means Vendor’s standard service level agreement, currently
-											posted at
-											bephost.breakevenpro.com.
+											<b>1.6.</b> “SLA” means Vendor’s standard service level agreement, currently posted at bephost.breakevenpro.com. 
 										</p>
 										<p>
 											<b>1.7.</b> “Term” is defined in Section 11.1 below.
 										</p>
 
 										<p>
-											<b>1.8.</b> “Updates” means any corrections, bug fixes, new features or
-											functions added to
-											the Service, but shall not include any new versions that Vendor markets and
-											sells separately.
+											<b>1.8.</b> “Updates” means any corrections, bug fixes, new features or functions added to the Service, but shall not include any new versions that Vendor markets and sells separately. 
 										</p>
 
 										<p>
-											<b>1.9.</b> “User” means any individual who uses the Service on Customer’s
-											behalf or through
-											Customer’s account or passwords, whether authorized or not.
+											<b>1.9.</b>  “User” means any individual who uses the Service on Customer’s behalf or through Customer’s account or passwords, whether authorized or not. 
 										</p>
 
 									</div>
@@ -478,62 +441,24 @@
 										<div class="clear10"></div>
 
 										<p>
-											<b> 2.1.</b> Use of the Service. During the Term, Customer may access and
-											use the Service
-											pursuant to the terms of this Agreement and any outstanding Order, including
-											such features and functions as the Order requires.
+											<b> 2.1.</b> Use of the Service. During the Term, Customer may access and use the Service pursuant to the terms of this Agreement and any outstanding Order, including such features and functions as the Order requires. 
 										</p>
 
 										<p>
-											<b> 2.2.</b> Service Levels. Vendor shall provide the remedies listed in the
-											SLA for any
-											failure of the Service listed in the SLA. Such remedies are Customer’s sole
-											remedy for
-											any failure of the Service, and Customer recognizes and agrees that if the
-											SLA does not
-											list a remedy for a given failure, it has no remedy. Credits issued pursuant
-											to the SLA
-											apply to future invoices only and are forfeited upon termination of this
-											Agreement. Vendor
-											is not required to issue refunds or to make payments against such credits
-											under any circumstances,
-											including without limitation after termination of this Agreement.
+											<b> 2.2.</b> Service Levels. Vendor shall provide the remedies listed in the SLA for any failure of the Service listed in the SLA. Such remedies are Customer’s sole remedy for any failure of the Service, and Customer recognizes and agrees that if the SLA does not list a remedy for a given failure, it has no remedy. Credits issued pursuant to the SLA apply to future invoices only and are forfeited upon termination of this Agreement. Vendor is not required to issue refunds or to make payments against such credits under any circumstances, including without limitation after termination of this Agreement.
 										</p>
 
 										<p>
-											<b> 2.3.</b> Documentation: Customer may reproduce and use the Documentation
-											solely as
-											necessary to support Users’ use of the Service.
+											<b> 2.3.</b> Documentation: Customer may reproduce and use the Documentation solely as necessary to support Users’ use of the Service.
 										</p>
 
 										<p>
-											<b> 2.4.</b> Service Revisions. Vendor may modify the Service features and
-											functions or
-											the SLA at any time, including without limitation by removing such features
-											and functions
-											or reducing service levels without notice to customer provided that such
-											modification
-											will not materially affect the Service. If any such revision to the Service
-											will materially
-											reduce features or functionality provided pursuant to an Order, Vendor will
-											provide notice
-											to Customer and Customer may within 30 days of receipt of said notice,
-											terminate such Order,
-											without cause, or terminate this Agreement without cause if such Order is
-											the only one
-											outstanding. If any such revision to the SLA materially reduces service
-											levels provided
-											pursuant to an outstanding Order, the revisions will not go into effect with
-											respect to
-											such Order until the start of the Term beginning 45 or more days after
-											Vendor posts the
-											revision and so informs Customer.
+											<b> 2.4.</b> Service Revisions. Vendor may modify the Service features and functions or the SLA at any time, including without limitation by removing such features and functions or reducing service levels without notice to customer provided that such modification will not materially affect the Service. If any such revision to the Service will materially reduce features or functionality provided pursuant to an Order, Vendor will provide notice to Customer and Customer may within 30 days of receipt of said notice, terminate such Order, without cause, or terminate this Agreement without cause if such Order is the only one outstanding. If any such revision to the SLA materially reduces service levels provided pursuant to an outstanding Order, the revisions will not go into effect with respect to such Order until the start of the Term beginning 45 or more days after Vendor posts the revision and so informs Customer. 
 										</p>
 
 										<p>
 											<b> 2.5.</b><a href="<?php echo base_url() ?>"> _admin@breakevenpro.com</a>
-											is the primary
-											point of contact for and will address all issues raised by Customer.
+											is the primary point of contact for and will address all issues raised by Customer.
 										</p>
 
 									</div>
@@ -554,11 +479,7 @@
 										</p>
 
 										<p>
-											<b>3.2. </b> All orders are subject to acceptance by Vendor in its
-											discretion. All Customer
-											ordering information must be current, complete and accurate and it is
-											Customer’s responsibility
-											to advise Vendor of any changes to its ordering information.
+											<b>3.2. </b> All orders are subject to acceptance by Vendor in its discretion. All Customer ordering information must be current, complete and accurate and it is Customer’s responsibility to advise Vendor of any changes to its ordering information
 										</p>
 
 									</div>
@@ -570,86 +491,31 @@
 										<div class="clear10"></div>
 
 										<p>
-											<b>4.1. </b> Use of Customer Data. Unless it receives Customer’s prior
-											written consent,
-											Vendor: (a) shall not access, process, or otherwise use Customer Data other
-											than as necessary
-											to facilitate the Service; and (b) shall not intentionally grant any third
-											party access to
-											Customer Data, including without limitation Vendor’s other customers, except
-											subcontractors
-											that are subject to a reasonable nondisclosure agreement. Notwithstanding
-											the foregoing,
-											Vendor may disclose Customer Data as required by applicable law or by proper
-											legal or
-											governmental authority. Vendor shall give Customer prompt notice of any such
-											legal or
-											governmental demand and reasonably cooperate with Customer in any effort to
-											seek a protective
-											order or otherwise to contest such required disclosure, at Customer’s
-											expense.
+											<b>4.1. </b> Use of Customer Data. Unless it receives Customer’s prior written consent, Vendor: (a) shall not access, process, or otherwise use Customer Data other than as necessary to facilitate the Service; and (b) shall not intentionally grant any third party access to Customer Data, including without limitation Vendor’s other customers, except subcontractors that are subject to a reasonable nondisclosure agreement. Notwithstanding the foregoing, Vendor may disclose Customer Data as required by applicable law or by proper legal or governmental authority. Vendor shall give Customer prompt notice of any such legal or governmental demand and reasonably cooperate with Customer in any effort to seek a protective order or otherwise to contest such required disclosure, at Customer’s expense.
 										</p>
 
 										<p>
-											<b>4.2. </b> Privacy Policy. The Privacy Policy applies only to the Service
-											and does not
-											apply to any third party website or service linked to the Service or
-											recommended or referred
-											to through the Service or by Vendor’s staff.
+											<b>4.2. </b> Privacy Policy. The Privacy Policy applies only to the Service and does not apply to any third party website or service linked to the Service or recommended or referred to through the Service or by Vendor’s staff. 
 										</p>
 
 										<p>
-											<b>4.3.</b> Risk of Exposure. Customer recognizes and agrees that hosting
-											data online
-											involves risks of unauthorized disclosure or exposure and that, in accessing
-											and using the
-											Service, Customer assumes such risks. Vendor offers no representation,
-											warranty, or guarantee
-											that Customer Data will not be exposed or disclosed through errors or the
-											actions of third parties.
+											<b>4.3.</b> Risk of Exposure. Customer recognizes and agrees that hosting data online involves risks of unauthorized disclosure or exposure and that, in accessing and using the Service, Customer assumes such risks. Vendor offers no representation, warranty, or guarantee that Customer Data will not be exposed or disclosed through errors or the actions of third parties. 
 										</p>
 
 										<p>
-											<b>4.4. </b> Data Accuracy. Vendor will have no responsibility or liability
-											for the
-											accuracy of data uploaded to the Service by Customer, including without
-											limitation Customer
-											Data and any other data uploaded by Users.
+											<b>4.4. </b> Data Accuracy. Vendor will have no responsibility or liability for the accuracy of data uploaded to the Service by Customer, including without limitation Customer Data and any other data uploaded by Users. 
 										</p>
 
 										<p>
-											<b>4.5. </b> Data Deletion. Vendor may permanently erase Customer Data if
-											Customer’s
-											account is delinquent, suspended, or terminated for 30 days or more.
+											<b>4.5. </b> Data Deletion. Vendor may permanently erase Customer Data if Customer’s account is delinquent, suspended, or terminated for 30 days or more.
 										</p>
 
 										<p>
-											<b>4.6. </b> Excluded Data. Customer represents and warrants that Customer
-											Data does not
-											and will not include, and Customer has not and shall not upload or transmit
-											to Vendor's
-											computers or other media, any data (“Excluded Data”) regulated pursuant to
-											(the "Excluded
-											Data Laws"). CUSTOMER RECOGNIZES AND AGREES THAT: (a) VENDOR HAS NO
-											LIABILITY FOR ANY
-											FAILURE TO PROVIDE PROTECTIONS SET FORTH IN THE EXCLUDED DATA LAWS OR
-											OTHERWISE TO PROTECT
-											EXCLUDED DATA; AND (b) VENDOR’S SERVICES ARE NOT INTENDED FOR MANAGEMENT OR
-											PROTECTION OF
-											EXCLUDED DATA AND MAY NOT PROVIDE ADEQUATE OR LEGALLY REQUIRED SECURITY FOR
-											EXCLUDED DATA.
+											<b>4.6. </b> Excluded Data. Customer represents and warrants that Customer Data does not and will not include, and Customer has not and shall not upload or transmit to Vendor's computers or other media, any data (“Excluded Data”) regulated pursuant to (the "Excluded Data Laws"). CUSTOMER RECOGNIZES AND AGREES THAT: (a) VENDOR HAS NO LIABILITY FOR ANY FAILURE TO PROVIDE PROTECTIONS SET FORTH IN THE EXCLUDED DATA LAWS OR OTHERWISE TO PROTECT EXCLUDED DATA; AND (b) VENDOR’S SERVICES ARE NOT INTENDED FOR MANAGEMENT OR PROTECTION OF EXCLUDED DATA AND MAY NOT PROVIDE ADEQUATE OR LEGALLY REQUIRED SECURITY FOR EXCLUDED DATA. 
 										</p>
 
 										<p>
-											<b>4.7. </b> Aggregate & Anonymized Data. Notwithstanding the provisions
-											above of this
-											Article 4, Vendor may use, reproduce, sell, publicize, or otherwise exploit
-											Aggregate Data
-											in any way, in its sole discretion. (“Aggregate Data” refers to Customer
-											Data with the
-											following removed: personally identifiable information and the names and
-											addresses of
-											Customer and any of its Users or customers.)
+											<b>4.7. </b> Aggregate & Anonymized Data. Notwithstanding the provisions above of this Article 4, Vendor may use, reproduce, sell, publicize, or otherwise exploit Aggregate Data in any way, in its sole discretion. (“Aggregate Data” refers to Customer Data with the following removed: personally identifiable information and the names and addresses of Customer and any of its Users or customers.) 
 										</p>
 
 									</div>

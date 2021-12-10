@@ -41,4 +41,45 @@ class Validation
     //--------------------------------------------------------------------
     // Rules
     //--------------------------------------------------------------------
+
+    // public $employeStore = [
+    //         'first_name'    => 'required|min_length[3]',
+    //         'last_name'     => 'required|min_length[3]',
+    //         'email'         => 'required|valid_email',
+    // ];
+    public $employeStore = [
+        'first_name' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'First Name field is required.',
+            ],
+        ],
+        'last_name' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Last Name field is required.',
+            ],
+        ],
+        'email'    => [
+            'rules'  => 'required|valid_email',
+            'errors' => [
+                'valid_email' => 'Please check the Email field. It does not appear to be valid.',
+            ],
+        ],
+    ];
+    public $setPassword = [
+        'password' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Password field is required.',
+            ],
+        ],
+        'confirm_password' => [
+            'rules'  => 'required|matches[password]',
+            'errors' => [
+                'required' => 'Confirm Password field is required.',
+                'matches' => 'The Confirm Password field does not match the password field.',
+            ],
+        ],
+    ];
 }
