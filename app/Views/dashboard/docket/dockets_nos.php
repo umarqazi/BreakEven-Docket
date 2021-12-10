@@ -40,7 +40,7 @@
                             </td>
 
                             <td>
-                                <a class="estimate_field" href="#"><?php echo !is_null($docket['created_at']) ? date('d-m-Y H:i:s', strtotime($docket['created_at'])) : '' ?></a>
+                                <a class="estimate_field" href="#"><?php echo !is_null($docket['created_at']) ? date('j M, Y, g:i a', strtotime($docket['created_at'])) : '' ?></a>
                             </td>
                         </tr>
                     <?php endforeach;
@@ -95,8 +95,8 @@
             "language" : {
                 search : '',
                 searchPlaceholder: "Search Dockets",
-                "zeroRecords": "No Docket is available",
-                "emptyTable": "No Docket is available"
+                "zeroRecords": "No Docket No is available",
+                "emptyTable": "No Docket No is available"
             }
         });
 

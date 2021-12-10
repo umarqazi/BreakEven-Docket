@@ -3,9 +3,9 @@
 
 
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-1">
     </div>
-    <div class="col-md-8" id="material-section">
+    <div class="col-md-10" id="material-section">
         <h2 class="heading-text">
             <strong>Assign Dockets</strong>
         </h2>
@@ -33,23 +33,21 @@
                     foreach($dockets as $docket):?>
                         <tr class="item-name">
                             <td>
-                                <a href="<?php //echo base_url()?>estimating/estimate_page/<?php //echo $estimate['id'];?>"><?php echo $docket['docket_no'];?></a>
+                                <a href="#"><?php echo $docket['docket_no'];?></a>
                             </td>
 
                             <td>
-                                <a class="estimate_field" href="<?php //echo base_url()?>estimating/estimate_page/<?php //echo $estimate['id'];?>"><?php echo $docket['user_name'];?></a>
+                                <a class="estimate_field" href="#"><?php echo $docket['user_name'];?></a>
                             </td>
 
                             <td>
-                                <a class="estimate_field" href="#"><?php echo !empty($docket['created_at']) ? date('d-m-Y H:i:s', strtotime($docket['created_at'])) : '' ?></a>
+                                <a class="estimate_field" href="#"><?php echo !empty($docket['created_at']) ? date('j M, Y, g:i a', strtotime($docket['created_at'])) : '' ?></a>
                             </td>
                             <td>
-                                <a href="<?php echo base_url();?>/employee-show/<?php echo $docket['id'];
-                                ?>"><button type="button" class="btn btn-info btn-xs">View</button></a>
+                                <button type="button" class="btn btn-info btn-xs" onclick="view_docket_modal(<?= $docket['id'];?>)">View</button>
                             </td>
                             <td>
-                                <a href="<?php echo base_url();?>/docket-details/<?php echo $docket['id'];
-                                ?>"><button type="button" class="btn btn-warning btn-xs">Assign</button></a>
+                                <a href="<?php echo base_url();?>/docket-details/<?php echo $docket['id'];?>"><button type="button" class="btn btn-warning btn-xs">Assign</button></a>
                             </td>
                         </tr>
                     <?php endforeach;
@@ -64,34 +62,41 @@
     <div class="col-md-2">
     </div>
 </div>
-
-
-<div id="job_pattern" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div id="modalBody" class="modal-body">
-                <div class="row job_no_container">
-                    <div class="jop_wrapper">
-
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-                        <div class="heading">Create Docket No</div>
-                        <div id="error-block"></div>
-                        <form id="store_docket_form" method="post" action="<?= route_to('store_docket') ?>">
-                            <input type="text" name="docket_no" id="docket_no" class="pattern add_job_no" value="<?= old('docket_no') ?>" placeholder="Enter Docket No" >
-                            <div id="_error" style="color: red!important; font-family:'Times New Roman'; font-size: 15px;"></div>
-                            <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
-                                <?php echo $validation->getError('docket_no'); ?>
+<div class="modal fade full-modal" id="view_docket_modal" tabindex="-1" role="dialog" aria-labelledby="full-modal-label"
+	 aria-hidden="true">
+	<div class="modal-dialog" style="width: 75%;">
+		<div class="modal-content" data-border-top="multi">
+			<form id="add_new_area_form" method="post" action="">
+				<div class="modal-body clearfix" id="surfaces-methods">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h2>Assignees</h2>
+                        <div class="materials-content">
+                            <div class="material-items">
+                                <table class="table table-striped table-hover" id="dockt_assignees_table">
+                                    <thead class="dark_blue ">
+                                    <tr style="color:white !important">
+                                        <th>#</th>
+                                        <th>Docket No</th>
+                                        <th>Assigned to</th>
+                                        <th>Assigned By</th>
+                                        <th>Assigned At</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>                                    
+                                    </tbody>
+                                </table>
                             </div>
-                            <span id="availability"></span><div id="msg" style="color: red"></div>
-                            <button type="button" onclick="checkDocektNo()" class="btn btn-info job_btn btn_docket_no" >Save Docket No</button>
-                        </form>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
+
 <?= script_tag('js/datatables/jquery.dataTables.min.js') ?>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -109,41 +114,35 @@
                 "emptyTable": "No docket is available"
             }
         });
-
-        /*$('table').wrap('<div class="table-responsive"></div>');*/
-        // $('.btn_docket_no').prop('disabled',true);
-    
-
     });
-    function checkDocektNo(){
-        $('#msg').empty();
-        $('#_error').empty();
-        $('#availability').empty();
-        var docket_no = $('#docket_no').val();
-        if(docket_no == ''){
-            $('#msg').append('Docket No is Required!');
-            e.preventDefault();
-        }
-        var checkDocketNourl = '<?php echo base_url();?>/get_docket_no';
-
+    function view_docket_modal(docket_id){
         $.ajax({
-            url: checkDocketNourl,
+            url: base_url+'/get-docket-assignee',
             type:"POST",
-            data:{ docket_no : docket_no },
+            data:{ docket_id : docket_id },
             dataType : 'json',
             success:function(response)
             {
+                $('#dockt_assignees_table').find('tbody').remove();
                 if (response == false)
                 {
-                    $('#availability').append('<span class="text-danger">Docket No Already Exists</span>');
+                    $('#dockt_assignees_table').append('<tbody><tr><td colspan="5"><center>No data Found!</center></td></tr></tbody>');
                 }
                 else
                 {
-                    if(docket_no != ''){
-                        $('#store_docket_form').submit();
-                    } else {
-                        $('#availability').append('<span class="text-danger">Docket No Already Exists</span>');
-                    }
+                    html = '';
+                    html += '<tbody>';
+                    $(response).each(function(index, value) {
+                        html += '<tr>';
+                        html += '<td>'+(index+1)+'</td>';
+                        html += '<td>'+value.docket_no+'</td>';
+                        html += '<td>'+value.employee_name+'</td>';
+                        html += '<td>'+value.assigned_by+'</td>';
+                        html += '<td>'+value.assigned_at+'</td>';
+                        html += '</tr>';
+                    })
+                    html += '</tbody>';
+                    $('#dockt_assignees_table').prepend(html);
                 }
 
             },
@@ -152,9 +151,7 @@
                 console.log(response);
             }
         })
-    }
-    function job_pattern(){
-        $("#job_pattern").modal('show');
+        $("#view_docket_modal").modal('show');
     }
 </script>
 

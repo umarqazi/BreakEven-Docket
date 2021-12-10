@@ -62,7 +62,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($employees as $row):
+                <?php if(!empty($employees)){ foreach ($employees as $row):
                     //if(user_id() == $row['id']){?>
                         <?php //if ($row['hire_date']) {?>
                             <?php //$date = new DateTime($row['hire_date']); $date = $date->format('m/d/Y')?>
@@ -72,7 +72,7 @@
                             <td><?php echo $row['address']; ?></td>
                             <td><?php echo $row['phone']; ?></td>
                             <td><?php echo $row['email']; ?></td>
-                            <td><?php echo $row['hire_date']; ?></td>
+                            <td><?php echo !empty($row['hire_date']) ? date('j M, Y', strtotime($row['hire_date'])) : ''; ?></td>
                             <td><?php echo $row['hourly_rate']; ?></td>
                             <td>
                                 <a href="<?php echo base_url();?>/employee-show/<?php echo $row['id'];
@@ -89,7 +89,7 @@
                             </td>
                         </tr>
                     <?php //} 
-                    endforeach; ?>
+                    endforeach; }?>
                 </tbody>
             </table>
         </div>
@@ -99,20 +99,6 @@
 
 <script src="<?php echo base_url()?>application/assets/js/datatables/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
-
-    var employee_added = '<?php //echo $this->session->flashdata('EmployeeAdded'); ?>';
-    var employee_edited = '<?php //echo $this->session->flashdata('UpdateEmployee'); ?>';
-    var employee_deleted = '<?php //echo $this->session->flashdata('EmployeeDeleted'); ?>';
-    var employee_limit = '<?php //echo $this->session->flashdata('EmployeeLimit'); ?>';
-    var msg = '';
-    var error_msg = '';
-    if (employee_added){
-        msg = employee_added;
-    } else if (employee_edited){
-        msg = employee_edited;
-    } else {
-        msg = employee_deleted;
-    }
 
     $(document).ready(function(){
         $('#datatable-1').DataTable({
@@ -125,14 +111,8 @@
             "language" : {
                 search : '',
                 searchPlaceholder: "Search Employees",
-                "zeroRecords": "No Employee is available",
-                "emptyTable": "No Employee is available"
-            },
-            "processing" : false,
-            "serverSide" : true,
-            "ajax" : {
-                url: "<?php echo base_url() . 'Employee_center/fetch_employee';?>",
-                type: "POST"
+                "zeroRecords": "No Employee Found!",
+                "emptyTable": "No Employee Found!"
             }
         });
 

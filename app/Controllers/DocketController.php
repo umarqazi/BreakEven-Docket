@@ -86,4 +86,10 @@ class DocketController extends BaseController
             }
         }
     }
+    public function getdocketDetailByid()
+    {
+        $docket_id = $this->request->getPost('docket_id');
+        $assignedEmployees = $this->docket_service->getDocketAssignedToEmployeesByDocketId($docket_id);
+        return !empty($assignedEmployees) ? json_encode($assignedEmployees) : json_encode(false);
+    }
 }

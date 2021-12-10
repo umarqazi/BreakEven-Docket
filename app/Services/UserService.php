@@ -33,6 +33,7 @@ class UserService
     public function __construct()
     {
         helper('date');
+        date_default_timezone_set('Asia/Karachi');
         $this->db               = \Config\Database::connect();
         $this->validation       =  \Config\Services::validation();
         $this->user_repo        = new UserRepository();
@@ -41,7 +42,7 @@ class UserService
     }
     public function create($data,$company_id=null,$is_company=null) //create and update user/employee here
     {
-        $current_date = date('Y-m-d H:i:s', time());
+        $current_date = date('Y-m-d H:i:s');
         $user = array(
             'first_name'    => $data['first_name'],
             'last_name'     => $data['last_name'],
