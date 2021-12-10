@@ -3,11 +3,10 @@
 
 
 <div class="row">
-
-    <div class="col-md-12 " id="material-section">
-        <!-- <h2 class="heading-text">
-            <strong>Docket Detail</strong>
-        </h2> -->
+    <div class="col-md-12">
+        <a href="<?php echo base_url()?>/dockets" type="button" class="btn btn-primary btn-md" id="back_to_estimate" title="Back to Estimate Page">
+            <i class="fa fa-arrow-left fa-fw"></i>Back to Dockets
+        </a>
     </div>
 </div>
 <div class="row">

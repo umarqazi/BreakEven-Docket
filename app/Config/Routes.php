@@ -72,7 +72,15 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('time-keeping',            'TimekeepingController::index');
     $routes->post('manual_time_in',         'TimekeepingController::manual_time_in');
     $routes->post('get_docket_details',     'TimekeepingController::get_docket_details');  
-    $routes->post('get_time_keeping_data',  'TimekeepingController::get_time_keeping_data');  
+    $routes->post('get_time_keeping_data',  'TimekeepingController::get_time_keeping_data');
+    
+    $routes->get('settings',                'SettingsController::index');
+    $routes->get('signature',               'SettingsController::signature');
+    $routes->post('save_signature',         'SettingsController::save_signature');
+    $routes->get('mail-signature',          'SettingsController::mail_signature');
+    $routes->post('update_signature',       'SettingsController::update_signature');
+
+
 });
 //Super Admin Routes Without any filter
 $routes->group('admin', function ($routes) {

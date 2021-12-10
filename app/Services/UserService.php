@@ -89,17 +89,20 @@ class UserService
                 $users = model(UserModel::class);
                 if(!$users->save($user))
                 {
-                    return redirect()->back()->withInput()->with('errors', $users->errors());
+                    return $users->errors();
                 } else {
                     if ($is_company == true) {
                         $returnData['user_id'] = $users->insertID;
-                        $returnData['response'] = redirect()->to(site_url('login'))->withCookies()->with('message', 'User Registerd Successfully!');
                         return $returnData;
                     }
                     return redirect()->to(site_url('login'))->withCookies()->with('message', 'User Registerd Successfully!');
                 }
             }
         }
+    }
+    public function update($id,$data)
+    {
+       return $this->user_repo->update($id,$data);
     }
     public function findAll()
     {

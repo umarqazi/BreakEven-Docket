@@ -9,6 +9,7 @@ use App\Services\EmployeeService;
 
 class Company extends BaseController
 {
+    protected $db;
     protected $validation;
     protected $user_service;
     protected $company_service;
@@ -19,6 +20,7 @@ class Company extends BaseController
         $this->company_service = new CompanyService;
         $this->employee_service = new EmployeeService;
         $this->validation =  \Config\Services::validation();
+        $this->db = \Config\Database::connect();
     }
     public function index()
     {
@@ -26,11 +28,19 @@ class Company extends BaseController
     }
     public function store()
     {
+        $this->db->transBegin();
         $employee_data['job_title'] = 'super_admin';
         $company_id = $this->company_service->create($this->request->getPost());
-        $result = $this->user_service->create($this->request->getPost(),$company_id,$is_company=true);        
-        $this->employee_service->create($employee_data,$result['user_id']);
-        return $result['response'];
+        $result = $this->user_service->create($this->request->getPost(),$company_id,$is_company=true);
+        // dd($result);
+        if(isset($result['user_id'])) {     
+            $this->employee_service->create($employee_data,$result['user_id']);
+            $this->db->transCommit();
+            return redirect()->to(site_url('login'))->withCookies()->with('message', 'User Registerd Successfully!');;
+        } else {
+            $this->db->transRollback();
+            return redirect()->back()->withInput()->with('errors', $result);
+        }
     }
     public function show()
     {

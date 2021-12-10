@@ -14,7 +14,7 @@ class Company extends Model
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['company_name','company_owner','address','phone','fax','email','company_website','company_logo','credit_card_no','expiry_date','cvv','card_address','subscription_start_date','subscription_plan_id','plan_agreement_id','renew_date','renew_cost','total_users','is_enabled','city','state','zip','is_paid','company_abbreveation','client'];
+    protected $allowedFields        = ['company_name','company_owner','address','phone','fax','email','company_website','company_logo','credit_card_no','expiry_date','cvv','card_address','subscription_start_date','subscription_plan_id','plan_agreement_id','renew_date','renew_cost','total_users','is_enabled','city','state','zip','is_paid','company_abbreveation','client','signature','signature_image'];
 
     // Dates
     protected $useTimestamps        = false;

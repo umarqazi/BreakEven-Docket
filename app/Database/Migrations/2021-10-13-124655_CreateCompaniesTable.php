@@ -33,6 +33,8 @@ class CreateCompaniesTable extends Migration
             'state'                 => ['type' => 'varchar', 'constraint' => 50, 'null' => true],
             'company_abbreveation'  => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
             'client'                => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
+            'signature'             => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
+            'signature_image'       => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
             'is_enabled'            => ['type' => 'tinyint', 'constraint' => 1, 'null' => 0, 'default' => 1],
             'is_paid'               => ['type' => 'tinyint', 'constraint' => 1, 'null' => 0, 'default' => 1],
             'renew_date'            => ['type' => 'datetime', 'null' => true],

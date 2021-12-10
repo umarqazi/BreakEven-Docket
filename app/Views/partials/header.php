@@ -119,7 +119,7 @@
 
 		<div class="inner-page-dashboard">
 
-		<div class="clear20"></div>
+		<!-- <div class="clear20"></div> -->
 		<div class="clear40"></div>
 			<?php } ?>
 
