@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Repository\CompanyRepository;
 use App\Repository\EmployeeRepository;
+use App\Repository\UserRepository;
 
 /**
  * Class EmployeeService
@@ -15,9 +16,10 @@ class EmployeeService
     /**
      * @var EmployeeRepository
      */
-    protected $employee_repo;
     protected $db;
-
+    protected $user_repo;
+    protected $validation;
+    protected $employee_repo;
     /**
      * EmployeeService constructor.
      */
@@ -26,7 +28,9 @@ class EmployeeService
         helper('date');
         date_default_timezone_set('Asia/Karachi');
         $this->db = \Config\Database::connect();
+        $this->validation = \Config\Services::validation();
         $this->employee_repo = new EmployeeRepository;
+        $this->user_repo    = new UserRepository;
     }
     public function create($data,$user_id){
         $current_date = date('Y-m-d H:i:s');
@@ -76,16 +80,32 @@ class EmployeeService
     {
         return $this->employee_repo->deleteWhere($where);
     }
+
     public function getAllEmployees()
     {
-        $qry = 'SELECT employees.*, users.*,concat(users.first_name," ",users.last_name) as user_name
-                FROM employees
-                LEFT JOIN users ON employees.user_id = users.id
-                WHERE users.company_id = ? AND users.user_type = ? AND employees.user_id != ? ';
+        $result = $this->employee_repo->getAllEmployees();
+        return view('dashboard/employees/employees', ['employees' => !empty($result) ? $result : false]);
+    }
+    
+    public function getEmployee($seg1)
+    {
+        $record = $this->employee_repo->getEmployee($seg1);
+        return view('dashboard/employees/employee_profile',['record' => $record]);
+    }
+    
+    public function editEmployee($user_id)
+    {
+        $record = $this->employee_repo->editEmployee($user_id);
+        return view('dashboard/employees/employee_edit',['record' => $record, 'validation'=>$this->validation]);
+    }
+    public function deleteEmployee($user_id = null)
+    {
+        $where_user = ['id' => $user_id];
+        $where_emp = ['user_id' => $user_id];
+        $this->user_repo->deleteWhere($where_user);
+        $this->employee_repo->deleteWhere($where_emp);
+        return redirect()->to(site_url('employee-center'))->with('message', 'Employee Deleted Successfully');
 
-        $employees = $this->db->query($qry, [user()->company_id,'employee',user_id()]);
-        $result = $employees->getResult('array');
-        return !empty($result) ? $result : false;
     }
 
 }

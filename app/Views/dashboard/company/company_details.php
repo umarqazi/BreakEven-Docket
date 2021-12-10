@@ -2,8 +2,8 @@
 <?= $this->section("content")?>
 <div class="row">
     <div class=" col-md-12">
-        <div>
-            <!-- here show success msg -->
+        <div class="" id="successMessage">
+            <?= view('App\Auth\_message_block') ?>
         </div>
     </div>
 </div>
@@ -223,22 +223,4 @@
 
     </div>
 </div>
-<script>
-    $(document).on('click', '.disable_btn', function (e) {
-        e.preventDefault();
-        var link = $(this).attr('href');
-        swal({
-            title: "Are you sure?",
-            text: "You Want to Disable this!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then(function(willDelete){
-            if (willDelete) {
-                window.location.replace(link);
-            }
-        });
-    });
-</script>
 <?= $this->endSection()?>

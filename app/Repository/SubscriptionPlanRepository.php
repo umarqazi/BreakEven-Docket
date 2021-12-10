@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Models\SubscriptionPlans;
+use App\Models\SubscriptionPlansModel;
 
 /**
  * Class SubscriptionPlanRepository
@@ -15,6 +15,6 @@ class SubscriptionPlanRepository extends BaseRepo
      */
     public function __construct()
     {
-        parent::__construct(SubscriptionPlans::class);
+        parent::__construct(SubscriptionPlansModel::class);
     }
 }

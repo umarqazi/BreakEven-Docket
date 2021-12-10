@@ -131,13 +131,13 @@ class UserService
     public function validateUser($user_id,$code)
     {
         $user = $this->user_repo->find($user_id);
-        if ($code == $user['activation_code']) {
+        if (!is_null($user) && $code == $user['activation_code']) {
             return $user;
         } else {
             return false;
         }
     }
-    public function set_password($id,$data)
+    public function setPassword($id,$data)
     {
         $data['password_hash'] = Password::hash($data['password']);
         return $this->user_repo->update($id,$data);

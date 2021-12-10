@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Repository\DocketRepository;
 use App\Repository\AssignDocketRepository;
+use App\Repository\EmployeeRepository;
 
 /**
  * Class DocketService
@@ -17,6 +18,7 @@ class DocketService
      */
     protected $db;
     protected $docket_repo;
+    protected $employee_repo;
     protected $assigndocket_repo;
 
     /**
@@ -28,6 +30,7 @@ class DocketService
         helper('date');
         $this->db = \Config\Database::connect();
         $this->docket_repo = new DocketRepository();
+        $this->employee_repo = new EmployeeRepository();
         $this->assigndocket_repo = new AssignDocketRepository();
     }
     public function create($data){
@@ -42,14 +45,7 @@ class DocketService
     }
     public function getAllDockets()
     {
-        $qry = 'SELECT dockets.*, concat(users.first_name," ",users.last_name) as user_name
-                FROM dockets
-                LEFT JOIN users ON dockets.added_by = users.id
-                WHERE users.company_id = ?';
-
-        $dockets = $this->db->query($qry, [user()->company_id]);
-        $result = $dockets->getResult('array');
-        return !empty($result) ? $result : false;
+        return $this->docket_repo->getAllDockets();
     }
     public function getDocketById($docket_id)
     {
@@ -112,6 +108,11 @@ class DocketService
     public function delete($id)
     {
         return $this->docket_repo->delete($id);
+    }
+    public function getAllEmployees()
+    {
+        $result = $this->employee_repo->getAllEmployees();
+        return !empty($result) ? $result : false;
     }
 
 }

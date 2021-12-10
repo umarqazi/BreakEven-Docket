@@ -40,14 +40,14 @@ $routes->setAutoRoute(false);
 $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('/',                       'Home::index');
     $routes->get('home',                    'Home::index');
-    $routes->post('get_email',              'Home::get_email');
+    $routes->post('get_email',              'Home::getEmail');
     $routes->get('contact-us',              'Home::contact_us');
     $routes->get('terms-service',           'Home::terms_of_service');
     $routes->get('privacy-policy',          'Home::privacy_policy');
 
-    $routes->get('Add-Employee',            'EmployeeController::employee_form');
+    $routes->get('Add-Employee',            'EmployeeController::employeeForm');
     $routes->post('store_employee',         'EmployeeController::store');
-    $routes->get('employee-center',         'EmployeeController::employee_center');
+    $routes->get('employee-center',         'EmployeeController::employeeCenter');
     $routes->post('update_employee',        'EmployeeController::update');
     $routes->get('employee-show/(:num)',    'EmployeeController::show/$1');
     $routes->get('employee-edit/(:num)',    'EmployeeController::edit/$1');
@@ -55,30 +55,31 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     
     $routes->get('dockets',                 'DocketController::dockets');
     $routes->get('docket-no',               'DocketController::index');
-    $routes->post('store_docket',           'DocketController::store_docket');
-    $routes->post('get_docket_no',          'DocketController::get_docket_no');
-    $routes->post('assign_docket',          'DocketController::assign_docket');
+    $routes->post('store_docket',           'DocketController::storeDocket');
+    $routes->post('get_docket_no',          'DocketController::getDocketNo');
+    $routes->post('assign_docket',          'DocketController::assignDocket');
     $routes->post('get-docket-assignee',    'DocketController::getdocketDetailByid');
-    $routes->get('docket-details/(:num)',   'DocketController::assign_details/$1');    
+    $routes->get('docket-details/(:num)',   'DocketController::assignDetails/$1');    
 
     $routes->get('activity',                'ActivityController::index');
+    $routes->post('activity',               'ActivityController::index');
 
-    $routes->get('company',                 'Company::show');
-    $routes->get('company-edit',            'Company::edit');
-    $routes->post('update-company',         'Company::update');
-    $routes->get('suspend-company',         'Company::suspend_company');
+    $routes->get('company',                 'CompanyController::show');
+    $routes->get('company-edit',            'CompanyController::edit');
+    $routes->post('update-company',         'CompanyController::update');
+    $routes->get('suspend-company',         'CompanyController::suspendCompany');
 
-    $routes->post('time_in',                'TimekeepingController::time_in');
+    $routes->post('time_in',                'TimekeepingController::timeIn');
     $routes->get('time-keeping',            'TimekeepingController::index');
-    $routes->post('manual_time_in',         'TimekeepingController::manual_time_in');
-    $routes->post('get_docket_details',     'TimekeepingController::get_docket_details');  
-    $routes->post('get_time_keeping_data',  'TimekeepingController::get_time_keeping_data');
+    $routes->post('manual_time_in',         'TimekeepingController::manualTimeIn');
+    $routes->post('get_docket_details',     'TimekeepingController::getDocketDetails');  
+    $routes->post('get_time_keeping_data',  'TimekeepingController::getTimeKeepingData');
     
     $routes->get('settings',                'SettingsController::index');
     $routes->get('signature',               'SettingsController::signature');
-    $routes->post('save_signature',         'SettingsController::save_signature');
-    $routes->get('mail-signature',          'SettingsController::mail_signature');
-    $routes->post('update_signature',       'SettingsController::update_signature');
+    $routes->post('save_signature',         'SettingsController::saveSignature');
+    $routes->get('mail-signature',          'SettingsController::mailSignature');
+    $routes->post('update_signature',       'SettingsController::updateSignature');
 
 
 });
@@ -96,24 +97,24 @@ $routes->group('admin', function ($routes) {
 $routes->group('admin', ['filter' => 'AuthAdminFilter'], function ($routes) {
     $routes->get('index',                       'AdminController::index');
     $routes->get('companies',                   'AdminController::companies');
-    $routes->get('company-details/(:num)',      'AdminController::company_details/$1');
-    $routes->get('disable_company/(:num)',      'AdminController::disable_company/$1');
-    $routes->get('enable_company/(:num)',       'AdminController::enable_company/$1');
+    $routes->get('company-details/(:num)',      'AdminController::companyDetails/$1');
+    $routes->get('disable_company/(:num)',      'AdminController::disableCompany/$1');
+    $routes->get('enable_company/(:num)',       'AdminController::enableCompany/$1');
     $routes->get('mail-signature',              'AdminController::signature');
-    $routes->post('update_signature',           'AdminController::update_signature');
-    $routes->get('subscription-plans',          'AdminController::subscription_plans');
-    $routes->get('create-plans',                'AdminController::create_plan');
-    $routes->post('save_plan',                  'AdminController::save_plan');
-    $routes->get('subscription-delete/(:num)',  'AdminController::delete_plan/$1');
-    $routes->get('subscription-edit/(:num)',    'AdminController::edit_plan/$1');
-    $routes->get('mailbox',                     'AdminController::mailbox');
-    $routes->post('send_an_email',              'AdminController::send_an_email');
+    $routes->post('update_signature',           'AdminController::updateSignature');
+    $routes->get('subscription-plans',          'AdminController::subscriptionPlans');
+    $routes->get('create-plans',                'AdminController::createPlan');
+    $routes->post('save_plan',                  'AdminController::savePlan');
+    $routes->get('subscription-delete/(:num)',  'AdminController::deletePlan/$1');
+    $routes->get('subscription-edit/(:num)',    'AdminController::editPlan/$1');
+    $routes->get('mailbox',                     'AdminController::mailBox');
+    $routes->post('send_an_email',              'AdminController::sendEmail');
     
 });
 
-$routes->post('company/store', 'Company::store');
-$routes->get('employee-verify/(:any)',      'EmployeeController::employee_verify/$1');
-$routes->post('set_password',               'EmployeeController::set_password');
+$routes->post('company/store',              'CompanyController::store');
+$routes->get('employee-verify/(:any)',      'EmployeeController::employeeVerify/$1');
+$routes->post('set_password',               'EmployeeController::setPassword');
 
 
 

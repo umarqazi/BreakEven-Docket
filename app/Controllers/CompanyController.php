@@ -7,20 +7,17 @@ use App\Services\UserService;
 use App\Services\CompanyService;
 use App\Services\EmployeeService;
 
-class Company extends BaseController
+class CompanyController extends BaseController
 {
-    protected $db;
-    protected $validation;
     protected $user_service;
     protected $company_service;
     protected $employee_service;
+
     public function __construct()
     {
-        $this->user_service = new UserService;
-        $this->company_service = new CompanyService;
+        $this->user_service     = new UserService;
+        $this->company_service  = new CompanyService;
         $this->employee_service = new EmployeeService;
-        $this->validation =  \Config\Services::validation();
-        $this->db = \Config\Database::connect();
     }
     public function index()
     {
@@ -32,7 +29,6 @@ class Company extends BaseController
         $employee_data['job_title'] = 'super_admin';
         $company_id = $this->company_service->create($this->request->getPost());
         $result = $this->user_service->create($this->request->getPost(),$company_id,$is_company=true);
-        // dd($result);
         if(isset($result['user_id'])) {     
             $this->employee_service->create($employee_data,$result['user_id']);
             $this->db->transCommit();
@@ -44,17 +40,11 @@ class Company extends BaseController
     }
     public function show()
     {
-        $validation = \Config\Services::validation();
-        $company = $this->company_service->show(User()->company_id);
-        $users = $this->user_service->findAllWithWhere(['company_id' => User()->company_id]);
-        $users = !empty($users) ? count($users) : 0; 
-        return view('dashboard/company/company_details',['validation'=>$validation,'company'=>$company,'users'=>$users]);
+        return $this->company_service->show();
     }
     public function edit()
     {
-        $validation = \Config\Services::validation();
-        $company = $this->company_service->show(User()->company_id);
-        return view('dashboard/company/edit_company',['validation'=>$validation,'company'=>$company]);
+        return $this->company_service->edit();
     }
     public function update()
     {
@@ -63,14 +53,11 @@ class Company extends BaseController
             return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
         } else {
             $company_id = $this->company_service->update($this->request->getPost());
-            return redirect()->to(site_url('company-edit'))->withCookies()->with('message', 'Record Updated Successfully!');
+            return redirect()->to(site_url('company'))->withCookies()->with('message', 'Record Updated Successfully!');
         }
     }
-    public function suspend_company()
+    public function suspendCompany()
     {
-        $result = $this->company_service->suspend_company();
-        if ($result) {
-            return redirect()->to(site_url('logout'))->withCookies()->with('message', 'Company Suspended Successfully!');
-        }
+        return $this->company_service->suspendCompany();
     }
 }

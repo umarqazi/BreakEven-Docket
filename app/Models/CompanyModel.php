@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class SubscriptionPlans extends Model
+class CompanyModel extends Model
 {
     protected $DBGroup              = 'default';
-    protected $table                = 'subscription_plans';
+    protected $table                = 'companies';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['name','description','paypal_plan_id','price','status','allowed_users','header_color','body_color','created_at','updated_at','deleted_at'];
+    protected $allowedFields        = ['company_name','company_owner','address','phone','fax','email','company_website','company_logo','credit_card_no','expiry_date','cvv','card_address','subscription_start_date','subscription_plan_id','plan_agreement_id','renew_date','renew_cost','total_users','is_enabled','city','state','zip','is_paid','company_abbreveation','client','signature','signature_image'];
 
     // Dates
     protected $useTimestamps        = false;

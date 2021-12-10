@@ -240,7 +240,7 @@
                         <tr></tr>
                         <tr>
                             <td style="padding-top: 40px">
-                                <div style="text-align: right">$signature['signature']</div>
+                                <div style="text-align: right"><?= $userdata['signature'] ?></div>
                             </td>
                         </tr>
                       </table>

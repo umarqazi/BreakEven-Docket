@@ -4,6 +4,7 @@
 namespace App\Services;
 
 use App\Repository\CompanyRepository;
+use App\Repository\UserRepository;
 
 /**
  * Class CompanyService
@@ -15,6 +16,8 @@ class CompanyService
      * @var CompanyRepository
      */
     protected $db;
+    protected $user_repo;
+    protected $validation;
     protected $company_repo;
 
     /**
@@ -24,7 +27,9 @@ class CompanyService
     {
         $this->db = \Config\Database::connect();
         date_default_timezone_set('Asia/Karachi');
+        $this->user_repo    = new UserRepository;
         $this->company_repo = new CompanyRepository();
+        $this->validation   = \Config\Services::validation();
     }
     public function create($data){
         
@@ -68,33 +73,53 @@ class CompanyService
         $result = $this->company_repo->update($data['company_id'],$company);
         return $result;
     }
-    public function update_signature($id,$data)
+    public function updateSignature($id,$data)
     {
         return $this->company_repo->update($id,$data);
     }
     public function findAll(){
        return $this->company_repo->findAll();
     }
-    public function show($id){
+    public function findWhere($id)
+    {
         return $this->company_repo->find($id);
+    }
+    public function show(){
+        $company_id =  User()->company_id;
+        $company = $this->company_repo->find($company_id);
+        $users = $this->user_repo->findAllWithWhere(['company_id' => $company_id]);
+        $users = !empty($users) ? count($users) : 0; 
+        return view('dashboard/company/company_details',['validation'=>$this->validation,'company'=>$company,'users'=>$users]);
+    }
+    public function edit(){
+        $company_id =  User()->company_id;
+        $company = $this->company_repo->find($company_id);
+        $users = $this->user_repo->findAllWithWhere(['company_id' => $company_id]);
+        $users = !empty($users) ? count($users) : 0; 
+        return view('dashboard/company/edit_company',['validation'=>$this->validation,'company'=>$company]);
+    }
+    public function is_enable($company_id = null)
+    {
+        return $this->company_repo->find($company_id);
     }
     public function delete($id){
         return $this->company_repo->delete($id);
     }
-    public function suspend_company($company_id = null)
+    public function suspendCompany($company_id = null)
     {
-        //Cancel Subscription here
-        //Send Email TO user "Docket Service Suspended"
         $data = [
             'is_enabled' => 0
         ];
         if (!empty($company_id)) {
-            return $this->company_repo->update($company_id,$data);
+            $result = $this->company_repo->update($company_id,$data);
         } else {
-            return $this->company_repo->update(User()->company_id,$data);
+            $result = $this->company_repo->update(User()->company_id,$data);
+        }
+        if ($result) {
+            return redirect()->to(site_url('logout'))->withCookies()->with('message', 'Company Suspended Successfully!');
         }
     }
-    public function enable_company($company_id)
+    public function enableCompany($company_id)
     {
         $data = [
             'is_enabled' => 1
@@ -103,25 +128,6 @@ class CompanyService
     }
     public function getCompanyWithUser($company_id = null)
     {
-        if (empty($company_id)) {
-            $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");
-            $qry = ' SELECT companies.*,users.email AS user_email,employees.user_id, employees.job_title
-            FROM companies
-            LEFT JOIN users ON companies.id = users.company_id
-            LEFT JOIN employees ON users.id = employees.user_id
-            GROUP BY companies.id';
-            $data = $this->db->query($qry);
-        } else {
-            $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");
-            $qry = ' SELECT companies.*,users.email AS user_email,employees.user_id, employees.job_title
-            FROM companies
-            LEFT JOIN users ON companies.id = users.company_id
-            LEFT JOIN employees ON users.id = employees.user_id
-            where companies.id = ?
-            GROUP BY companies.id';
-            $data = $this->db->query($qry,[$company_id]);
-        }
-        $result = $data->getResult('array');
-        return !empty($result) ? $result : false;
+        return $this->company_repo->getCompanyWithUser($company_id = null);
     }
 }

@@ -24,14 +24,13 @@ class SettingsController extends BaseController
         $signature = $this->user_service->show(user_id());
         return view('dashboard/settings/signature_setup',['signature'=> $signature['invoice_signature']]);
     }
-    public function save_signature()
+    public function saveSignature()
     {
-        $files = $this->request->getFiles();
         $data = $this->request->getPost('img');
 		list($type, $data) = explode(';', $data);
 		list(, $data) = explode(',', $data);
 		$data = base64_decode($data);
-        $img_name = user_id().'_signature.png';
+        $img_name = $this->user_id.'_signature.png';
         $user_folder['relative_path'] = '/var/www/html/docket/public/uploads/signature_images/';
         if (!is_dir($user_folder['relative_path'])) {
 			mkdir($user_folder['relative_path'], 0775, true);
@@ -40,25 +39,20 @@ class SettingsController extends BaseController
         $data = [
             'invoice_signature' => $img_name
         ];
-        $result = $this->user_service->update(user_id(),$data);
-        if ($result == true) {
-            return true;
-        } else {
-            return false;
-        }
+        $result = $this->user_service->update($this->user_id,$data);
+        return ($result == true) ? true : false;
     }
-    public function mail_signature()
+    public function mailSignature()
     {
-        $signature = $this->company_service->show(user()->company_id);
+        $signature = $this->company_service->findWhere(user()->company_id);
         return view('dashboard/settings/mail_signature',['signature'=> $signature['signature']]);
     }
-    public function update_signature()
+    public function updateSignature()
     {
-        // $data = $this->request->getPost('signature_body');
         $data = [
             'signature' => $this->request->getPost('signature_body')
         ];
-        $signature = $this->company_service->update_signature(user()->company_id,$data);
+        $signature = $this->company_service->updateSignature(user()->company_id,$data);
         if($signature){
             return redirect()->back()->withCookies()->with('message', 'Signature Updated!');
         } else {

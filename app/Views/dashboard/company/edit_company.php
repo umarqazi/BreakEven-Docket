@@ -3,10 +3,9 @@
 <?= $this->section("content")?>
 
 <div class="row">
-        <div class="" id="successMessage">
-            <?= view('App\Auth\_message_block') ?>
-        </div>
-
+    <div class="" id="successMessage">
+        <?= view('App\Auth\_message_block') ?>
+    </div>
     <div class="row">
         <form action="<?= base_url();?>/update-company" method="post" id="company_information" enctype="multipart/form-data">
             <div class="block-content-outer basic-info col-md-6">
@@ -169,26 +168,4 @@
 	<?= script_tag('js/dropzone.js') ?>
 	<?= script_tag('js/required/jquery.mask.min.js') ?>
 	<?= script_tag('js/required/users.js') ?>
-
-
-	<script type="text/javascript">
-        $(document).ready(function () {
-            $('#expiry_date').datetimepicker({
-                format: 'MM/DD/YYYY'
-            });
-        });
-
-        $(document).ready(function () {
-            $('#renew_date').datetimepicker({
-                format: 'MM/DD/YYYY'
-            });
-        });
-
-        $(document).ready(function () {
-            $('#subscription_date').datetimepicker({
-                format: 'MM/DD/YYYY'
-            });
-        });
-    </script>
-
 <?= $this->endSection()?>

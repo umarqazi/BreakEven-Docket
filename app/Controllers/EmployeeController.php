@@ -12,36 +12,28 @@ class EmployeeController extends BaseController
 {
     protected $user_service;
     protected $employee_service;
-    protected $validation;
+    
     public function __construct()
     {
         $this->user_service = new UserService;
         $this->employee_service = new EmployeeService;
-        $this->validation =  \Config\Services::validation();
-
     }
+    
     public function index()
     {
         //
     }
-    public function employee_center()
-    {
-        $db = \Config\Database::connect();
-        // $param = [
-        //     'user_type' => 'employee',
-        //     'company_id' => user()->company_id
-        // ];
-        // $employees = $this->user_service->findAllWithWhere($param);
 
-
-        $employees = $this->employee_service->getAllEmployees();
-        return view('dashboard/employees/employees', ['employees' => $employees]);
-    }
-    public function employee_form()
+    public function employeeCenter()
     {
-        $validation = \Config\Services::validation();
-        return view('dashboard/employees/add_employee_form',['validation'=>$validation]);
+        return $this->employee_service->getAllEmployees();
     }
+
+    public function employeeForm()
+    {
+        return view('dashboard/employees/add_employee_form',['validation'=>$this->validation]);
+    }
+
     public function store()
     {
         $this->validation->run($this->request->getPost(), 'employeStore');
@@ -65,43 +57,22 @@ class EmployeeController extends BaseController
     }
     public function show($seg1 = false)
     {
-        $db = \Config\Database::connect();
-        $qry = 'SELECT employees.*, users.*
-                FROM employees
-                LEFT JOIN users ON employees.user_id = users.id
-                WHERE users.company_id = ? AND users.user_type = ? AND users.id = ? ';
-
-        $record = $db->query($qry, [user()->company_id,'employee',$seg1]);
-        return view('dashboard/employees/employee_profile',['record' => $record->getRow()]);
+        return $this->employee_service->getEmployee($seg1);
     }
     public function edit($user_id = null)
     {
-        $db = \Config\Database::connect();
-        $qry = 'SELECT employees.*, users.*,employees.id as employee_id
-                FROM employees
-                LEFT JOIN users ON employees.user_id = users.id
-                WHERE users.company_id = ? AND users.user_type = ? AND users.id = ? ';
-
-        $record = $db->query($qry, [user()->company_id,'employee',$user_id]);
-        return view('dashboard/employees/employee_edit',['record' => $record->getRow()]);
+        return $this->employee_service->editEmployee($user_id);
     }
     public function delete($user_id = null)
     {
-        $del_user = ['id' => $user_id];
-        $this->user_service->deleteWhere($del_user);
-        return redirect()->to(site_url('employee-center'))->withCookies()->with('message', 'Employee Deleted Successfully');
+        return $this->employee_service->deleteEmployee($user_id);
     }
-    public function employee_verify($user_id=false, $code=false)
+    public function employeeVerify($user_id=false, $code=false)
     {
-        $validation = \Config\Services::validation();
         $user = $this->user_service->validateUser($user_id,$code);
-        if ($user) {
-            return view('Auth/create_password',['user' => $user, 'validation' => $validation]);
-        } else {
-            return view('Auth/create_password',['user'=>false, 'validation' => $validation]);
-        }
+        return view('Auth/create_password',['user' => ($user) ? $user : false, 'validation' => $this->validation]);
     }
-    public function set_password()
+    public function setPassword()
     {
         $this->validation->run($this->request->getPost(), 'setPassword');
         if ($this->validation->getErrors()) {
@@ -110,7 +81,7 @@ class EmployeeController extends BaseController
             $data['password'] = $this->request->getPost('password');
             $data['activation_code'] = '';
             $id = $this->request->getPost('user_id');
-            $result = $this->user_service->set_password($id,$data);
+            $result = $this->user_service->setPassword($id,$data);
             if($result){
                 return redirect()->to(site_url('employee-center'))->withCookies()->with('message', 'Password is updated You can login Now');
             } else {

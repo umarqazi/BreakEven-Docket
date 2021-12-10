@@ -1,6 +1,19 @@
 
 <?= $this->extend("master")?>
 <?= $this->section("content")?>
+<style>
+    .filter-box {
+        border: 1px solid #D8D5D5;
+        border-radius:7px !important;
+        background-color:#EEEBEB; 
+        padding:8px 5px 5px 5px; 
+        margin:4px 1px 0px 1px;
+        box-shadow: 0 4px 2px -2px gray; 
+    }
+    .form-control{
+        margin-right:8px;
+    }
+</style>
 <div class="row">
     <div class="col-md-12" id="material-section">
         <div class="" id="successMessage">
@@ -8,8 +21,32 @@
         </div>
         <h2 class="heading-text">
             <strong>All Activity on dockets</strong>
-            <!-- <button class="btn btn-primary pull-right job_pattern_btn" title="Create a Docket No" onclick="job_pattern()">Create a Docket No</button> -->
+            <button class="btn btn-primary pull-right job_pattern_btn toggle_btn" title="Filter Record" >Filter Records</button>
+            <?php if($show_remove_btn == true){ ?>
+            <a type="button" class="btn btn-danger pull-right" href="<?= route_to('activity') ?>" style="font-size: 12px; margin-right:4px">Remove Filter</a> 
+            <?php } ?>
         </h2>
+        <div class="row filter-box" id="filter_div" >
+            <form action="<?= route_to('activity') ?>" method="post" id="activity_filter_form">
+                <div style="display: flex;">
+                    <input type="text" id="datetimepicker1" name="time_in" class="form-control" placeholder="Time In">
+                    <input type="text" id="datetimepicker2" name="time_out"class="form-control" placeholder="Time Out">
+                    <select id="employee_id" name="employee_id" class="form-control" >
+                        <option disabled="disabled" selected="true" value="">Select Employee</option>
+                        <?php foreach($employees as $key => $value):?>
+                            <option value="<?= $value['id'];?>"><?= $value['user_name'];?></option>
+                        <?php endforeach;?>
+                    </select>
+                    <select id="docket_id" name="docket_id" class="form-control" >
+                        <option disabled="disabled" selected="true" value="">Select Worked By</option>
+                        <?php foreach($dockets as $key => $value):?>
+                            <option value="<?= $value['id'];?>"><?= $value['docket_no'];?></option>
+                        <?php endforeach;?>
+                    </select>
+                    <input type="button" class="btn btn-primary pull-right" id="btn_submit" onclick="validate_filter()" value="Search" style="padding:8px 10px;line-height:normal;">
+                </div>
+            </form>
+        </div>
         <div class="materials-content">
             <div class="material-items">
                 <table class="table table-striped table-hover" id="all_logs_table">
@@ -47,32 +84,9 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
 </div>
 <?= script_tag('js/datatables/jquery.dataTables.min.js') ?>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#all_logs_table').DataTable({
-            "pagingType": "full_numbers",
-            bAutoWidth: false,
-            "autoWidth": false,
-            "searching" : true,
-            "sort" : false,
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            "language" : {
-                search : '',
-                searchPlaceholder: "Search Activity",
-                "zeroRecords": "No Record Found",
-                "emptyTable": "No Record Found"
-            }
-        });
-
-        /*$('table').wrap('<div class="table-responsive"></div>');*/
-        // $('.btn_docket_no').prop('disabled',true);
-    
-
-    });
-</script>
+<?= script_tag('js/dashboard/docket_activity.js') ?>
 <?= $this->endSection()?>
