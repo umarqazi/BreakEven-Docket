@@ -41,6 +41,8 @@ class SettingsController extends BaseController
         $data = [
             'invoice_signature' => $img_name
         ];
+        $activity_data = ['type'=> 22,'user_id'=>$this->user_id, 'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         $result = $this->user_service->update($this->user_id,$data);
         return ($result == true) ? true : false;
     }
@@ -54,6 +56,8 @@ class SettingsController extends BaseController
         $data = [
             'signature' => $this->request->getPost('signature_body')
         ];
+        $activity_data = ['type'=> 23,'user_id'=>$this->user_id, 'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         $signature = $this->company_service->updateSignature(user()->company_id,$data);
         if($signature){
             return redirect()->back()->withCookies()->with('message', 'Signature Updated!');

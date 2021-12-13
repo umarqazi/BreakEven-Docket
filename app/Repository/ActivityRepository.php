@@ -25,25 +25,25 @@ class ActivityRepository extends BaseRepo
     }
     public function getAllActivities()
     {
-        $qry = "SELECT activities.*, CONCAT(users.first_name, ' ',users.last_name) AS user_name,
-                CASE 
-                WHEN activities.type = 3 THEN (SELECT CONCAT(users.first_name, ' ',users.last_name) FROM users WHERE users.id = SUBSTRING_INDEX(activities.description,'other_id\":',-1))
-                WHEN activities.type = 4 THEN (SELECT CONCAT(users.first_name, ' ',users.last_name) FROM users WHERE users.id = SUBSTRING_INDEX(activities.description,'other_id\":',-1))
-                    ELSE 'Nothing'
-                END AS employees_name
-                FROM activities, users
-                WHERE activities.user_id = users.id AND users.company_id = ?
+        $qry = "SELECT activities.*, CONCAT(USR.first_name, ' ',USR.last_name) AS user_name
+                , CONCAT(EMP.first_name, ' ',EMP.last_name) AS employee_name,dockets.docket_no
+                FROM activities
+                LEFT JOIN users as USR ON USR.id = activities.user_id
+                LEFT JOIN users as EMP ON EMP.id = activities.other_user_id
+                LEFT JOIN dockets ON dockets.id = SUBSTRING_INDEX(activities.description,'docket_id\":',-1)
+                where USR.company_id = ?
                 ORDER BY activities.created_at DESC";
 
-// SELECT activities.*, CONCAT(users.first_name, ' ',users.last_name) AS user_name, 
+// $qry = "SELECT activities.*, CONCAT(users.first_name, ' ',users.last_name) AS user_name,
 // CASE 
-//   WHEN activities.type = 3 THEN (SELECT CONCAT(users.first_name, ' ',users.last_name) FROM users WHERE users.id = SUBSTRING_INDEX(activities.description,'other_id":',-1))
-//   WHEN activities.type = 4 then 'other_user_name'
-// 	ELSE 'Nothing'
-// END AS other_user_name
+// WHEN activities.type = 3 THEN (SELECT CONCAT(users.first_name, ' ',users.last_name) FROM users WHERE users.id = SUBSTRING_INDEX(activities.description,'other_id\":',-1))
+// WHEN activities.type = 4 THEN (SELECT CONCAT(users.first_name, ' ',users.last_name) FROM users WHERE users.id = SUBSTRING_INDEX(activities.description,'other_id\":',-1))
+// WHEN activities.type = 7 THEN (SELECT CONCAT(users.first_name, ' ',users.last_name) FROM users,activities WHERE users.id = activities.other_user_id)
+//     ELSE 'Nothing'
+// END AS employees_name
 // FROM activities, users
-// WHERE activities.user_id = users.id AND users.company_id = 2
-// ORDER BY activities.created_at DESC
+// WHERE activities.user_id = users.id AND users.company_id = ?
+// ORDER BY activities.created_at DESC";
 
 
         $data = $this->db->query($qry, [user()->company_id]);

@@ -66,7 +66,7 @@ class UserService
             $user['updated_at'] = $current_date;
             $result = $this->user_repo->update($data['user_id'],$user);
             // dd(intval($data['user_id']));
-            $activity_data = ['type'=>4,'description' => json_encode(['employee_name'=> $user['first_name'].' '.$user['last_name'],'msg'=>'Updated Employee','other_id'=>intval($data['user_id'])])];
+            $activity_data = ['type'=>4,'other_user_id'=>intval($data['user_id']),'description' => json_encode(['employee_name'=> $user['first_name'].' '.$user['last_name']])];
             insertActivity($activity_data);
             return $result;
         } else {
@@ -74,7 +74,7 @@ class UserService
                 $user['created_at'] = $current_date;
                 $user['updated_at'] = $current_date;
                 $result = $this->user_repo->insert($user);
-                $activity_data = ['type'=>3,'description' => json_encode(['employee_name'=> $user['first_name'].' '.$user['last_name'] ,'msg'=>'Created Employee','other_id'=>$result])];
+                $activity_data = ['type'=>3,'other_user_id'=>intval($result),'description' => json_encode(['employee_name'=> $user['first_name'].' '.$user['last_name']])];
 				insertActivity($activity_data);
                 if ($result) {
                     //send email here
@@ -146,6 +146,8 @@ class UserService
     public function setPassword($id,$data)
     {
         $data['password_hash'] = Password::hash($data['password']);
+        $activity_data = ['type'=> 21,'user_id'=>$id, 'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         return $this->user_repo->update($id,$data);
     }
 

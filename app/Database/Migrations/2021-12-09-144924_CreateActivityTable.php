@@ -13,7 +13,8 @@ class CreateActivityTable extends Migration
          */
         $this->forge->addField([
             'id'              => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-            'user_id'         => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
+            'user_id'         => ['type' => 'int', 'constraint' => 11, 'null' => true],
+            'other_user_id'   => ['type' => 'int', 'constraint' => 11, 'null' => true],
             'type'            => ['type' => 'tinyint', 'constraint' => 11,  'null' => true],
             'description'     => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
             'ip_address'      => ['type' => 'varchar', 'constraint' => 255, 'null' => true],

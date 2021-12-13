@@ -60,6 +60,8 @@ class AccessControlService
             foreach ($data['permission_id'] as $key => $permission_id) {
                 $this->authorize->addPermissionToUser($permission_id, $data['user_id']);
             }
+            $activity_data = ['type'=> 12,'other_user_id'=> intval($data['user_id']),'description' =>''];
+            insertActivity($activity_data);
             return redirect()->to('access-control')->with('message','Permissions Assigned!');
         }
         return redirect()->to('access-control');

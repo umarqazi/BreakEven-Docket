@@ -14,7 +14,7 @@ class ActivityModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id','type','description','ip_address','created_at'];
+    protected $allowedFields    = ['user_id','type','description','ip_address','created_at','other_user_id'];
 
     // Dates
     protected $useTimestamps = false;
