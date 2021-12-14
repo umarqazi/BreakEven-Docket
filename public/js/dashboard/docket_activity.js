@@ -47,7 +47,9 @@ $(document).ready(function(){
             "emptyTable": "No Record Found"
         }
     });
-    $("#filter_div").hide();
+    if (!'<?= $show_remove_btn ?>') {
+        $("#filter_div").hide();            
+    }
     $(".toggle_btn").click(function(){
         if ($("#filter_div").is(":visible")) {
             $("#filter_div").hide(500);

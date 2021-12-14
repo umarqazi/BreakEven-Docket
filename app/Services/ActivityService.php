@@ -35,10 +35,15 @@ class ActivityService
     {
         return $this->activity_repo->insert($data);
     }
-    public function showActivities()
+    public function showActivities($filters)
     {
-        $data = $this->activity_repo->getAllActivities();
-        return view('dashboard/activity/activities',['data' => $data]);
+        $data = $this->activity_repo->getAllActivities($filters);
+        $employees = $this->employee_repo->getAll();
+        $show_remove_btn = false;
+        if (!is_null($filters)) {
+            $show_remove_btn = true;
+        }
+        return view('dashboard/activity/activities',['data' => $data,'employees'=>$employees,'show_remove_btn'=>$show_remove_btn,'filters'=>$filters]);
     }
 
 }

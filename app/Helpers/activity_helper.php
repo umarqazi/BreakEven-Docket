@@ -77,7 +77,6 @@ if(!function_exists('insertActivity')){
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['user_id'] = empty($data['user_id']) ? user_id() : $data['user_id'];
         $activity_repo = new ActivityRepository;
-        // dd($data);
         return $activity_repo->insert($data);
     }
 }

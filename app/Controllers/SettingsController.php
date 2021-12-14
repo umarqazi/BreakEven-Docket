@@ -56,8 +56,6 @@ class SettingsController extends BaseController
         $data = [
             'signature' => $this->request->getPost('signature_body')
         ];
-        $activity_data = ['type'=> 23,'user_id'=>$this->user_id, 'other_user_id'=> '','description' =>''];
-        insertActivity($activity_data);
         $signature = $this->company_service->updateSignature(user()->company_id,$data);
         if($signature){
             return redirect()->back()->withCookies()->with('message', 'Signature Updated!');

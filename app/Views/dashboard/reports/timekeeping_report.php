@@ -43,18 +43,18 @@
                 <div class="row filter-box" id="filter_div" >
                     <form action="<?= route_to('timekeeping-report') ?>" method="post" id="activity_filter_form">
                         <div style="display: flex;">
-                            <input type="text" id="datetimepicker1" name="time_in" class="form-control" placeholder="Time In">
-                            <input type="text" id="datetimepicker2" name="time_out"class="form-control" placeholder="Time Out">
+                            <input type="text" id="datetimepicker1" name="time_in" value="<?= isset($filters['time_in']) ? $filters['time_in'] : ''?>" class="form-control" placeholder="Time In">
+                            <input type="text" id="datetimepicker2" name="time_out"value="<?= isset($filters['time_out']) ? $filters['time_out'] : ''?>" class="form-control" placeholder="Time Out">
                             <select id="employee_id" name="employee_id" class="form-control" >
                                 <option disabled="disabled" selected="true" value="">Select Employee</option>
                                 <?php foreach($employees as $key => $value):?>
-                                    <option value="<?= $value['id'];?>"><?= $value['user_name'];?></option>
+                                    <option value="<?= $value['id'];?>" <?= isset($filters['employee_id']) ? (($filters['employee_id'] == $value['id']) ? 'selected' : '' ) : ''?>><?= $value['user_name'];?></option>
                                 <?php endforeach;?>
                             </select>
                             <select id="docket_id" name="docket_id" class="form-control" >
                                 <option disabled="disabled" selected="true" value="">Select Docket No:</option>
                                 <?php foreach($dockets as $key => $value):?>
-                                    <option value="<?= $value['id'];?>"><?= $value['docket_no'];?></option>
+                                    <option value="<?= $value['id'];?>" <?= isset($filters['docket_id']) ? (($filters['docket_id'] == $value['id']) ? 'selected' : '' ) : ''?> ><?= $value['docket_no'];?></option>
                                 <?php endforeach;?>
                             </select>
                             <input type="button" class="btn btn-primary pull-right" id="btn_submit" onclick="validate_filter()" value="Search" style="padding:8px 10px;line-height:normal;">
