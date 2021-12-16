@@ -41,6 +41,8 @@ class SettingsController extends BaseController
         $data = [
             'invoice_signature' => $img_name
         ];
+        $activity_data = ['type'=> 22,'user_id'=>$this->user_id, 'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         $result = $this->user_service->update($this->user_id,$data);
         return ($result == true) ? true : false;
     }

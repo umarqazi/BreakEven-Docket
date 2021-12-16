@@ -14,6 +14,10 @@ class ActivityController extends BaseController
     }
     public function index()
     {
-        
+        $filters = null;
+        if ($this->request->getPost()) {
+            $filters = $this->request->getPost();
+        }
+        return $this->activity_service->showActivities($filters);
     }
 }

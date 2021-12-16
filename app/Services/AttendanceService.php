@@ -43,23 +43,27 @@ class AttendanceService
         // dd($data);
         $today = date('Y-m-d');
         $data['today_report'] = false;
-        $data['records'] = false;
+        $data['records'] = true;
         if (($data != false) && !empty($data['check_in']) && !empty($data['check_out']) && (date('Y-m-d') == date('Y-m-d', strtotime($data['check_in'])) )){
+            
             $data['today_report'] = true;
             $breaks = json_decode($data['break']);
             $resumes = json_decode($data['resume']);
             $break_time_hours = 0.0;
             $seconds_to_minuts = 0;
-            foreach ($breaks as $key => $value) {
-                $a = new DateTime($breaks[$key]);
-                $b = new DateTime($resumes[$key]);
-                $interval = $a->diff($b);
-                // $val = $interval->format("%h:%i:%s");
-                $minutes = $interval->days * 24 * 60;
-                $minutes += $interval->h * 60;
-                $minutes += $interval->i;
-                $seconds_to_minuts += $interval->s;
-                $break_time_hours += $minutes;
+            // dd($breaks);
+            if(!empty($breaks)){
+                foreach ($breaks as $key => $value) {
+                    $a = new DateTime($breaks[$key]);
+                    $b = new DateTime($resumes[$key]);
+                    $interval = $a->diff($b);
+                    // $val = $interval->format("%h:%i:%s");
+                    $minutes = $interval->days * 24 * 60;
+                    $minutes += $interval->h * 60;
+                    $minutes += $interval->i;
+                    $seconds_to_minuts += $interval->s;
+                    $break_time_hours += $minutes;
+                }
             }
             $break_time_hours += floor($seconds_to_minuts / 60);
             $data['hours_to_time'] = $this->hoursToTime($break_time_hours);
@@ -67,12 +71,12 @@ class AttendanceService
             $bb = new DateTime($data['hours_to_time']['time_string']);
             $interval = $aa->diff($bb);
             $total_working_time = $interval->format("%H").':'.$interval->format("%i").':'.$interval->format("%s");
-            $data['total_working_time'] = $total_working_time;
+            $data['total_working_time'] = $total_working_time;            
             
-        } else if($data == false){
-            $data['records'] = true;
+        } elseif(($data != false) && !empty($data['check_in']) && empty($data['check_out']) && (date('Y-m-d') == date('Y-m-d', strtotime($data['check_in'])) )){
+            $data = $data;
         } else {
-            $data['records'] = true;
+            $data['records'] = false;
         }
         return view('dashboard/attendance/attendance',['data' => $data,'today' => $today]);
     }
@@ -106,11 +110,15 @@ class AttendanceService
     public function checkin()
     {
         $data = array('user_id' => $this->user_id, 'check_in' => date("Y-m-d H:i:s"));
+        $activity_data = ['type'=> 13,'user_id'=> $this->user_id, 'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         return $this->attendance_repo->insert($data);
     }
     public function checkout($id)
     {
         $data = array('check_out' => date("Y-m-d H:i:s"));
+        $activity_data = ['type'=> 14,'user_id'=> $this->user_id,'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         return $this->attendance_repo->update($id,$data);
     }
     public function break($id)
@@ -125,6 +133,8 @@ class AttendanceService
             $break_data = json_encode($break_array);
         }
         $data = array('break' => $break_data, 'on_break' => 1);
+        $activity_data = ['type'=> 15,'user_id'=> $this->user_id,'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         return $this->attendance_repo->update($id,$data);
     }
     public function resume($id)
@@ -139,6 +149,8 @@ class AttendanceService
             $break_data = json_encode($resume_array);
         }
         $data = array('resume' => $break_data, 'on_break' => 0);
+        $activity_data = ['type'=> 16,'user_id'=> $this->user_id,'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         return $this->attendance_repo->update($id,$data);
     }
 

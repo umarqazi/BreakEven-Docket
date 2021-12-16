@@ -31,5 +31,19 @@ class ActivityService
         $this->employee_repo = new EmployeeRepository;
         $this->validation    = \Config\Services::validation();
     }
+    public function insert($data)
+    {
+        return $this->activity_repo->insert($data);
+    }
+    public function showActivities($filters)
+    {
+        $data = $this->activity_repo->getAllActivities($filters);
+        $employees = $this->employee_repo->getAll();
+        $show_remove_btn = false;
+        if (!is_null($filters)) {
+            $show_remove_btn = true;
+        }
+        return view('dashboard/activity/activities',['data' => $data,'employees'=>$employees,'show_remove_btn'=>$show_remove_btn,'filters'=>$filters]);
+    }
 
 }

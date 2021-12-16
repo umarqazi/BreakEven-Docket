@@ -70,11 +70,15 @@ class CompanyService
             'zip' => $data['zip'],
             'subscription_plan_id' => $plan,
         );
+        $activity_data = ['type'=> 17, 'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         $result = $this->company_repo->update($data['company_id'],$company);
         return $result;
     }
     public function updateSignature($id,$data)
     {
+        $activity_data = ['type'=> 23,'user_id'=>$this->user_id, 'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         return $this->company_repo->update($id,$data);
     }
     public function findAll(){
@@ -111,8 +115,12 @@ class CompanyService
             'is_enabled' => 0
         ];
         if (!empty($company_id)) {
+            $activity_data = ['type'=> 19, 'other_user_id'=> '','description' =>''];
+            insertActivity($activity_data);
             $result = $this->company_repo->update($company_id,$data);
         } else {
+            $activity_data = ['type'=> 18, 'other_user_id'=> '','description' =>''];
+            insertActivity($activity_data);
             $result = $this->company_repo->update(User()->company_id,$data);
         }
         if ($result) {
@@ -124,6 +132,8 @@ class CompanyService
         $data = [
             'is_enabled' => 1
         ];
+        $activity_data = ['type'=> 20, 'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         return $this->company_repo->update($company_id,$data);
     }
     public function getCompanyWithUser($company_id = null)

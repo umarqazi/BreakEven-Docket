@@ -50,6 +50,6 @@ class ReportsService
         if (!is_null($filters)) {
             $show_remove_btn = true;
         }
-        return view('dashboard/reports/timekeeping_report',['validation'=>$this->validation,'logs'=>$logs,'sumOfWorkingTimeByDockets'=>$sumOfWorkingTimeByDockets,'dockets'=>$dockets,'employees'=>$employees,'show_remove_btn'=>$show_remove_btn]);
+        return view('dashboard/reports/timekeeping_report',['validation'=>$this->validation,'logs'=>$logs,'sumOfWorkingTimeByDockets'=>$sumOfWorkingTimeByDockets,'dockets'=>$dockets,'employees'=>$employees,'show_remove_btn'=>$show_remove_btn,'filters'=>$filters]);
     }
 }

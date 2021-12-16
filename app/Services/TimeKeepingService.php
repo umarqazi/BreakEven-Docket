@@ -35,6 +35,8 @@ class TimeKeepingService
                 'employee_id'   => user_id(),
                 'time_out'      => ($data['time_out'] == 'true') ? $this->current_date_time : '',
             );
+            $activity_data = ['type'=> 9,'other_user_id'=>'','description' => json_encode(['docket_id'=> intval($data['docket_id'])])];
+            insertActivity($activity_data);
             return $this->timekeeping_repo->update($timekeeping_id,$data);
         } else {
             $data = array(
@@ -43,26 +45,33 @@ class TimeKeepingService
                 'time_in'       => ($data['time_in'] == 'true') ? $this->current_date_time : '',
                 'time_out'      => ($data['time_out'] == 'true') ? $this->current_date_time : '',
             );
+            $activity_data = ['type'=> 8,'other_user_id'=>'','description' => json_encode(['docket_id'=> intval($data['docket_id'])])];
+            insertActivity($activity_data);
             return $this->timekeeping_repo->insert($data);
         }
     }
     public function createManualTimeIn($data){
+        // dd($data);
         if (!empty($data['timekeeping_id'])) {
             $timekeeping_id = $data['timekeeping_id'];
-            $data = array(
+            $update_data = array(
                 'docket_id'     => $data['form_docket_id'],
                 'employee_id'   => user_id(),
                 'time_out'      => !empty($data['date']) ? date("Y-m-d H:i:s", strtotime($data['date'])) : '',
             );
-            return $this->timekeeping_repo->update($timekeeping_id,$data);
+            $activity_data = ['type'=> 11,'other_user_id'=>'','description' => json_encode(['docket_id'=> intval($data['form_docket_id'])])];
+            insertActivity($activity_data);
+            return $this->timekeeping_repo->update($timekeeping_id,$update_data);
         } else {
-            $data = array(
+            $create_data = array(
                 'docket_id'     => $data['form_docket_id'],
                 'employee_id'   => user_id(),
                 'time_out'      => '',
                 'time_in'       => !empty($data['date']) ? date("Y-m-d H:i:s", strtotime($data['date'])) : '',
             );
-            return $this->timekeeping_repo->insert($data);
+            $activity_data = ['type'=> 10,'other_user_id'=>'','description' => json_encode(['docket_id'=> intval($data['form_docket_id'])])];
+            insertActivity($activity_data);
+            return $this->timekeeping_repo->insert($create_data);
         }
     }
     public function getTimekeepingByDocketId($docket_id)

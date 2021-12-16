@@ -28,7 +28,7 @@ class AuthController extends Controller
 		// Most services in this controller require
 		// the session to be started - so fire it up!
 		$this->session = service('session');
-
+		helper('activity_helper');
 		$this->config = config('Auth');
 		$this->auth = service('authentication');
 		$this->company_service = new CompanyService;
@@ -114,6 +114,7 @@ class AuthController extends Controller
 			$is_user_enable = $this->company_service->is_enable($this->auth->user()->company_id)['is_enabled'];
 			if ($is_user_enable == '1') {
 				$redirectURL = site_url('/');
+				insertActivity(['type'=>1,'description' => '','user_id'=>$this->auth->user()->id]);
 			} else {
 				$this->auth->logout();
 				return redirect()->back()->withInput()->with('error', 'This Company is disabled!');
@@ -133,6 +134,7 @@ class AuthController extends Controller
 	{
 		if ($this->auth->check())
 		{
+			insertActivity(['type'=>2,'description' => '','user_id'=>$this->auth->user()->id]);
 			$this->auth->logout();
 		}
 
@@ -159,6 +161,7 @@ class AuthController extends Controller
 	{
 		if ($this->auth->check())
 		{
+			insertActivity(['type'=>2,'description' => '','user_id'=>$this->auth->user()->id]);
 			$this->auth->logout();
 		}
 
