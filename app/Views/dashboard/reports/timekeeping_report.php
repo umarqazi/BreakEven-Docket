@@ -18,10 +18,10 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <ul id="right-tabs-alt-1" class="nav nav-tabs tabs-right tabs-alt-1 highlight-color-blue">
             <li id = "list-step1" class="active">
-                <a href="#step1" data-toggle="tab" aria-expanded="false"><p class="step_number">1</p><p class="title_text" style="text-align: center;">All Records on TimeKEEPINGS</p></a>
+                <a href="#step1" data-toggle="tab" aria-expanded="false"><p class="step_number">1</p><p class="title_text" style="text-align: center;">Partially worked Dockets</p></a>
             </li>
             <li id = "list-step2" class="">
-                <a href="#step2" data-toggle="tab" aria-expanded="true"><p class="step_number">2</p><p class="title_text" style="text-align: center;">Employees & Docket wise Records</p></a>
+                <a href="#step2" data-toggle="tab" aria-expanded="true"><p class="step_number">2</p><p class="title_text" style="text-align: center;">Total Working on Docket</p></a>
             </li>
         </ul>
     </div>
@@ -120,18 +120,18 @@
                             <tbody>
                                 <?php 
                                 if (!empty($sumOfWorkingTimeByDockets)) {
-                                $i=1;
-                                foreach($sumOfWorkingTimeByDockets as $data):
-                                ?>
-                                <tr class="item-name">
-                                    <td><?= $i ?></td>
-                                    <td><a href="#"><?= $data['docket_no'];?></a></td>
-                                    <td><a href="#"><?= $data['worked_by'];?></a></td>
-                                    <td><a href="#"><?= !empty($data['total_time']) ?    date('H:i:s', strtotime($data['total_time'])) : '<span class="text-danger">Still Woking</span>' ?></a></td>
-                                </tr>
-                                <?php 
-                                $i++; 
-                                endforeach;
+                                    $i=1;
+                                    foreach($sumOfWorkingTimeByDockets as $data):
+                                    ?>
+                                    <tr class="item-name">
+                                        <td><?= $i ?></td>
+                                        <td><a href="#"><?= $data['docket_no'];?></a></td>
+                                        <td><a href="#"><?= $data['worked_by'];?></a></td>
+                                        <td><a href="#"><?= !empty($data['total_time']) ?    date('H:i:s', strtotime($data['total_time'])) : '<span class="text-danger">Still Woking</span>' ?></a></td>
+                                    </tr>
+                                    <?php 
+                                    $i++; 
+                                    endforeach;
                                 }
                                 ?>
                             </tbody>
@@ -142,6 +142,9 @@
         </div>
     </div>
 </div>
+<script>
+    let show_remove_btn = '<?= $show_remove_btn ?>';
+</script>
 <?= script_tag('js/datatables/jquery.dataTables.min.js') ?>
 <?= script_tag('js/dashboard/docket_activity.js') ?>
 <?= $this->endSection()?>
