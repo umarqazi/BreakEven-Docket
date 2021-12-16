@@ -79,11 +79,11 @@
         <?php if ($date == date('Y-m-d', strtotime($row['created_at']))) { ?>
             <?php if($row['type'] == 1) { ?>
                 <div class="box-activity">
-                    <span class="step_number"><?= $i ?></span><span><a href="#"> <?= $row['user_name'] ?></a> has Loged In at <span style="color: #293870;"><?= date('j M, Y, g:i a', strtotime( $row['created_at'])) ?></span></span>
+                    <span class="step_number"><?= $i ?></span><span><a href="#"> <?= $row['user_name'] ?></a> has Loged In at <span style="color: #293870;"><?= date('g:i a', strtotime( $row['created_at'])) ?></span></span>
                 </div>
             <?php } if($row['type'] == 2) { ?>
                 <div class="box-activity">
-                <span class="step_number"><?= $i ?></span><span><a href="#"> <?= $row['user_name'] ?></a> has Loged Out at <span style="color: #293870;"><?= date('j M, Y, g:i a', strtotime( $row['created_at'])) ?></span></span>
+                <span class="step_number"><?= $i ?></span><span><a href="#"> <?= $row['user_name'] ?></a> has Loged Out at <span style="color: #293870;"><?= date('g:i a', strtotime( $row['created_at'])) ?></span></span>
                 </div>
             <?php } if($row['type'] == 3) { ?>
                 <div class="box-activity">
