@@ -77,7 +77,7 @@ class CompanyService
     }
     public function updateSignature($id,$data)
     {
-        $activity_data = ['type'=> 23,'user_id'=>$this->user_id, 'other_user_id'=> '','description' =>''];
+        $activity_data = ['type'=> 23,'user_id'=>user_id(), 'other_user_id'=> '','description' =>''];
         insertActivity($activity_data);
         return $this->company_repo->update($id,$data);
     }

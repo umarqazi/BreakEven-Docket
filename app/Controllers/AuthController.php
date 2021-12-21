@@ -21,7 +21,6 @@ class AuthController extends Controller
 	 * @var Session
 	 */
 	protected $session;
-	protected $company_service;
 
 	public function __construct()
 	{
@@ -31,7 +30,7 @@ class AuthController extends Controller
 		helper('activity_helper');
 		$this->config = config('Auth');
 		$this->auth = service('authentication');
-		$this->company_service = new CompanyService;
+		
 	}
 
 	//--------------------------------------------------------------------
@@ -111,7 +110,8 @@ class AuthController extends Controller
 			}
 		}  else {
 			// if($this->auth->user()->is_super_admin != 1)
-			$is_user_enable = $this->company_service->is_enable($this->auth->user()->company_id)['is_enabled'];
+			$company_service = new CompanyService;
+			$is_user_enable = $company_service->is_enable($this->auth->user()->company_id)['is_enabled'];
 			if ($is_user_enable == '1') {
 				$redirectURL = site_url('/');
 				insertActivity(['type'=>1,'description' => '','user_id'=>$this->auth->user()->id]);

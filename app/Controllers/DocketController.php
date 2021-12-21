@@ -28,13 +28,7 @@ class DocketController extends BaseController
     }
     public function getDocketNo()
     {
-        $query = $this->db->query('select COUNT(dockets.docket_no) as count from dockets where dockets.docket_no ="'.$this->request->getPost('docket_no').'"');
-        $count = $query->getResult()[0]->count;
-        if($count > 0){
-            return '0';
-        } else {
-            return '1';
-        }
+        return $this->docket_service->getDocketNo($this->request->getPost());
     }
     public function storeDocket()
     {

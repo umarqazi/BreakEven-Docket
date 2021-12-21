@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Repository\CompanyRepository;
 use App\Repository\UserRepository;
 use App\Services\SignatureService;
 use App\Services\CompanyService;
@@ -11,13 +12,14 @@ class EmailService
     protected $email;
     protected $config;
     protected $user_repo;
+    protected $company_repo;
     protected $signature_service;
 
     public function __construct()
     {
         date_default_timezone_set('Asia/Karachi');
         $this->email = \Config\Services::email();
-        $this->company_service = new CompanyService;
+        $this->company_repo = new CompanyRepository;
         $this->user_repo = new UserRepository;
         $this->db = \Config\Database::connect();
         $this->signature_service = new SignatureService;
@@ -48,7 +50,8 @@ class EmailService
           );
 
         $email->initialize($config);
-        $company = $this->company_service->findWhere($user['company_id']);
+        // $company = $this->company_service->findWhere($user['company_id']);
+        $company = $this->company_repo->find($user['company_id']);
         $user['activation_code'] = $activation_code;
         $user['company_name'] = $company['company_name'];
         $user['signature'] = $company['signature'];

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Repository\UserRepository;
 use App\Services\EmailService as ServicesEmailService;
 use App\Services\EmployeeService;
+use App\Services\AccessControlService;
 use CodeIgniter\HTTP;
 use EmailService;
 use Myth\Auth\Password;
@@ -21,11 +22,12 @@ class UserService
     /**
      * @var UserRepository
      */
+    protected $db;
+    protected $authorize;
     protected $user_repo;
     protected $validation;
     protected $email_service;
     protected $employee_service;
-    protected $db;
 
     /**
      * UserService constructor.
@@ -40,6 +42,7 @@ class UserService
         $this->user_repo        = new UserRepository();
         $this->email_service    = new ServicesEmailService();
         $this->employee_service = new EmployeeService();
+        $this->authorize        = service('authorization');
     }
     public function create($data,$company_id=null,$is_company=null) //create and update user/employee here
     {
@@ -99,12 +102,27 @@ class UserService
                 } else {
                     if ($is_company == true) {
                         $returnData['user_id'] = $users->insertID;
+                        $this->AssignAllPermissionsToCompany($users->insertID);
                         return $returnData;
                     }
                     return redirect()->to(site_url('login'))->withCookies()->with('message', 'User Registerd Successfully!');
                 }
             }
         }
+    }
+    public function AssignAllPermissionsToCompany($user_id)
+    {
+        $this->authorize->removePermissionFromUserByUserId($user_id);
+        $permissions = $this->authorize->permissions();
+        // dd($permissions);
+        if(!empty($permissions[0])){
+            foreach($permissions as $row){
+                $this->authorize->addPermissionToUser($row['id'], $user_id);
+            }
+            $activity_data = ['type'=> 12,'other_user_id'=> intval($user_id),'description' =>''];
+            insertActivity($activity_data);
+        }
+        return true;
     }
     public function update($id,$data)
     {

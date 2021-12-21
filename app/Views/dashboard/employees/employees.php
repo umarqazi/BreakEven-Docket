@@ -12,7 +12,7 @@
                 </div>
                 <div class="add_button_employee pull-right">
                     <?php //if (empty($subscription['allowed_users']) || count($records) < $subscription['allowed_users']) {?>
-                        <a href="<?php echo base_url();?>/Add-Employee" class="add_employee_button">
+                        <a href="<?php echo base_url();?>/add-employee" class="add_employee_button">
                             <button type="button" class="btn btn-primary blue">
                                 Add An Employee
                             </button>

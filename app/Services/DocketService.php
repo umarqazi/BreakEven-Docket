@@ -121,5 +121,19 @@ class DocketService
         $result = $this->employee_repo->getAllEmployees();
         return !empty($result) ? $result : false;
     }
+    public function getDocketNo($data)
+    {
+        $query = $this->db->query(
+            'select COUNT(dockets.docket_no) as count 
+            from dockets
+            LEFT JOIN users ON users.id = dockets.added_by 
+            where dockets.docket_no = "'.$data['docket_no'].'" AND users.company_id = '.user()->company_id);
+        $count = $query->getResult()[0]->count;
+        if($count > 0){
+            return '0';
+        } else {
+            return '1';
+        }
+    }
 
 }

@@ -52,7 +52,7 @@ class ReportsRepository extends BaseRepo
                 FROM timekeepings
                 LEFT JOIN users ON timekeepings.employee_id = users.id
                 LEFT JOIN dockets ON timekeepings.docket_id = dockets.id
-                WHERE users.company_id = 2
+                WHERE users.company_id = ?
                 GROUP BY timekeepings.docket_id,timekeepings.employee_id
                 ORDER BY timekeepings.id DESC";
         $logs = $this->db->query($qry,user()->company_id);

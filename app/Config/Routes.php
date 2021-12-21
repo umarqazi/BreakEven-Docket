@@ -45,7 +45,7 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('terms-service',           'Home::terms_of_service');
     $routes->get('privacy-policy',          'Home::privacy_policy');
 
-    $routes->get('Add-Employee',            'EmployeeController::employeeForm');
+    $routes->get('add-employee',            'EmployeeController::employeeForm');
     $routes->post('store_employee',         'EmployeeController::store');
     $routes->get('employee-center',         'EmployeeController::employeeCenter');
     $routes->post('update_employee',        'EmployeeController::update');
