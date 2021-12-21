@@ -175,12 +175,12 @@
                     </div>
                 </div>
 
-				<h3 class="employee_access_control">"To update Employee Access visit Access Control"</h3>
+				<!-- <h3 class="employee_access_control">"To update Employee Access visit Access Control"</h3> 
 
-                <div id="files" class="files"></div>
+                <div id="files" class="files"></div> 
 
 
-                <div id="myId" class="fallback dropzone"></div>
+                <div id="myId" class="fallback dropzone"></div> -->
 
                 <div class="form-group">
                     <input type="hidden" class="form-control" name="user_type" value="employee">

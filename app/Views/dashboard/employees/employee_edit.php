@@ -144,7 +144,7 @@
                 <?php }?>
 
                 <?php //if(count($files)){?>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <h3>User's Files</h3>
                         <ul class="user_files">
                             <?php //foreach($files as $file):?>
@@ -154,7 +154,7 @@
                             <?php //endforeach; ?>
 
                         </ul>
-                    </div>
+                    </div> -->
                 <?php //} ?>
 
                 <div class="form-group">
@@ -237,9 +237,9 @@
 					</div>
                 </div>
 
-				<h3 class="employee_access_control">"To update Employee Access visit Access Control"</h3>
+				<!-- <h3 class="employee_access_control">"To update Employee Access visit Access Control"</h3>
 
-                <div id="myId" class="fallback dropzone"></div>
+                <div id="myId" class="fallback dropzone"></div> -->
 
                 <div class="form-group">
                     <input type="hidden" class="form-control" id="user_id" name="user_id" value="<?php echo $record->user_id?>">
