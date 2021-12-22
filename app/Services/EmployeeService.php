@@ -100,6 +100,9 @@ class EmployeeService
     }
     public function deleteEmployee($user_id = null)
     {
+        $user = $this->user_repo->findAllWithWhere(['id'=>$user_id]);
+        $activity_data = ['type'=>5,'other_user_id'=>intval($user_id),'description' => json_encode(['employee_name'=> $user[0]['first_name'].' '.$user[0]['last_name'],'msg'=>'Deleted Employee'])];
+        insertActivity($activity_data);
         $where_user = ['id' => $user_id];
         $where_emp = ['user_id' => $user_id];
         $this->user_repo->deleteWhere($where_user);

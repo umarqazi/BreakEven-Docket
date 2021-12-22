@@ -8,16 +8,18 @@ use App\Services\UserService;
 
 class SettingsController extends BaseController
 {
+    protected $authorize;
     protected $user_service;
     protected $company_service;
     function __construct()
     {
         $this->user_service = new UserService;
         $this->company_service = new CompanyService;
+        $this->authorize     = service('authorization');
     }
     public function index()
     {
-        return view('dashboard/settings/settings');
+        return view('dashboard/settings/settings',['permissions' => $this->authorize]);
     }
     public function signature()
     {
@@ -39,6 +41,8 @@ class SettingsController extends BaseController
         $data = [
             'invoice_signature' => $img_name
         ];
+        $activity_data = ['type'=> 22,'user_id'=>$this->user_id, 'other_user_id'=> '','description' =>''];
+        insertActivity($activity_data);
         $result = $this->user_service->update($this->user_id,$data);
         return ($result == true) ? true : false;
     }

@@ -33,7 +33,23 @@ $(document).ready(function(){
             "emptyTable": "No Record Found"
         }
     });
-    $("#filter_div").hide();
+    $('#all_dockets_time_sum_table').DataTable({
+        "pagingType": "full_numbers",
+        bAutoWidth: false,
+        "autoWidth": false,
+        "searching" : true,
+        "sort" : false,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "language" : {
+            search : '',
+            searchPlaceholder: "Search Activity",
+            "zeroRecords": "No Record Found",
+            "emptyTable": "No Record Found"
+        }
+    });
+    if (!show_remove_btn) {
+        $("#filter_div").hide();            
+    }
     $(".toggle_btn").click(function(){
         if ($("#filter_div").is(":visible")) {
             $("#filter_div").hide(500);

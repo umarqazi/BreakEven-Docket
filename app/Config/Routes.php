@@ -81,6 +81,22 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('mail-signature',          'SettingsController::mailSignature');
     $routes->post('update_signature',       'SettingsController::updateSignature');
 
+    $routes->get('access-control',          'AccessControllController::index');
+    $routes->get('add-permissions',         'AccessControllController::addPermissions');
+    $routes->post('save-permission',        'AccessControllController::savePermission');
+    $routes->get('delete-permission/(:num)','AccessControllController::deletePermission/$1');
+    $routes->post('get_user_permissions',   'AccessControllController::getUserPermissions');
+    $routes->post('assign_permissions',     'AccessControllController::assignPermissions');
+
+    $routes->get('employee-attendance',     'AttendanceController::index');
+    $routes->get('checkin',                 'AttendanceController::checkin');
+    $routes->post('checkout',               'AttendanceController::checkout');
+    $routes->post('break',                  'AttendanceController::break');
+    $routes->post('resume',                 'AttendanceController::resume');
+
+    $routes->get('reports',                 'ReportsController::index');
+    $routes->get('timekeeping-report',      'ReportsController::timekeeping_report');
+    $routes->post('timekeeping-report',     'ReportsController::timekeeping_report');
 
 });
 //Super Admin Routes Without any filter

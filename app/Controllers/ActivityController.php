@@ -18,6 +18,6 @@ class ActivityController extends BaseController
         if ($this->request->getPost()) {
             $filters = $this->request->getPost();
         }
-        return $this->activity_service->getallTimeKeepingLogs($filters);
+        return $this->activity_service->showActivities($filters);
     }
 }

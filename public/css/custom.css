@@ -1010,7 +1010,7 @@ input[type="file"]{height: auto;}
 }
 .cost_step_row .nav-tabs.tabs-right.tabs-alt-1 li{
 	display: inline-block;
-	width: 24%;
+	width: 49%;
 }
 
 .cost-setup-content-section{
@@ -4881,4 +4881,12 @@ div#terms_conditions .modal-header p span{
 .mr-4 {
 	margin-right: 4px;
 }
+.box {
+        border: 1px solid #D8D5D5;
+        border-radius:7px !important;
+        background-color:#EEEBEB; 
+        padding:8px 5px 5px 5px; 
+        margin:4px 1px 0px 1px;
+        box-shadow: 0 4px 2px -2px gray; 
+    }
 

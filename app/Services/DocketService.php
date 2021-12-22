@@ -34,13 +34,17 @@ class DocketService
         $this->assigndocket_repo = new AssignDocketRepository();
     }
     public function create($data){
+        $user_id = user_id();
         $current_date = date('Y-m-d H:i:s');
         $data = array(
             'docket_no' => $data['docket_no'],
-            'added_by'  => user_id(),
+            'added_by'  => $user_id,
             'created_at'  => $current_date,
         );
+        
        $result = $this->docket_repo->insert($data);
+       $activity_data = ['type'=>6,'description' => json_encode(['docket_id'=> $result])];
+        insertActivity($activity_data);
        return $result;
     }
     public function getAllDockets()
@@ -88,14 +92,17 @@ class DocketService
     public function assignDocket($data)
     {
         $current_date = date('Y-m-d H:i:s');
+        $user_id = user_id();
         $data = array(
             'docket_id' => $data['docket_id'],
             'employee_id' => $data['employee_id'],
-            'assignee_id'  => user_id(),
+            'assignee_id'  => $user_id,
             'created_at'  => $current_date,
         );
-       $result = $this->assigndocket_repo->insert($data);
-       return $result;
+        $activity_data = ['type'=>7,'other_user_id'=>intval($data['employee_id']),'description' => json_encode(['docket_id'=> intval($data['docket_id'])])];
+        insertActivity($activity_data);
+        $result = $this->assigndocket_repo->insert($data);
+        return $result;
     }
     public function all()
     {

@@ -9,16 +9,18 @@ use Myth\Auth\Config\Auth as AuthConfig;
 class Home extends BaseController
 {
     protected $user_service;
+    protected $authorize;
 
     public function __construct()
     {
         // Most services in this controller require
 		// the session to be started - so fire it up!
         $this->user_service = new UserService;
+        $this->authorize    = service('authorization');
     }
     public function index()
     {
-        return view('dashboard/home_page');
+        return view('dashboard/home_page',['permissions' => $this->authorize]);
     }
     public function contact_us()
     {
