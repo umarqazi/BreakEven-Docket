@@ -52,7 +52,8 @@ class CompanyController extends BaseController
         if ($this->validation->getErrors()) {
             return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
         } else {
-            $company_id = $this->company_service->update($this->request->getPost());
+            $Company_imgage_name = $this->company_service->uploadCompanyImage($this->request->getFiles());
+            $company_id = $this->company_service->update($this->request->getPost(),$Company_imgage_name);
             return redirect()->to(site_url('company'))->withCookies()->with('message', 'Record Updated Successfully!');
         }
     }

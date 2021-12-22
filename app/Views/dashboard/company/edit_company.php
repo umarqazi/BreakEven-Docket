@@ -156,6 +156,7 @@
                     <input type="file" class="form-control" name="userfile"">
 
                 </div>
+                <input type="hidden" name="old_image" value="<?php echo set_value('zip', $company['company_logo']) ?>" >
             </div>
 
             <div class="col-md-12">

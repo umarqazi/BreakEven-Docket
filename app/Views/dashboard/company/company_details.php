@@ -184,8 +184,7 @@
                             <div class="image_holder">
                                 <div class="img_inner">
                                     <?php if (!empty($company['company_logo'])){?>
-                                        <img src="<?php echo $company_folder['logo_web_path'].$company['company_logo'];?>"
-                                             class="signature-image" alt="Upload Image">
+                                             <img src="<?php echo base_url()?>/uploads/company_images/<?= $company['company_logo'] ?>">
                                     <?php }else{ ?>
                                         <p style="text-align: center">Logo Here</p>
                                     <?php } ?>

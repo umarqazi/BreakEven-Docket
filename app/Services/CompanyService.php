@@ -55,7 +55,7 @@ class CompanyService
        $result = $this->company_repo->insert($company);
        return $result;
     }
-    public function update($data)
+    public function update($data,$Company_imgage_name)
     {
         $plan = 1;
         $price['price'] = 1;
@@ -69,9 +69,23 @@ class CompanyService
             'state' => $data['state'],
             'zip' => $data['zip'],
             'subscription_plan_id' => $plan,
+            'company_logo' => !empty($Company_imgage_name) ? $Company_imgage_name : $data['old_image'],
         );
         $result = $this->company_repo->update($data['company_id'],$company);
         return $result;
+    }
+    public function uploadCompanyImage($image)
+    {
+        $img = $image['userfile'];
+        if ($img->isValid() && !$img->hasMoved()) {
+            $newName = 'company_logo_'.$img->getRandomName();
+            if(!$img->move('./uploads/company_images', $newName)){
+                throw new \RuntimeException($img->getErrorString().'('.$img->getError().')');
+            }
+            return $newName;
+        } else {
+            return null;
+        }
     }
     public function updateSignature($id,$data)
     {
