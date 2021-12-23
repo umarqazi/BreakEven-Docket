@@ -76,11 +76,15 @@ class CompanyService
         $result = $this->company_repo->update($data['company_id'],$company);
         return $result;
     }
-    public function uploadCompanyImage($image)
+    public function uploadCompanyImage($image,$old_image)
     {
+        
         $img = $image['userfile'];
         if ($img->isValid() && !$img->hasMoved()) {
             $newName = 'company_logo_'.$img->getRandomName();
+            if(!empty($old_image)){
+                unlink("./uploads/company_images/".$old_image);
+            }
             if(!$img->move('./uploads/company_images', $newName)){
                 throw new \RuntimeException($img->getErrorString().'('.$img->getError().')');
             }

@@ -153,8 +153,18 @@
 
                 <div class="form-group ">
                     <label for="">Upload Logo</label>
-                    <input type="file" class="form-control" name="userfile"">
+                    <input type="file" class="form-control" onchange="readURL(this);" name="userfile"">
+                </div>
+                <div class="form-group company-logo">
+                    <div class="upload_img" style="display: none;">
+                        <div class="image_holder">
+                            <div class="img_inner">
+                            <img id="show_image" src="#" alt="your image" />
+                            </div>
+                        </div>
 
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
                 <input type="hidden" name="old_image" value="<?php echo set_value('zip', $company['company_logo']) ?>" >
             </div>
