@@ -16,7 +16,7 @@
 </style>
 <div class="row cost_step_row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <ul id="right-tabs-alt-1" class="nav nav-tabs tabs-right tabs-alt-1 highlight-color-blue">
+        <ul id="right-tabs-alt-1" class="nav nav-tabs tabs-right tabs-alt-1 highlight-color-blue" style="margin-top: 0px !important;">
             <li id = "list-step1" class="active">
                 <a href="#step1" data-toggle="tab" aria-expanded="false"><p class="step_number">1</p><p class="title_text" style="text-align: center;">Partially worked Dockets</p></a>
             </li>

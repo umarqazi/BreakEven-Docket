@@ -43,7 +43,7 @@ class ReportsService
     public function timekeeping_report($filters)
     {
         $employees = $this->employee_repo->getAll();
-        $dockets = $this->docket_repo->findAll();
+        $dockets = $this->docket_repo->getAllDockets();
         $logs = $this->reports_repo->getallTimeKeeping($filters);
         $sumOfWorkingTimeByDockets = $this->reports_repo->sumOfWorkingTimeByDockets();
         $show_remove_btn = false;

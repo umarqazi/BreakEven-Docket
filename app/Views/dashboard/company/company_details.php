@@ -186,7 +186,7 @@
                                     <?php if (!empty($company['company_logo'])){?>
                                              <img src="<?php echo base_url()?>/uploads/company_images/<?= $company['company_logo'] ?>">
                                     <?php }else{ ?>
-                                        <p style="text-align: center">Logo Here</p>
+                                        <p style="text-align: center">No Logo Found!</p>
                                     <?php } ?>
                                 </div>
                             </div>

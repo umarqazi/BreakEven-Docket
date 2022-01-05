@@ -28,13 +28,7 @@ class DocketController extends BaseController
     }
     public function getDocketNo()
     {
-        $query = $this->db->query('select COUNT(dockets.docket_no) as count from dockets where dockets.docket_no ="'.$this->request->getPost('docket_no').'"');
-        $count = $query->getResult()[0]->count;
-        if($count > 0){
-            return '0';
-        } else {
-            return '1';
-        }
+        return $this->docket_service->isUniqueDocketNo($this->request->getPost('docket_no'));
     }
     public function storeDocket()
     {
@@ -42,12 +36,7 @@ class DocketController extends BaseController
         if ($this->validation->getErrors()) {
             return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
         } else {
-            $result = $this->docket_service->create($this->request->getPost());
-            if($result == true) {
-                return redirect()->to(site_url('docket-no'))->withCookies()->with('message', 'Docket Added Successfully');
-            } else {
-                return redirect()->to(site_url('docket-no'))->withCookies()->with('error', 'There is some error!');
-            }
+            return $this->docket_service->create($this->request->getPost());
         }
     }
     public function assignDetails($docket_id=null)

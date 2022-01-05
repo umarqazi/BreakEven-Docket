@@ -1,5 +1,5 @@
-<?= $this->extend("master")?>
-<?= $this->section("content")?>
+<?= $this->extend("master") ?>
+<?= $this->section("content") ?>
 
 
 <div class="row">
@@ -17,36 +17,37 @@
             <div class="material-items">
                 <!-- <div class="estimate_head dark_blue">
                     <span class="assembly_type">Get New Estimate</span>
-                    <a href="<?php //echo base_url()?>estimating/create" class="pull-right">
+                    <a href="<?php //echo base_url()
+                                ?>estimating/create" class="pull-right">
                         <span class="icon-social-addthis" title="Get New Estimate"></span>
                     </a>
                 </div> -->
                 <table class="table table-striped table-hover" id="all_estimates_table">
                     <thead class="dark_blue ">
-                    <tr style="color:white !important">
-                        <th>Docket No</th>
-                        <th>Added by</th>
-                        <th>Date</th>
-                    </tr>
+                        <tr style="color:white !important">
+                            <th>Docket No</th>
+                            <th>Added by</th>
+                            <th>Date</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <?php if (!empty($dockets)) { 
-                        foreach($dockets as $docket):?>
-                        <tr class="item-name">
-                            <td>
-                                <a href="<?php echo base_url()?>/docket-details/<?php echo $docket['id'];?>"><?php echo $docket['docket_no'];?></a>
-                            </td>
+                        <?php if (!empty($dockets)) {
+                            foreach ($dockets as $docket) : ?>
+                                <tr class="item-name">
+                                    <td>
+                                        <a href="<?php echo base_url() ?>/docket-details/<?php echo $docket['id']; ?>"><?php echo $docket['docket_no']; ?></a>
+                                    </td>
 
-                            <td>
-                                <a class="estimate_field" href="#"><?php echo $docket['user_name'];?></a>
-                            </td>
+                                    <td>
+                                        <a class="estimate_field" href="#"><?php echo $docket['user_name']; ?></a>
+                                    </td>
 
-                            <td>
-                                <a class="estimate_field" href="#"><?php echo !is_null($docket['created_at']) ? date('j M, Y, g:i a', strtotime($docket['created_at'])) : '' ?></a>
-                            </td>
-                        </tr>
-                    <?php endforeach;
-                    }?>
+                                    <td>
+                                        <a class="estimate_field" href="#"><?php echo !is_null($docket['created_at']) ? date('j M, Y, g:i a', strtotime($docket['created_at'])) : '' ?></a>
+                                    </td>
+                                </tr>
+                        <?php endforeach;
+                        } ?>
                     </tbody>
                 </table>
             </div>
@@ -65,18 +66,23 @@
             <div id="modalBody" class="modal-body">
                 <div class="row job_no_container">
                     <div class="jop_wrapper">
-
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
                         <div class="heading">Create Docket No</div>
-                        <div id="error-block"></div>
+                        <div id="error-block" style="color:red">
+                            <?php if (session("duplicateDocketNo")) {
+                                echo 'Docket No already exists!';
+                            } ?>
+                        </div>
+
                         <form id="store_docket_form" method="post" action="<?= route_to('store_docket') ?>">
-                            <input type="text" name="docket_no" id="docket_no" class="pattern" value="<?= old('docket_no') ?>" placeholder="Enter Docket No" >
+                            <input type="text" name="docket_no" id="docket_no" class="pattern" value="<?= old('docket_no') ?>" placeholder="Enter Docket No" autofocus required>
                             <div id="_error" style="color: red!important; font-family:'Times New Roman'; font-size: 15px;"></div>
                             <div style="color: red!important; font-family:'Times New Roman'; font-size: 15px;">
                                 <?php echo $validation->getError('docket_no'); ?>
                             </div>
-                            <span id="availability"></span><div id="msg" style="color: red"></div>
-                            <button type="button" onclick="checkDocektNo()" class="btn btn-info job_btn btn_docket_no" >Save Docket No</button>
+                            <span id="availability"></span>
+                            <div id="msg" style="color: red"></div>
+                            <button type="submit" class="btn btn-info job_btn btn_docket_no">Save Docket No</button>
                         </form>
                     </div>
                 </div>
@@ -84,18 +90,43 @@
         </div>
     </div>
 </div>
+<?php if (session("duplicateDocketNo") || $validation->getError('docket_no')) {
+    $duplicateDocketNo = 1;
+} else {
+    $duplicateDocketNo = 0;
+}
+?>
 <?= script_tag('js/datatables/jquery.dataTables.min.js') ?>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function() {
+        var duplicateDocketNo = <?php echo $duplicateDocketNo ?>;
+        if (duplicateDocketNo === 1) {
+            job_pattern();
+        }
+        $("#docket_no").focus();
+        $("#docket_no").blur(function() {
+            var name = $('#docket_no').val();
+            if (name.length == 0) {
+                $('#docket_no').next('div.red').remove();
+                $('#docket_no').after('<div style="color:red" class="red">Docket No is Required</div>');
+                return false;
+            } else {
+                $(this).next('div.red').remove();
+                return true;
+            }
+        });
         $('#all_estimates_table').DataTable({
             "pagingType": "full_numbers",
             bAutoWidth: false,
             "autoWidth": false,
-            "searching" : true,
-            "sort" : false,
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            "language" : {
-                search : '',
+            "searching": true,
+            "sort": false,
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            "language": {
+                search: '',
                 searchPlaceholder: "Search Dockets",
                 "zeroRecords": "No Docket No is available",
                 "emptyTable": "No Docket No is available"
@@ -104,51 +135,9 @@
 
         /*$('table').wrap('<div class="table-responsive"></div>');*/
         // $('.btn_docket_no').prop('disabled',true);
-    
-
     });
-    function checkDocektNo(){
-        $('#msg').empty();
-        $('#_error').empty();
-        $('#availability').empty();
-        var docket_no = $('#docket_no').val();
-        if(docket_no == ''){
-            $('#msg').append('Docket No is Required!');
-            e.preventDefault();
-        }
-        var checkDocketNourl = '<?php echo base_url();?>/get_docket_no';
-
-        $.ajax({
-            url: checkDocketNourl,
-            type:"POST",
-            data:{ docket_no : docket_no },
-            dataType : 'json',
-            success:function(response)
-            {
-                if (response == false)
-                {
-                    $('#availability').append('<span class="text-danger">Docket No Already Exists</span>');
-                }
-                else
-                {
-                    if(docket_no != ''){
-                        $('#store_docket_form').submit();
-                    } else {
-                        $('#availability').append('<span class="text-danger">Docket No Already Exists</span>');
-                    }
-                }
-
-            },
-            error:function(response)
-            {
-                console.log(response);
-            }
-        })
-    }
-    function job_pattern(){
+    function job_pattern() {
         $("#job_pattern").modal('show');
     }
 </script>
-
-
-<?= $this->endSection()?>
+<?= $this->endSection() ?>

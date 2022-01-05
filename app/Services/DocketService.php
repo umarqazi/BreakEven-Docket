@@ -33,19 +33,31 @@ class DocketService
         $this->employee_repo = new EmployeeRepository();
         $this->assigndocket_repo = new AssignDocketRepository();
     }
-    public function create($data){
-        $user_id = user_id();
-        $current_date = date('Y-m-d H:i:s');
-        $data = array(
-            'docket_no' => $data['docket_no'],
-            'added_by'  => $user_id,
-            'created_at'  => $current_date,
-        );
-        
-       $result = $this->docket_repo->insert($data);
-       $activity_data = ['type'=>6,'description' => json_encode(['docket_id'=> $result])];
-        insertActivity($activity_data);
-       return $result;
+    public function create($data)
+    {
+        $count = $this->isUniqueDocketNo($data['docket_no']);
+        if ($count == '0') {
+            $user_id = user_id();
+            $current_date = date('Y-m-d H:i:s');
+            $data = array(
+                'docket_no' => $data['docket_no'],
+                'added_by'  => $user_id,
+                'created_at'  => $current_date,
+            );
+
+            $result = $this->docket_repo->insert($data);
+            $activity_data = ['type' => 6, 'description' => json_encode(['docket_id' => $result])];
+            insertActivity($activity_data);
+            if ($result == true) {
+                return redirect()->to(site_url('docket-no'))->withCookies()->with('message', 'Docket Added Successfully');
+            } else {
+                return redirect()->to(site_url('docket-no'))->withCookies()->with('error', 'There is some error!');
+            }
+        } else {
+            $session = session();
+            $session->setFlashdata("duplicateDocketNo", true);
+            return redirect()->back()->withInput();
+        }
     }
     public function getAllDockets()
     {
@@ -57,7 +69,7 @@ class DocketService
                 FROM dockets
                 LEFT JOIN users ON dockets.added_by = users.id
                 WHERE users.company_id = ? AND dockets.id = ?';
-        $dockets = $this->db->query($qry, [user()->company_id,$docket_id]);
+        $dockets = $this->db->query($qry, [user()->company_id, $docket_id]);
         $result = $dockets->getResult('array');
         return !empty($result) ? $result : false;
     }
@@ -71,7 +83,7 @@ class DocketService
                 LEFT JOIN dockets ON dockets_to_employees.docket_id = dockets.id
                 WHERE users.company_id = ? AND dockets.id = ?
                 order by dockets_to_employees.id Desc';
-        $dockets = $this->db->query($qry, [user()->company_id,$docket_id]);
+        $dockets = $this->db->query($qry, [user()->company_id, $docket_id]);
         $result = $dockets->getResult('array');
         return !empty($result) ? $result : false;
     }
@@ -85,7 +97,7 @@ class DocketService
                 LEFT JOIN dockets ON dockets_to_employees.docket_id = dockets.id
                 WHERE users.company_id = ? AND dockets_to_employees.employee_id = ?
                 order by dockets_to_employees.created_at Desc';
-        $dockets = $this->db->query($qry, [user()->company_id,user_id()]);
+        $dockets = $this->db->query($qry, [user()->company_id, user_id()]);
         $result = $dockets->getResult('array');
         return !empty($result) ? $result : false;
     }
@@ -99,14 +111,14 @@ class DocketService
             'assignee_id'  => $user_id,
             'created_at'  => $current_date,
         );
-        $activity_data = ['type'=>7,'other_user_id'=>intval($data['employee_id']),'description' => json_encode(['docket_id'=> intval($data['docket_id'])])];
+        $activity_data = ['type' => 7, 'other_user_id' => intval($data['employee_id']), 'description' => json_encode(['docket_id' => intval($data['docket_id'])])];
         insertActivity($activity_data);
         $result = $this->assigndocket_repo->insert($data);
         return $result;
     }
     public function all()
     {
-       return $this->docket_repo->all();
+        return $this->docket_repo->all();
     }
     public function show($id)
     {
@@ -121,5 +133,8 @@ class DocketService
         $result = $this->employee_repo->getAllEmployees();
         return !empty($result) ? $result : false;
     }
-
+    public function isUniqueDocketNo($docketNo)
+    {
+        return $this->docket_repo->isUniqueDocketNo($docketNo);
+    }
 }
